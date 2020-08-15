@@ -1,0 +1,4087 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>PersistentEntities.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2014-2020 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      https://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.data.mapping.context;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Optional;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.BiFunction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.Collectors;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.mapping.PersistentEntity;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.mapping.PersistentProperty;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.util.Streamable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.util.TypeInformation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.lang.Nullable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Value object to access {@link PersistentEntity} instances managed by {@link MappingContext}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Oliver Gierke</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.8</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class PersistentEntities implements Streamable&#60;PersistentEntity&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final Streamable&#60;? extends MappingContext&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;&#62; contexts;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Creates a new {@link PersistentEntities} for the given {@link MappingContext}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param contexts</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public PersistentEntities(Iterable&#60;? extends MappingContext&#60;?, ?&#62;&#62; contexts) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_49'/>
+49
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_49'>1</a>
+<span>
+1. <init> : removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(contexts, &#34;MappingContexts must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_51'/>
+51
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_51'>2</a>
+<span>
+1. <init> : removed call to org/springframework/data/util/Streamable::of &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable contexts &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.contexts = Streamable.of(contexts);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Creates a new {@link PersistentEntities} for the given {@link MappingContext}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param contexts must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static PersistentEntities of(MappingContext&#60;?, ?&#62;... contexts) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_62'>1</a>
+<span>
+1. of : removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(contexts, &#34;MappingContexts must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_64'>4</a>
+<span>
+1. of : removed call to org/springframework/data/mapping/context/PersistentEntities::&#60;init&#62; &rarr; KILLED<br/>
+2. of : removed call to java/util/Arrays::asList &rarr; KILLED<br/>
+3. of : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::of &rarr; KILLED<br/>
+4. of : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::of to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return new PersistentEntities(Arrays.asList(contexts));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the {@link PersistentEntity} for the given type. Will consider all {@link MappingContext}s registered but</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * return {@literal Optional#empty()} in case none of the registered ones already have a {@link PersistentEntity}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * registered for the given type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param type can be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Optional&#60;PersistentEntity&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;&#62; getPersistentEntity(Class&#60;?&#62; type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_77'>3</a>
+<span>
+1. getPersistentEntity : replaced return value with Optional.empty for org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; KILLED<br/>
+2. getPersistentEntity : removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED<br/>
+3. getPersistentEntity : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return contexts.stream()//</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_78'>6</a>
+<span>
+1. getPersistentEntity : removed call to java/util/stream/Stream::filter &rarr; KILLED<br/>
+2. getPersistentEntity : replaced call to java/util/stream/Stream::filter with receiver &rarr; KILLED<br/>
+3. lambda$getPersistentEntity$0 : replaced boolean return with false for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$0 &rarr; KILLED<br/>
+4. lambda$getPersistentEntity$0 : replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$0 &rarr; KILLED<br/>
+5. lambda$getPersistentEntity$0 : removed call to org/springframework/data/mapping/context/MappingContext::hasPersistentEntityFor &rarr; KILLED<br/>
+6. lambda$getPersistentEntity$0 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.filter(it -&#62; it.hasPersistentEntityFor(type))//</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_79'>6</a>
+<span>
+1. getPersistentEntity : removed call to java/util/stream/Stream::findFirst &rarr; KILLED<br/>
+2. getPersistentEntity : removed call to java/util/Optional::map &rarr; KILLED<br/>
+3. getPersistentEntity : replaced call to java/util/Optional::map with receiver &rarr; KILLED<br/>
+4. lambda$getPersistentEntity$1 : removed call to org/springframework/data/mapping/context/MappingContext::getRequiredPersistentEntity &rarr; KILLED<br/>
+5. lambda$getPersistentEntity$1 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$1 &rarr; KILLED<br/>
+6. lambda$getPersistentEntity$1 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.findFirst().map(it -&#62; it.getRequiredPersistentEntity(type));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the {@link PersistentEntity} for the given type. Will consider all {@link MappingContext}s registered but</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * throw an {@link IllegalArgumentException} in case none of the registered ones already have a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@link PersistentEntity} registered for the given type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param type must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return the {@link PersistentEntity} for the given domain type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws IllegalArgumentException in case no {@link PersistentEntity} can be found for the given type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public PersistentEntity&#60;?, ? extends PersistentProperty&#60;?&#62;&#62; getRequiredPersistentEntity(Class&#60;?&#62; type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_93'>1</a>
+<span>
+1. getRequiredPersistentEntity : removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(type, &#34;Domain type must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_95'>4</a>
+<span>
+1. getRequiredPersistentEntity : removed call to org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; NO_COVERAGE<br/>
+2. getRequiredPersistentEntity : removed call to java/util/Optional::orElseThrow &rarr; NO_COVERAGE<br/>
+3. getRequiredPersistentEntity : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getRequiredPersistentEntity &rarr; NO_COVERAGE<br/>
+4. getRequiredPersistentEntity : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getRequiredPersistentEntity to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;return getPersistentEntity(type).orElseThrow(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_96'>16</a>
+<span>
+1. lambda$getRequiredPersistentEntity$2 : replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE<br/>
+2. lambda$getRequiredPersistentEntity$2 : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. lambda$getRequiredPersistentEntity$2 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. lambda$getRequiredPersistentEntity$2 : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. lambda$getRequiredPersistentEntity$2 : removed call to java/lang/String::format &rarr; NO_COVERAGE<br/>
+6. lambda$getRequiredPersistentEntity$2 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getRequiredPersistentEntity$2 &rarr; NO_COVERAGE<br/>
+7. lambda$getRequiredPersistentEntity$2 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getRequiredPersistentEntity$2 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+8. lambda$getRequiredPersistentEntity$2 : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+9. lambda$getRequiredPersistentEntity$2 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+10. lambda$getRequiredPersistentEntity$2 : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+11. lambda$getRequiredPersistentEntity$2 : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+12. lambda$getRequiredPersistentEntity$2 : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+13. lambda$getRequiredPersistentEntity$2 : Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+14. lambda$getRequiredPersistentEntity$2 : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+15. lambda$getRequiredPersistentEntity$2 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+16. lambda$getRequiredPersistentEntity$2 : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;() -&#62; new IllegalArgumentException(String.format(&#34;Couldn&#39;t find PersistentEntity for type %s!&#34;, type)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Executes the given {@link BiFunction} on the given {@link MappingContext} and {@link PersistentEntity} based on the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * given type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param type must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param combiner must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public &#60;T&#62; Optional&#60;T&#62; mapOnContext(Class&#60;?&#62; type,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;BiFunction&#60;MappingContext&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;, PersistentEntity&#60;?, ?&#62;, T&#62; combiner) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_110'>1</a>
+<span>
+1. mapOnContext : removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(type, &#34;Type must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_111'>1</a>
+<span>
+1. mapOnContext : removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(combiner, &#34;Combining BiFunction must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_113'>3</a>
+<span>
+1. mapOnContext : replaced return value with Optional.empty for org/springframework/data/mapping/context/PersistentEntities::mapOnContext &rarr; NO_COVERAGE<br/>
+2. mapOnContext : removed call to org/springframework/data/util/Streamable::stream &rarr; NO_COVERAGE<br/>
+3. mapOnContext : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::mapOnContext to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;return contexts.stream() //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_114'>6</a>
+<span>
+1. lambda$mapOnContext$3 : replaced boolean return with false for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$3 &rarr; NO_COVERAGE<br/>
+2. lambda$mapOnContext$3 : replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$3 &rarr; NO_COVERAGE<br/>
+3. lambda$mapOnContext$3 : removed call to org/springframework/data/mapping/context/MappingContext::hasPersistentEntityFor &rarr; NO_COVERAGE<br/>
+4. lambda$mapOnContext$3 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+5. mapOnContext : removed call to java/util/stream/Stream::filter &rarr; NO_COVERAGE<br/>
+6. mapOnContext : replaced call to java/util/stream/Stream::filter with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;.filter(it -&#62; it.hasPersistentEntityFor(type)) //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_115'/>
+115
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_115'>7</a>
+<span>
+1. lambda$mapOnContext$4 : replaced call to java/util/function/BiFunction::apply with argument &rarr; NO_COVERAGE<br/>
+2. lambda$mapOnContext$4 : removed call to org/springframework/data/mapping/context/MappingContext::getRequiredPersistentEntity &rarr; NO_COVERAGE<br/>
+3. lambda$mapOnContext$4 : removed call to java/util/function/BiFunction::apply &rarr; NO_COVERAGE<br/>
+4. lambda$mapOnContext$4 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$4 &rarr; NO_COVERAGE<br/>
+5. lambda$mapOnContext$4 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$4 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+6. mapOnContext : removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE<br/>
+7. mapOnContext : replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;.map(it -&#62; combiner.apply(it, it.getRequiredPersistentEntity(type))) //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_116'>1</a>
+<span>
+1. mapOnContext : removed call to java/util/stream/Stream::findFirst &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;.findFirst();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns all {@link TypeInformation} exposed by the registered {@link MappingContext}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Streamable&#60;TypeInformation&#60;?&#62;&#62; getManagedTypes() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_126'>4</a>
+<span>
+1. getManagedTypes : removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED<br/>
+2. getManagedTypes : removed call to org/springframework/data/util/Streamable::of &rarr; KILLED<br/>
+3. getManagedTypes : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getManagedTypes &rarr; KILLED<br/>
+4. getManagedTypes : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getManagedTypes to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return Streamable.of(contexts.stream()//</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_127'>6</a>
+<span>
+1. getManagedTypes : removed call to java/util/stream/Stream::flatMap &rarr; KILLED<br/>
+2. getManagedTypes : replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED<br/>
+3. lambda$getManagedTypes$5 : removed call to org/springframework/data/mapping/context/MappingContext::getManagedTypes &rarr; KILLED<br/>
+4. lambda$getManagedTypes$5 : removed call to java/util/Collection::stream &rarr; KILLED<br/>
+5. lambda$getManagedTypes$5 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getManagedTypes$5 &rarr; KILLED<br/>
+6. lambda$getManagedTypes$5 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getManagedTypes$5 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.flatMap(it -&#62; it.getManagedTypes().stream())//</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_128'>2</a>
+<span>
+1. getManagedTypes : removed call to java/util/stream/Collectors::toSet &rarr; KILLED<br/>
+2. getManagedTypes : removed call to java/util/stream/Stream::collect &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.collect(Collectors.toSet()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * (non-Javadoc)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @see java.lang.Iterable#iterator()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Iterator&#60;PersistentEntity&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;&#62; iterator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_138'>3</a>
+<span>
+1. iterator : removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED<br/>
+2. iterator : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::iterator &rarr; KILLED<br/>
+3. iterator : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::iterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return contexts.stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_139'>6</a>
+<span>
+1. iterator : removed call to java/util/stream/Stream::flatMap &rarr; KILLED<br/>
+2. iterator : replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED<br/>
+3. lambda$iterator$6 : removed call to org/springframework/data/mapping/context/MappingContext::getPersistentEntities &rarr; KILLED<br/>
+4. lambda$iterator$6 : removed call to java/util/Collection::stream &rarr; KILLED<br/>
+5. lambda$iterator$6 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$iterator$6 &rarr; KILLED<br/>
+6. lambda$iterator$6 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$iterator$6 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.&#60;PersistentEntity&#60;?, ? extends PersistentProperty&#60;?&#62;&#62;&#62; flatMap(it -&#62; it.getPersistentEntities().stream())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_140'/>
+140
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_140'>3</a>
+<span>
+1. iterator : removed call to java/util/stream/Collectors::toList &rarr; KILLED<br/>
+2. iterator : removed call to java/util/stream/Stream::collect &rarr; KILLED<br/>
+3. iterator : removed call to java/util/List::iterator &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.collect(Collectors.toList()).iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the {@link PersistentEntity} the given {@link PersistentProperty} refers to in case it&#39;s an association.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * For direct aggregate references, that&#39;s simply the entity for the {@link PersistentProperty}&#39;s actual type. If the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * property type is not an entity - as it might rather refer to the identifier type - we either use the reference&#39;s</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * defined target type and fall back to trying to find a {@link PersistentEntity} identified by the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@link PersistentProperty}&#39;s actual type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param property must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @since 2.1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Nullable</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public PersistentEntity&#60;?, ?&#62; getEntityUltimatelyReferredToBy(PersistentProperty&#60;?&#62; property) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_157'/>
+157
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_157'>3</a>
+<span>
+1. getEntityUltimatelyReferredToBy : replaced call to org/springframework/data/util/TypeInformation::getActualType with receiver &rarr; SURVIVED<br/>
+2. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; KILLED<br/>
+3. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/util/TypeInformation::getActualType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;TypeInformation&#60;?&#62; propertyType = property.getTypeInformation().getActualType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_159'>13</a>
+<span>
+1. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. getEntityUltimatelyReferredToBy : not equal to greater than &rarr; SURVIVED<br/>
+4. getEntityUltimatelyReferredToBy : not equal to greater or equal &rarr; SURVIVED<br/>
+5. getEntityUltimatelyReferredToBy : negated conditional &rarr; KILLED<br/>
+6. getEntityUltimatelyReferredToBy : negated conditional &rarr; KILLED<br/>
+7. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/mapping/PersistentProperty::isAssociation &rarr; KILLED<br/>
+8. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+10. getEntityUltimatelyReferredToBy : not equal to less than &rarr; KILLED<br/>
+11. getEntityUltimatelyReferredToBy : not equal to less or equal &rarr; KILLED<br/>
+12. getEntityUltimatelyReferredToBy : equal to not equal &rarr; KILLED<br/>
+13. getEntityUltimatelyReferredToBy : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (propertyType == null || !property.isAssociation()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_160'>1</a>
+<span>
+1. getEntityUltimatelyReferredToBy : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_163'/>
+163
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_163'>1</a>
+<span>
+1. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/mapping/PersistentProperty::getAssociationTargetType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; associationTargetType = property.getAssociationTargetType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_165'>6</a>
+<span>
+1. getEntityUltimatelyReferredToBy : negated conditional &rarr; KILLED<br/>
+2. getEntityUltimatelyReferredToBy : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy &rarr; KILLED<br/>
+3. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. getEntityUltimatelyReferredToBy : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+5. getEntityUltimatelyReferredToBy : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+6. getEntityUltimatelyReferredToBy : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return associationTargetType == null //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_166'>1</a>
+<span>
+1. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;? getEntityIdentifiedBy(propertyType) //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_167'>5</a>
+<span>
+1. getEntityUltimatelyReferredToBy : removed call to org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; KILLED<br/>
+2. getEntityUltimatelyReferredToBy : removed call to java/util/Optional::orElseGet &rarr; KILLED<br/>
+3. lambda$getEntityUltimatelyReferredToBy$7 : removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED<br/>
+4. lambda$getEntityUltimatelyReferredToBy$7 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityUltimatelyReferredToBy$7 &rarr; KILLED<br/>
+5. lambda$getEntityUltimatelyReferredToBy$7 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityUltimatelyReferredToBy$7 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;: getPersistentEntity(associationTargetType).orElseGet(() -&#62; getEntityIdentifiedBy(propertyType));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the type the given {@link PersistentProperty} ultimately refers to. In case it&#39;s of a unique identifier</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * type of an entity known it&#39;ll return the entity type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param property must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public TypeInformation&#60;?&#62; getTypeUltimatelyReferredToBy(PersistentProperty&#60;?&#62; property) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_179'/>
+179
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_179'>1</a>
+<span>
+1. getTypeUltimatelyReferredToBy : removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(property, &#34;PersistentProperty must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_181'/>
+181
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_181'>1</a>
+<span>
+1. getTypeUltimatelyReferredToBy : removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;PersistentEntity&#60;?, ?&#62; entity = getEntityUltimatelyReferredToBy(property);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_183'/>
+183
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_183'>6</a>
+<span>
+1. getTypeUltimatelyReferredToBy : negated conditional &rarr; NO_COVERAGE<br/>
+2. getTypeUltimatelyReferredToBy : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getTypeUltimatelyReferredToBy &rarr; NO_COVERAGE<br/>
+3. getTypeUltimatelyReferredToBy : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+4. getTypeUltimatelyReferredToBy : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+5. getTypeUltimatelyReferredToBy : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getTypeUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+6. getTypeUltimatelyReferredToBy : not equal to equal &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;return entity == null //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_184'/>
+184
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_184'>3</a>
+<span>
+1. getTypeUltimatelyReferredToBy : removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; NO_COVERAGE<br/>
+2. getTypeUltimatelyReferredToBy : removed call to org/springframework/data/util/TypeInformation::getRequiredActualType &rarr; NO_COVERAGE<br/>
+3. getTypeUltimatelyReferredToBy : replaced call to org/springframework/data/util/TypeInformation::getRequiredActualType with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;? property.getTypeInformation().getRequiredActualType() //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_185'/>
+185
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_185'>1</a>
+<span>
+1. getTypeUltimatelyReferredToBy : removed call to org/springframework/data/mapping/PersistentEntity::getTypeInformation &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;: entity.getTypeInformation();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the {@link PersistentEntity} identified by the given type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws IllegalStateException if the entity cannot be detected uniquely as multiple ones might share the same</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *           identifier.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Nullable</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private PersistentEntity&#60;?, ?&#62; getEntityIdentifiedBy(TypeInformation&#60;?&#62; type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_199'>1</a>
+<span>
+1. getEntityIdentifiedBy : removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Collection&#60;PersistentEntity&#60;?, ?&#62;&#62; entities = contexts.stream() //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_200'>6</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/util/stream/Stream::flatMap &rarr; KILLED<br/>
+2. getEntityIdentifiedBy : replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED<br/>
+3. lambda$getEntityIdentifiedBy$8 : removed call to org/springframework/data/mapping/context/MappingContext::getPersistentEntities &rarr; KILLED<br/>
+4. lambda$getEntityIdentifiedBy$8 : removed call to java/util/Collection::stream &rarr; KILLED<br/>
+5. lambda$getEntityIdentifiedBy$8 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$8 &rarr; KILLED<br/>
+6. lambda$getEntityIdentifiedBy$8 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$8 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.flatMap(it -&#62; it.getPersistentEntities().stream()) //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_201'>5</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+2. getEntityIdentifiedBy : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+3. lambda$getEntityIdentifiedBy$9 : removed call to org/springframework/data/mapping/PersistentEntity::getIdProperty &rarr; KILLED<br/>
+4. lambda$getEntityIdentifiedBy$9 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$9 &rarr; KILLED<br/>
+5. lambda$getEntityIdentifiedBy$9 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$9 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.map(it -&#62; it.getIdProperty()) //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_202'/>
+202
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_202'>31</a>
+<span>
+1. lambda$getEntityIdentifiedBy$10 : replaced call to org/springframework/data/util/TypeInformation::getActualType with receiver &rarr; SURVIVED<br/>
+2. lambda$getEntityIdentifiedBy$10 : Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. lambda$getEntityIdentifiedBy$10 : Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. lambda$getEntityIdentifiedBy$10 : equal to less or equal &rarr; SURVIVED<br/>
+5. getEntityIdentifiedBy : removed call to java/util/stream/Stream::filter &rarr; KILLED<br/>
+6. getEntityIdentifiedBy : replaced call to java/util/stream/Stream::filter with receiver &rarr; KILLED<br/>
+7. lambda$getEntityIdentifiedBy$10 : replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$10 &rarr; KILLED<br/>
+8. lambda$getEntityIdentifiedBy$10 : Substituted 1 with 0 &rarr; KILLED<br/>
+9. lambda$getEntityIdentifiedBy$10 : Substituted 0 with 1 &rarr; KILLED<br/>
+10. lambda$getEntityIdentifiedBy$10 : negated conditional &rarr; KILLED<br/>
+11. lambda$getEntityIdentifiedBy$10 : negated conditional &rarr; KILLED<br/>
+12. lambda$getEntityIdentifiedBy$10 : removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; KILLED<br/>
+13. lambda$getEntityIdentifiedBy$10 : removed call to org/springframework/data/util/TypeInformation::getActualType &rarr; KILLED<br/>
+14. lambda$getEntityIdentifiedBy$10 : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+15. lambda$getEntityIdentifiedBy$10 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+16. lambda$getEntityIdentifiedBy$10 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+17. lambda$getEntityIdentifiedBy$10 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+18. lambda$getEntityIdentifiedBy$10 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+19. lambda$getEntityIdentifiedBy$10 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+20. lambda$getEntityIdentifiedBy$10 : Substituted 0 with 1 &rarr; KILLED<br/>
+21. lambda$getEntityIdentifiedBy$10 : Substituted 1 with 0 &rarr; KILLED<br/>
+22. lambda$getEntityIdentifiedBy$10 : Substituted 0 with -1 &rarr; KILLED<br/>
+23. lambda$getEntityIdentifiedBy$10 : Substituted 1 with 2 &rarr; KILLED<br/>
+24. lambda$getEntityIdentifiedBy$10 : Substituted 0 with 1 &rarr; KILLED<br/>
+25. lambda$getEntityIdentifiedBy$10 : Substituted 1 with 0 &rarr; KILLED<br/>
+26. lambda$getEntityIdentifiedBy$10 : Substituted 0 with -1 &rarr; KILLED<br/>
+27. lambda$getEntityIdentifiedBy$10 : equal to less than &rarr; KILLED<br/>
+28. lambda$getEntityIdentifiedBy$10 : equal to greater than &rarr; KILLED<br/>
+29. lambda$getEntityIdentifiedBy$10 : equal to greater or equal &rarr; KILLED<br/>
+30. lambda$getEntityIdentifiedBy$10 : equal to not equal &rarr; KILLED<br/>
+31. lambda$getEntityIdentifiedBy$10 : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;.filter(it -&#62; it != null &#38;&#38; type.equals(it.getTypeInformation().getActualType())) //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_203'>5</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+2. getEntityIdentifiedBy : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+3. lambda$getEntityIdentifiedBy$11 : removed call to org/springframework/data/mapping/PersistentProperty::getOwner &rarr; KILLED<br/>
+4. lambda$getEntityIdentifiedBy$11 : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$11 &rarr; KILLED<br/>
+5. lambda$getEntityIdentifiedBy$11 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$11 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.map(it -&#62; it.getOwner()) //</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_204'>2</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/util/stream/Collectors::toList &rarr; KILLED<br/>
+2. getEntityIdentifiedBy : removed call to java/util/stream/Stream::collect &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.collect(Collectors.toList());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_206'/>
+206
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_206'>16</a>
+<span>
+1. getEntityIdentifiedBy : Less or equal to equal &rarr; SURVIVED<br/>
+2. getEntityIdentifiedBy : changed conditional boundary &rarr; KILLED<br/>
+3. getEntityIdentifiedBy : Substituted 1 with 0 &rarr; KILLED<br/>
+4. getEntityIdentifiedBy : negated conditional &rarr; KILLED<br/>
+5. getEntityIdentifiedBy : removed call to java/util/Collection::size &rarr; KILLED<br/>
+6. getEntityIdentifiedBy : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. getEntityIdentifiedBy : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+8. getEntityIdentifiedBy : Substituted 1 with 0 &rarr; KILLED<br/>
+9. getEntityIdentifiedBy : Substituted 1 with -1 &rarr; KILLED<br/>
+10. getEntityIdentifiedBy : Substituted 1 with -1 &rarr; KILLED<br/>
+11. getEntityIdentifiedBy : Substituted 1 with 2 &rarr; KILLED<br/>
+12. getEntityIdentifiedBy : Substituted 1 with 0 &rarr; KILLED<br/>
+13. getEntityIdentifiedBy : Less or equal to less than &rarr; KILLED<br/>
+14. getEntityIdentifiedBy : Less or equal to greater than &rarr; KILLED<br/>
+15. getEntityIdentifiedBy : Less or equal to greater or equal &rarr; KILLED<br/>
+16. getEntityIdentifiedBy : Less or equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (entities.size() &#62; 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_208'/>
+208
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_208'>9</a>
+<span>
+1. getEntityIdentifiedBy : removed call to org/springframework/data/util/TypeInformation::getType &rarr; SURVIVED<br/>
+2. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::toString &rarr; SURVIVED<br/>
+3. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+4. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+5. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+6. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+7. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+8. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+9. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;String message = &#34;Found multiple entities identified by &#34; + type.getType() + &#34;: &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_209'/>
+209
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_209'>15</a>
+<span>
+1. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+2. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+3. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+4. getEntityIdentifiedBy : removed call to java/util/Collection::stream &rarr; KILLED<br/>
+5. getEntityIdentifiedBy : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+6. getEntityIdentifiedBy : removed call to java/util/stream/Collectors::joining &rarr; KILLED<br/>
+7. getEntityIdentifiedBy : removed call to java/util/stream/Stream::collect &rarr; KILLED<br/>
+8. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+9. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+10. getEntityIdentifiedBy : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+11. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+12. lambda$getEntityIdentifiedBy$12 : replaced return value with &#34;&#34; for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$12 &rarr; KILLED<br/>
+13. lambda$getEntityIdentifiedBy$12 : removed call to org/springframework/data/mapping/PersistentEntity::getType &rarr; KILLED<br/>
+14. lambda$getEntityIdentifiedBy$12 : removed call to java/lang/Class::getName &rarr; KILLED<br/>
+15. lambda$getEntityIdentifiedBy$12 : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$12 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;message += entities.stream().map(it -&#62; it.getType().getName()).collect(Collectors.joining(&#34;, &#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_210'/>
+210
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_210'>6</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+2. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+3. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+4. getEntityIdentifiedBy : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+5. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+6. getEntityIdentifiedBy : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;message += &#34;! Introduce dedciated unique identifier types or explicitly define the target type in @Reference!&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_212'/>
+212
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_212'>1</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/lang/IllegalStateException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;throw new IllegalStateException(message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_215'/>
+215
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_215'>13</a>
+<span>
+1. getEntityIdentifiedBy : removed call to java/util/Collection::isEmpty &rarr; SURVIVED<br/>
+2. getEntityIdentifiedBy : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. getEntityIdentifiedBy : equal to less or equal &rarr; SURVIVED<br/>
+4. getEntityIdentifiedBy : equal to greater or equal &rarr; SURVIVED<br/>
+5. getEntityIdentifiedBy : negated conditional &rarr; KILLED<br/>
+6. getEntityIdentifiedBy : removed call to java/util/Collection::iterator &rarr; KILLED<br/>
+7. getEntityIdentifiedBy : removed call to java/util/Iterator::next &rarr; KILLED<br/>
+8. getEntityIdentifiedBy : replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED<br/>
+9. getEntityIdentifiedBy : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+10. getEntityIdentifiedBy : mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+11. getEntityIdentifiedBy : equal to less than &rarr; KILLED<br/>
+12. getEntityIdentifiedBy : equal to greater than &rarr; KILLED<br/>
+13. getEntityIdentifiedBy : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return entities.isEmpty() ? null : entities.iterator().next();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_49'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/util/Streamable::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> Removed assignment to member variable contexts &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_62'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>of<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>of<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>of<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/Arrays::asList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>of<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>of<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::of to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with Optional.empty for org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::filter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced call to java/util/stream/Stream::filter with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getPersistentEntity$0<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced boolean return with false for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getPersistentEntity$0<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getPersistentEntity$0<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/mapping/context/MappingContext::hasPersistentEntityFor &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getPersistentEntity$0<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::findFirst &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/Optional::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPersistentEntity<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced call to java/util/Optional::map with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getPersistentEntity$1<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/mapping/context/MappingContext::getRequiredPersistentEntity &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getPersistentEntity$1<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getPersistentEntity$1<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getPersistentEntity$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_93'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getRequiredPersistentEntity<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getRequiredPersistentEntity<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getRequiredPersistentEntity<br/><b>Killed by : </b>none</span></span> removed call to java/util/Optional::orElseThrow &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getRequiredPersistentEntity<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getRequiredPersistentEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getRequiredPersistentEntity<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getRequiredPersistentEntity to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_96'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::format &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getRequiredPersistentEntity$2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getRequiredPersistentEntity$2 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lambda$getRequiredPersistentEntity$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_110'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_111'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_113'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> replaced return value with Optional.empty for org/springframework/data/mapping/context/PersistentEntities::mapOnContext &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/util/Streamable::stream &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::mapOnContext to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_114'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$mapOnContext$3<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$mapOnContext$3<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$mapOnContext$3<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/context/MappingContext::hasPersistentEntityFor &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$mapOnContext$3<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::filter &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::filter with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_115'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$mapOnContext$4<br/><b>Killed by : </b>none</span></span> replaced call to java/util/function/BiFunction::apply with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$mapOnContext$4<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/context/MappingContext::getRequiredPersistentEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$mapOnContext$4<br/><b>Killed by : </b>none</span></span> removed call to java/util/function/BiFunction::apply &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$mapOnContext$4<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$mapOnContext$4<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$mapOnContext$4 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_116'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mapOnContext<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::findFirst &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/util/Streamable::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getManagedTypes &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getManagedTypes to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::flatMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getManagedTypes$5<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/mapping/context/MappingContext::getManagedTypes &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getManagedTypes$5<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/Collection::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getManagedTypes$5<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getManagedTypes$5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getManagedTypes$5<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getManagedTypes$5 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Collectors::toSet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getManagedTypes<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::collect &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::iterator &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::iterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::flatMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$iterator$6<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to org/springframework/data/mapping/context/MappingContext::getPersistentEntities &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$iterator$6<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/Collection::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$iterator$6<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$iterator$6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$iterator$6<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$iterator$6 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Collectors::toList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/stream/Stream::collect &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType()</span></span> removed call to java/util/List::iterator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/util/TypeInformation::getActualType &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> replaced call to org/springframework/data/util/TypeInformation::getActualType with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/PersistentProperty::isAssociation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_160'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsExplicitlyQualifiedReference()</span></span> removed call to org/springframework/data/mapping/PersistentProperty::getAssociationTargetType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsExplicitlyQualifiedReference()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::getPersistentEntity &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityUltimatelyReferredToBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> removed call to java/util/Optional::orElseGet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getEntityUltimatelyReferredToBy$7<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getEntityUltimatelyReferredToBy$7<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityUltimatelyReferredToBy$7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getEntityUltimatelyReferredToBy$7<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityUltimatelyReferredToBy$7 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_179'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_181'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/context/PersistentEntities::getEntityUltimatelyReferredToBy &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_183'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getTypeUltimatelyReferredToBy &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getTypeUltimatelyReferredToBy to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> not equal to equal &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_184'>184</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_184'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/util/TypeInformation::getRequiredActualType &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> replaced call to org/springframework/data/util/TypeInformation::getRequiredActualType with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_185'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTypeUltimatelyReferredToBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/mapping/PersistentEntity::getTypeInformation &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/util/Streamable::stream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Stream::flatMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced call to java/util/stream/Stream::flatMap with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$8<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/context/MappingContext::getPersistentEntities &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$8<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/Collection::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$8<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$8 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$8<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$8 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$9<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/PersistentEntity::getIdProperty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$9<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$9<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$9 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Stream::filter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced call to java/util/stream/Stream::filter with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced boolean return with true for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/PersistentProperty::getTypeInformation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/util/TypeInformation::getActualType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>none</span></span> replaced call to org/springframework/data/util/TypeInformation::getActualType with receiver &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference()</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$10<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$11<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to org/springframework/data/mapping/PersistentProperty::getOwner &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$11<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$11 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$11<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$11 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Collectors::toList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/stream/Stream::collect &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/util/Collection::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Less or equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Less or equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> Less or equal to greater or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> Less or equal to equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> Less or equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_208'>208</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_208'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/util/TypeInformation::getType &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/util/Collection::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/util/stream/Collectors::joining &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/util/stream/Stream::collect &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$12<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> replaced return value with &#34;&#34; for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$12 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$12<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to org/springframework/data/mapping/PersistentEntity::getType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$12<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/Class::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lambda$getEntityIdentifiedBy$12<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::lambda$getEntityIdentifiedBy$12 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_210'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_212'>212</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_212'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType()</span></span> removed call to java/lang/IllegalStateException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cd3ad8a_215'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collection::isEmpty &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/Collection::iterator &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed call to java/util/Iterator::next &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> replaced return value with null for org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> mutated return of Object value for org/springframework/data/mapping/context/PersistentEntities::getEntityIdentifiedBy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getEntityIdentifiedBy<br/><b>Killed by : </b>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.detectsReferredToEntity() (12 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsGenericReference() (19 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.allowsExplicitlyQualifiedReference() (1123 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.returnsPersistentEntitiesFromMappingContexts() (37 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsNullMappingContexts() (5 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.indicatesManagedType() (12 ms)</li><li>org.springframework.data.mapping.context.PersistentEntitiesUnitTests.rejectsAmbiguousIdentifierType() (14 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

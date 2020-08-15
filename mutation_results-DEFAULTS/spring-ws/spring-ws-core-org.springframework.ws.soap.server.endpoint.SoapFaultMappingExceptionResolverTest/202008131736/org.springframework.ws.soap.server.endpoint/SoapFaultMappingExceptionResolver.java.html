@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SoapFaultMappingExceptionResolver.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2005-2010 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.ws.soap.server.endpoint;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Properties;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.CollectionUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Exception resolver that allows for mapping exception class names to SOAP Faults. The mappings are set using the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@code exceptionMappings} property, the format of which is documented in {@link SoapFaultDefinitionEditor}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Arjen Poutsma</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class SoapFaultMappingExceptionResolver extends AbstractSoapFaultDefinitionExceptionResolver {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_34'>2</a>
+<span>
+1. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable exceptionMappings &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;private Map&#60;String, String&#62; exceptionMappings = new LinkedHashMap&#60;String, String&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Set the mappings between exception class names and SOAP Faults. The exception class name can be a substring, with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * no wildcard support at present.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * &#60;p&#62;The values of the given properties object should use the format described in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@code SoapFaultDefinitionEditor}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * &#60;p&#62;Follows the same matching algorithm as {@code SimpleMappingExceptionResolver}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param mappings exception patterns (can also be fully qualified class names) as keys, fault definition texts as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *&#9;&#9;&#9;&#9;   values</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @see SoapFaultDefinitionEditor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setExceptionMappings(Properties mappings) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_50'>1</a>
+<span>
+1. setExceptionMappings : removed call to java/util/Properties::entrySet &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;for (Map.Entry&#60;Object, Object&#62; entry : mappings.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_51'>18</a>
+<span>
+1. setExceptionMappings : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. setExceptionMappings : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. setExceptionMappings : equal to less than &rarr; SURVIVED<br/>
+4. setExceptionMappings : equal to less than &rarr; SURVIVED<br/>
+5. setExceptionMappings : equal to less or equal &rarr; SURVIVED<br/>
+6. setExceptionMappings : equal to less or equal &rarr; SURVIVED<br/>
+7. setExceptionMappings : negated conditional &rarr; KILLED<br/>
+8. setExceptionMappings : negated conditional &rarr; KILLED<br/>
+9. setExceptionMappings : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+10. setExceptionMappings : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+11. setExceptionMappings : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. setExceptionMappings : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. setExceptionMappings : equal to greater than &rarr; KILLED<br/>
+14. setExceptionMappings : equal to greater than &rarr; KILLED<br/>
+15. setExceptionMappings : equal to greater or equal &rarr; KILLED<br/>
+16. setExceptionMappings : equal to greater or equal &rarr; KILLED<br/>
+17. setExceptionMappings : equal to not equal &rarr; KILLED<br/>
+18. setExceptionMappings : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (entry.getKey() instanceof String &#38;&#38; entry.getValue() instanceof String) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_52'/>
+52
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_52'>4</a>
+<span>
+1. setExceptionMappings : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. setExceptionMappings : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+3. setExceptionMappings : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+4. setExceptionMappings : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;exceptionMappings.put((String)entry.getKey(), (String)entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected SoapFaultDefinition getFaultDefinition(Object endpoint, Exception ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_59'>9</a>
+<span>
+1. getFaultDefinition : removed call to org/springframework/util/CollectionUtils::isEmpty &rarr; SURVIVED<br/>
+2. getFaultDefinition : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. getFaultDefinition : not equal to less than &rarr; SURVIVED<br/>
+4. getFaultDefinition : not equal to greater than &rarr; SURVIVED<br/>
+5. getFaultDefinition : negated conditional &rarr; KILLED<br/>
+6. getFaultDefinition : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. getFaultDefinition : not equal to less or equal &rarr; KILLED<br/>
+8. getFaultDefinition : not equal to greater or equal &rarr; KILLED<br/>
+9. getFaultDefinition : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (!CollectionUtils.isEmpty(exceptionMappings)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;String definitionText = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_61'>7</a>
+<span>
+1. getFaultDefinition : Substituted 2147483647 with 2147483646 &rarr; SURVIVED<br/>
+2. getFaultDefinition : Substituted 2147483647 with -2147483648 &rarr; KILLED<br/>
+3. getFaultDefinition : Substituted 2147483647 with 1 &rarr; KILLED<br/>
+4. getFaultDefinition : Substituted 2147483647 with 0 &rarr; KILLED<br/>
+5. getFaultDefinition : Substituted 2147483647 with -1 &rarr; KILLED<br/>
+6. getFaultDefinition : Substituted 2147483647 with -2147483647 &rarr; KILLED<br/>
+7. getFaultDefinition : Substituted 2147483647 with -2147483648 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;int deepest = Integer.MAX_VALUE;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_62'>1</a>
+<span>
+1. getFaultDefinition : removed call to java/util/Map::keySet &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;for (String exceptionMapping : exceptionMappings.keySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_63'>1</a>
+<span>
+1. getFaultDefinition : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;int depth = getDepth(exceptionMapping, ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_64'>33</a>
+<span>
+1. getFaultDefinition : changed conditional boundary &rarr; SURVIVED<br/>
+2. getFaultDefinition : greater or equal to greater than &rarr; SURVIVED<br/>
+3. getFaultDefinition : Incremented (a++) integer local variable number 7 &rarr; SURVIVED<br/>
+4. getFaultDefinition : Incremented (a++) integer local variable number 7 &rarr; SURVIVED<br/>
+5. getFaultDefinition : Incremented (a++) integer local variable number 4 &rarr; SURVIVED<br/>
+6. getFaultDefinition : Decremented (a--) integer local variable number 7 &rarr; SURVIVED<br/>
+7. getFaultDefinition : Decremented (a--) integer local variable number 7 &rarr; SURVIVED<br/>
+8. getFaultDefinition : Decremented (a--) integer local variable number 4 &rarr; SURVIVED<br/>
+9. getFaultDefinition : Incremented (++a) integer local variable number 7 &rarr; SURVIVED<br/>
+10. getFaultDefinition : Decremented (--a) integer local variable number 7 &rarr; SURVIVED<br/>
+11. getFaultDefinition : Decremented (--a) integer local variable number 4 &rarr; SURVIVED<br/>
+12. getFaultDefinition : changed conditional boundary &rarr; KILLED<br/>
+13. getFaultDefinition : negated conditional &rarr; KILLED<br/>
+14. getFaultDefinition : negated conditional &rarr; KILLED<br/>
+15. getFaultDefinition : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+16. getFaultDefinition : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+17. getFaultDefinition : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+18. getFaultDefinition : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+19. getFaultDefinition : Negated integer local variable number 7 &rarr; KILLED<br/>
+20. getFaultDefinition : Negated integer local variable number 7 &rarr; KILLED<br/>
+21. getFaultDefinition : Negated integer local variable number 4 &rarr; KILLED<br/>
+22. getFaultDefinition : Less than to less or equal &rarr; KILLED<br/>
+23. getFaultDefinition : greater or equal to less than &rarr; KILLED<br/>
+24. getFaultDefinition : Less than to greater than &rarr; KILLED<br/>
+25. getFaultDefinition : greater or equal to less or equal &rarr; KILLED<br/>
+26. getFaultDefinition : Less than to greater or equal &rarr; KILLED<br/>
+27. getFaultDefinition : Less than to equal &rarr; KILLED<br/>
+28. getFaultDefinition : greater or equal to equal &rarr; KILLED<br/>
+29. getFaultDefinition : Less than to not equal &rarr; KILLED<br/>
+30. getFaultDefinition : greater or equal to not equal &rarr; KILLED<br/>
+31. getFaultDefinition : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+32. getFaultDefinition : Incremented (++a) integer local variable number 4 &rarr; KILLED<br/>
+33. getFaultDefinition : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;if (depth &#62;= 0 &#38;&#38; depth &#60; deepest) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_65'/>
+65
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_65'>5</a>
+<span>
+1. getFaultDefinition : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+2. getFaultDefinition : Incremented (a++) integer local variable number 7 &rarr; SURVIVED<br/>
+3. getFaultDefinition : Decremented (a--) integer local variable number 7 &rarr; SURVIVED<br/>
+4. getFaultDefinition : Incremented (++a) integer local variable number 7 &rarr; SURVIVED<br/>
+5. getFaultDefinition : Decremented (--a) integer local variable number 7 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;deepest = depth;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_66'>2</a>
+<span>
+1. getFaultDefinition : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. getFaultDefinition : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;definitionText = exceptionMappings.get(exceptionMapping);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_69'>4</a>
+<span>
+1. getFaultDefinition : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. getFaultDefinition : negated conditional &rarr; KILLED<br/>
+3. getFaultDefinition : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. getFaultDefinition : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (definitionText != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_70'>1</a>
+<span>
+1. getFaultDefinition : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;SoapFaultDefinitionEditor editor = new SoapFaultDefinitionEditor();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_71'>1</a>
+<span>
+1. getFaultDefinition : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::setAsText &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;editor.setAsText(definitionText);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_72'>3</a>
+<span>
+1. getFaultDefinition : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::getValue &rarr; KILLED<br/>
+2. getFaultDefinition : replaced return value with null for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition &rarr; KILLED<br/>
+3. getFaultDefinition : mutated return of Object value for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;return (SoapFaultDefinition) editor.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_75'>1</a>
+<span>
+1. getFaultDefinition : mutated return of Object value for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Return the depth to the superclass matching. {@code 0} means ex matches exactly. Returns {@code -1} if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * there&#39;s no match. Otherwise, returns depth. Lowest depth wins.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * &#60;p&#62;Follows the same algorithm as RollbackRuleAttribute, and SimpleMappingExceptionResolver</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected int getDepth(String exceptionMapping, Exception ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_85'>10</a>
+<span>
+1. getDepth : replaced call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth with argument &rarr; KILLED<br/>
+2. getDepth : Substituted 0 with 1 &rarr; KILLED<br/>
+3. getDepth : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+4. getDepth : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+5. getDepth : replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+6. getDepth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+7. getDepth : Substituted 0 with 1 &rarr; KILLED<br/>
+8. getDepth : Substituted 0 with -1 &rarr; KILLED<br/>
+9. getDepth : Substituted 0 with 1 &rarr; KILLED<br/>
+10. getDepth : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return getDepth(exceptionMapping, ex.getClass(), 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private int getDepth(String exceptionMapping, Class&#60;? extends Exception&#62; exceptionClass, int depth) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_90'>16</a>
+<span>
+1. getDepth : equal to less or equal &rarr; SURVIVED<br/>
+2. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+3. getDepth : negated conditional &rarr; KILLED<br/>
+4. getDepth : removed call to java/lang/Class::getName &rarr; KILLED<br/>
+5. getDepth : removed call to java/lang/String::indexOf &rarr; KILLED<br/>
+6. getDepth : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. getDepth : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. getDepth : Substituted -1 with 1 &rarr; KILLED<br/>
+9. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+10. getDepth : Substituted -1 with 1 &rarr; KILLED<br/>
+11. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+12. getDepth : Substituted -1 with -2 &rarr; KILLED<br/>
+13. getDepth : equal to less than &rarr; KILLED<br/>
+14. getDepth : equal to greater than &rarr; KILLED<br/>
+15. getDepth : equal to greater or equal &rarr; KILLED<br/>
+16. getDepth : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (exceptionClass.getName().indexOf(exceptionMapping) != -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_91'>7</a>
+<span>
+1. getDepth : Incremented (a++) integer local variable number 3 &rarr; SURVIVED<br/>
+2. getDepth : Decremented (a--) integer local variable number 3 &rarr; SURVIVED<br/>
+3. getDepth : replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+4. getDepth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+5. getDepth : Negated integer local variable number 3 &rarr; KILLED<br/>
+6. getDepth : Incremented (++a) integer local variable number 3 &rarr; KILLED<br/>
+7. getDepth : Decremented (--a) integer local variable number 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return depth;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_93'>9</a>
+<span>
+1. getDepth : equal to less or equal &rarr; SURVIVED<br/>
+2. getDepth : negated conditional &rarr; KILLED<br/>
+3. getDepth : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+4. getDepth : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. getDepth : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. getDepth : equal to less than &rarr; KILLED<br/>
+7. getDepth : equal to greater than &rarr; KILLED<br/>
+8. getDepth : equal to greater or equal &rarr; KILLED<br/>
+9. getDepth : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (exceptionClass.equals(Throwable.class)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_94'>8</a>
+<span>
+1. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+2. getDepth : replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+3. getDepth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+4. getDepth : Substituted -1 with 1 &rarr; KILLED<br/>
+5. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+6. getDepth : Substituted -1 with 1 &rarr; KILLED<br/>
+7. getDepth : Substituted -1 with 0 &rarr; KILLED<br/>
+8. getDepth : Substituted -1 with -2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_96'>23</a>
+<span>
+1. getDepth : Incremented (a++) integer local variable number 3 &rarr; SURVIVED<br/>
+2. getDepth : Decremented (a--) integer local variable number 3 &rarr; SURVIVED<br/>
+3. getDepth : replaced call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth with argument &rarr; KILLED<br/>
+4. getDepth : Substituted 1 with 0 &rarr; KILLED<br/>
+5. getDepth : Replaced integer addition with subtraction &rarr; KILLED<br/>
+6. getDepth : removed call to java/lang/Class::getSuperclass &rarr; KILLED<br/>
+7. getDepth : removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+8. getDepth : replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED<br/>
+9. getDepth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+10. getDepth : replaced call to java/lang/Class::getSuperclass with receiver &rarr; KILLED<br/>
+11. getDepth : Negated integer local variable number 3 &rarr; KILLED<br/>
+12. getDepth : Replaced integer operation by second member &rarr; KILLED<br/>
+13. getDepth : Replaced integer addition with subtraction &rarr; KILLED<br/>
+14. getDepth : Replaced integer addition with multiplication &rarr; KILLED<br/>
+15. getDepth : Replaced integer addition with division &rarr; KILLED<br/>
+16. getDepth : Replaced integer addition with modulus &rarr; KILLED<br/>
+17. getDepth : Substituted 1 with 0 &rarr; KILLED<br/>
+18. getDepth : Substituted 1 with -1 &rarr; KILLED<br/>
+19. getDepth : Substituted 1 with -1 &rarr; KILLED<br/>
+20. getDepth : Substituted 1 with 2 &rarr; KILLED<br/>
+21. getDepth : Substituted 1 with 0 &rarr; KILLED<br/>
+22. getDepth : Incremented (++a) integer local variable number 3 &rarr; KILLED<br/>
+23. getDepth : Decremented (--a) integer local variable number 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return getDepth(exceptionMapping, (Class&#60;? extends Exception&#62;) exceptionClass.getSuperclass(), depth + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56da7487_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Removed assignment to member variable exceptionMappings &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Properties::entrySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_52'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>setExceptionMappings<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/CollectionUtils::isEmpty &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with -2147483648 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with -2147483647 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 2147483647 with -2147483648 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Substituted 2147483647 with 2147483646 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map::keySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Negated integer local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Less than to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> greater or equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Less than to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> greater or equal to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Less than to greater or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> greater or equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Less than to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> greater or equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Less than to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> greater or equal to not equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 4 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 7 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Incremented (++a) integer local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 4 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_65'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::setAsText &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultDefinitionEditor::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced return value with null for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFaultDefinition<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getFaultDefinition to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/lang/Class::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/lang/String::indexOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with -2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Negated integer local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Incremented (++a) integer local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Decremented (--a) integer local variable number 3 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted -1 with -2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56da7487_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56da7487_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to java/lang/Class::getSuperclass &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced int return with 0 for org/springframework/ws/soap/server/endpoint/SoapFaultMappingExceptionResolver::getDepth &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> replaced call to java/lang/Class::getSuperclass with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Negated integer local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer addition with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer addition with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Replaced integer addition with modulus &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Incremented (++a) integer local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>getDepth<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest)</span></span> Decremented (--a) integer local variable number 3 &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionDefault(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (2 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveNoMessageException(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (1 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionReceiverSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (6 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionServerSoap11(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (2 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionClientSoap11(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (37 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testResolveExceptionSenderSoap12(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (2 ms)</li><li>org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest.testGetDepth(org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolverTest) (29 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

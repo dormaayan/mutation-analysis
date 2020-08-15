@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SoapHeaderElementMethodArgumentResolver.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2005-2014 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.ws.soap.server.endpoint.adapter.method;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.ParameterizedType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.Type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.namespace.QName;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.core.MethodParameter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.context.MessageContext;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.server.endpoint.adapter.method.MethodArgumentResolver;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.soap.SoapHeaderElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.soap.SoapMessage;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.xml.namespace.QNameUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation of {@link MethodArgumentResolver} that supports resolving {@link SoapHeaderElement} parameters. Target</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * method parameters must be annotated with {@link SoapHeader} to indicate the SOAP header to resolve. This resolver</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * supports simple {@link SoapHeaderElement} parameters and {@link List} parameters for elements that appear multiple</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * times in the same SOAP header. &#60;/p&#62; The following snippet shows an example of supported declarations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;&#60;code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * public void soapHeaderElement(@SoapHeader(&#34;{http://springframework.org/ws}header&#34;) SoapHeaderElement element)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * public void soapHeaderElementList(@SoapHeader(&#34;{http://springframework.org/ws}header&#34;) List&#38;lt;SoapHeaderElement&#38;gt; elements)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/code&#62;&#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Tareq Abedrabbo</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Arjen Poutsma</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see SoapHeader</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class SoapHeaderElementMethodArgumentResolver implements MethodArgumentResolver {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public boolean supportsParameter(MethodParameter parameter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_55'>1</a>
+<span>
+1. supportsParameter : removed call to org/springframework/core/MethodParameter::getParameterAnnotation &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;SoapHeader soapHeader = parameter.getParameterAnnotation(SoapHeader.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_56'/>
+56
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_56'>4</a>
+<span>
+1. supportsParameter : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. supportsParameter : negated conditional &rarr; KILLED<br/>
+3. supportsParameter : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. supportsParameter : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (soapHeader == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_57'>7</a>
+<span>
+1. supportsParameter : replaced boolean return with true for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; NO_COVERAGE<br/>
+2. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. supportsParameter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+4. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. supportsParameter : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+6. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. supportsParameter : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_60'>1</a>
+<span>
+1. supportsParameter : removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; parameterType = parameter.getParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;// Simple SoapHeaderElement parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_63'/>
+63
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_63'>9</a>
+<span>
+1. supportsParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. supportsParameter : equal to less than &rarr; SURVIVED<br/>
+3. supportsParameter : equal to less or equal &rarr; SURVIVED<br/>
+4. supportsParameter : negated conditional &rarr; KILLED<br/>
+5. supportsParameter : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+6. supportsParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. supportsParameter : equal to greater than &rarr; KILLED<br/>
+8. supportsParameter : equal to greater or equal &rarr; KILLED<br/>
+9. supportsParameter : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (SoapHeaderElement.class.equals(parameterType)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_64'>8</a>
+<span>
+1. supportsParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+2. supportsParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. supportsParameter : replaced boolean return with false for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; KILLED<br/>
+4. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+5. supportsParameter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+6. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+7. supportsParameter : Substituted 1 with 2 &rarr; KILLED<br/>
+8. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;// List&#60;SoapHeaderElement&#62; parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_68'/>
+68
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_68'>9</a>
+<span>
+1. supportsParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. supportsParameter : equal to less than &rarr; SURVIVED<br/>
+3. supportsParameter : equal to less or equal &rarr; SURVIVED<br/>
+4. supportsParameter : negated conditional &rarr; KILLED<br/>
+5. supportsParameter : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+6. supportsParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. supportsParameter : equal to greater than &rarr; KILLED<br/>
+8. supportsParameter : equal to greater or equal &rarr; KILLED<br/>
+9. supportsParameter : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (List.class.equals(parameterType)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_69'>1</a>
+<span>
+1. supportsParameter : removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;Type genericType = parameter.getGenericParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_70'>8</a>
+<span>
+1. supportsParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. supportsParameter : equal to less than &rarr; SURVIVED<br/>
+3. supportsParameter : equal to less or equal &rarr; SURVIVED<br/>
+4. supportsParameter : negated conditional &rarr; KILLED<br/>
+5. supportsParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. supportsParameter : equal to greater than &rarr; KILLED<br/>
+7. supportsParameter : equal to greater or equal &rarr; KILLED<br/>
+8. supportsParameter : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (genericType instanceof ParameterizedType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;&#9;ParameterizedType parameterizedType = (ParameterizedType) genericType;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_72'>1</a>
+<span>
+1. supportsParameter : removed call to java/lang/reflect/ParameterizedType::getActualTypeArguments &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;Type[] typeArguments = parameterizedType.getActualTypeArguments();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_73'>28</a>
+<span>
+1. supportsParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. supportsParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. supportsParameter : not equal to less than &rarr; SURVIVED<br/>
+4. supportsParameter : equal to less than &rarr; SURVIVED<br/>
+5. supportsParameter : equal to less or equal &rarr; SURVIVED<br/>
+6. supportsParameter : not equal to greater than &rarr; SURVIVED<br/>
+7. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+8. supportsParameter : Substituted 0 with 1 &rarr; KILLED<br/>
+9. supportsParameter : negated conditional &rarr; KILLED<br/>
+10. supportsParameter : negated conditional &rarr; KILLED<br/>
+11. supportsParameter : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+12. supportsParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. supportsParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+14. supportsParameter : Substituted 0 with 1 &rarr; KILLED<br/>
+15. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+16. supportsParameter : Substituted 1 with -1 &rarr; KILLED<br/>
+17. supportsParameter : Substituted 0 with -1 &rarr; KILLED<br/>
+18. supportsParameter : Substituted 1 with -1 &rarr; KILLED<br/>
+19. supportsParameter : Substituted 1 with 2 &rarr; KILLED<br/>
+20. supportsParameter : Substituted 0 with 1 &rarr; KILLED<br/>
+21. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+22. supportsParameter : Substituted 0 with -1 &rarr; KILLED<br/>
+23. supportsParameter : not equal to less or equal &rarr; KILLED<br/>
+24. supportsParameter : equal to greater than &rarr; KILLED<br/>
+25. supportsParameter : not equal to greater or equal &rarr; KILLED<br/>
+26. supportsParameter : equal to greater or equal &rarr; KILLED<br/>
+27. supportsParameter : not equal to equal &rarr; KILLED<br/>
+28. supportsParameter : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;if (typeArguments.length == 1 &#38;&#38; SoapHeaderElement.class.equals(typeArguments[0])) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_74'>8</a>
+<span>
+1. supportsParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+2. supportsParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. supportsParameter : replaced boolean return with false for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; KILLED<br/>
+4. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+5. supportsParameter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+6. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+7. supportsParameter : Substituted 1 with 2 &rarr; KILLED<br/>
+8. supportsParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_78'>7</a>
+<span>
+1. supportsParameter : replaced boolean return with true for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; NO_COVERAGE<br/>
+2. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. supportsParameter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+4. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. supportsParameter : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+6. supportsParameter : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. supportsParameter : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Object resolveArgument(MessageContext messageContext, MethodParameter parameter) throws Exception {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_83'>2</a>
+<span>
+1. resolveArgument : removed call to org/springframework/util/Assert::isInstanceOf &rarr; SURVIVED<br/>
+2. resolveArgument : removed call to org/springframework/ws/context/MessageContext::getRequest &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.isInstanceOf(SoapMessage.class, messageContext.getRequest());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_84'>1</a>
+<span>
+1. resolveArgument : removed call to org/springframework/ws/context/MessageContext::getRequest &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;SoapMessage request = (SoapMessage) messageContext.getRequest();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_85'>1</a>
+<span>
+1. resolveArgument : removed call to org/springframework/ws/soap/SoapMessage::getSoapHeader &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;org.springframework.ws.soap.SoapHeader soapHeader = request.getSoapHeader();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_87'>2</a>
+<span>
+1. resolveArgument : removed call to org/springframework/core/MethodParameter::getParameterAnnotation &rarr; KILLED<br/>
+2. resolveArgument : removed call to org/springframework/ws/soap/server/endpoint/annotation/SoapHeader::value &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;String paramValue = parameter.getParameterAnnotation(SoapHeader.class).value();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_89'>10</a>
+<span>
+1. resolveArgument : removed call to java/lang/StringBuilder::toString &rarr; SURVIVED<br/>
+2. resolveArgument : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+3. resolveArgument : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+4. resolveArgument : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+5. resolveArgument : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+6. resolveArgument : removed call to org/springframework/xml/namespace/QNameUtils::validateQName &rarr; KILLED<br/>
+7. resolveArgument : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+8. resolveArgument : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+9. resolveArgument : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+10. resolveArgument : removed call to org/springframework/util/Assert::isTrue &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.isTrue(QNameUtils.validateQName(paramValue), &#34;Invalid header qualified name [&#34; + paramValue + &#34;]. &#34; +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;&#34;QName must be of the form &#39;{namespace}localPart&#39;.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_92'>1</a>
+<span>
+1. resolveArgument : removed call to javax/xml/namespace/QName::valueOf &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;QName qname = QName.valueOf(paramValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_94'>1</a>
+<span>
+1. resolveArgument : removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; parameterType = parameter.getParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_96'>9</a>
+<span>
+1. resolveArgument : equal to less or equal &rarr; SURVIVED<br/>
+2. resolveArgument : negated conditional &rarr; KILLED<br/>
+3. resolveArgument : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+4. resolveArgument : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. resolveArgument : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. resolveArgument : equal to less than &rarr; KILLED<br/>
+7. resolveArgument : equal to greater than &rarr; KILLED<br/>
+8. resolveArgument : equal to greater or equal &rarr; KILLED<br/>
+9. resolveArgument : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (SoapHeaderElement.class.equals(parameterType)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_97'>3</a>
+<span>
+1. resolveArgument : removed call to org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader &rarr; KILLED<br/>
+2. resolveArgument : replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument &rarr; KILLED<br/>
+3. resolveArgument : mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return extractSoapHeader(qname, soapHeader);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_99'>9</a>
+<span>
+1. resolveArgument : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. resolveArgument : equal to less than &rarr; SURVIVED<br/>
+3. resolveArgument : equal to less or equal &rarr; SURVIVED<br/>
+4. resolveArgument : negated conditional &rarr; KILLED<br/>
+5. resolveArgument : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+6. resolveArgument : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. resolveArgument : equal to greater than &rarr; KILLED<br/>
+8. resolveArgument : equal to greater or equal &rarr; KILLED<br/>
+9. resolveArgument : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;else if (List.class.equals(parameterType)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_100'>3</a>
+<span>
+1. resolveArgument : removed call to org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList &rarr; KILLED<br/>
+2. resolveArgument : replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument &rarr; KILLED<br/>
+3. resolveArgument : mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return extractSoapHeaderList(qname, soapHeader);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;// should not happen</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_103'>1</a>
+<span>
+1. resolveArgument : removed call to java/lang/UnsupportedOperationException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;throw new UnsupportedOperationException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private SoapHeaderElement extractSoapHeader(QName qname, org.springframework.ws.soap.SoapHeader soapHeader) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_107'>1</a>
+<span>
+1. extractSoapHeader : removed call to org/springframework/ws/soap/SoapHeader::examineAllHeaderElements &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Iterator&#60;SoapHeaderElement&#62; elements = soapHeader.examineAllHeaderElements();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_108'>9</a>
+<span>
+1. extractSoapHeader : equal to less or equal &rarr; SURVIVED<br/>
+2. extractSoapHeader : negated conditional &rarr; KILLED<br/>
+3. extractSoapHeader : removed call to java/util/Iterator::hasNext &rarr; KILLED<br/>
+4. extractSoapHeader : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. extractSoapHeader : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. extractSoapHeader : equal to less than &rarr; KILLED<br/>
+7. extractSoapHeader : equal to greater than &rarr; KILLED<br/>
+8. extractSoapHeader : equal to greater or equal &rarr; KILLED<br/>
+9. extractSoapHeader : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;while (elements.hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;SoapHeaderElement e = elements.next();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_110'>10</a>
+<span>
+1. extractSoapHeader : equal to less or equal &rarr; SURVIVED<br/>
+2. extractSoapHeader : negated conditional &rarr; KILLED<br/>
+3. extractSoapHeader : removed call to org/springframework/ws/soap/SoapHeaderElement::getName &rarr; KILLED<br/>
+4. extractSoapHeader : removed call to javax/xml/namespace/QName::equals &rarr; KILLED<br/>
+5. extractSoapHeader : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. extractSoapHeader : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. extractSoapHeader : equal to less than &rarr; KILLED<br/>
+8. extractSoapHeader : equal to greater than &rarr; KILLED<br/>
+9. extractSoapHeader : equal to greater or equal &rarr; KILLED<br/>
+10. extractSoapHeader : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (e.getName().equals(qname)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_111'>2</a>
+<span>
+1. extractSoapHeader : replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader &rarr; KILLED<br/>
+2. extractSoapHeader : mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;return e;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_114'>1</a>
+<span>
+1. extractSoapHeader : mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private List&#60;SoapHeaderElement&#62; extractSoapHeaderList(QName qname,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;  org.springframework.ws.soap.SoapHeader soapHeader) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_119'>1</a>
+<span>
+1. extractSoapHeaderList : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;List&#60;SoapHeaderElement&#62; result = new ArrayList&#60;SoapHeaderElement&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_120'>1</a>
+<span>
+1. extractSoapHeaderList : removed call to org/springframework/ws/soap/SoapHeader::examineAllHeaderElements &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Iterator&#60;SoapHeaderElement&#62; elements = soapHeader.examineAllHeaderElements();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_121'>9</a>
+<span>
+1. extractSoapHeaderList : equal to less or equal &rarr; SURVIVED<br/>
+2. extractSoapHeaderList : negated conditional &rarr; KILLED<br/>
+3. extractSoapHeaderList : removed call to java/util/Iterator::hasNext &rarr; KILLED<br/>
+4. extractSoapHeaderList : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. extractSoapHeaderList : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. extractSoapHeaderList : equal to less than &rarr; KILLED<br/>
+7. extractSoapHeaderList : equal to greater than &rarr; KILLED<br/>
+8. extractSoapHeaderList : equal to greater or equal &rarr; KILLED<br/>
+9. extractSoapHeaderList : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;while (elements.hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;SoapHeaderElement e = elements.next();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_123'>10</a>
+<span>
+1. extractSoapHeaderList : equal to less or equal &rarr; SURVIVED<br/>
+2. extractSoapHeaderList : negated conditional &rarr; KILLED<br/>
+3. extractSoapHeaderList : removed call to org/springframework/ws/soap/SoapHeaderElement::getName &rarr; KILLED<br/>
+4. extractSoapHeaderList : removed call to javax/xml/namespace/QName::equals &rarr; KILLED<br/>
+5. extractSoapHeaderList : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. extractSoapHeaderList : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. extractSoapHeaderList : equal to less than &rarr; KILLED<br/>
+8. extractSoapHeaderList : equal to greater than &rarr; KILLED<br/>
+9. extractSoapHeaderList : equal to greater or equal &rarr; KILLED<br/>
+10. extractSoapHeaderList : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (e.getName().equals(qname)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_124'>1</a>
+<span>
+1. extractSoapHeaderList : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;result.add(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_127'>2</a>
+<span>
+1. extractSoapHeaderList : replaced return value with Collections.emptyList for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList &rarr; KILLED<br/>
+2. extractSoapHeaderList : mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21505815_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21505815_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterAnnotation &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_57'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced boolean return with false for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/reflect/ParameterizedType::getActualTypeArguments &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced boolean return with false for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_78'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::supportsParameter &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/context/MessageContext::getRequest &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::isInstanceOf &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/context/MessageContext::getRequest &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/SoapMessage::getSoapHeader &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterAnnotation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/annotation/SoapHeader::value &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/xml/namespace/QNameUtils::validateQName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.failOnEmptyValue(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/util/Assert::isTrue &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to javax/xml/namespace/QName::valueOf &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_103'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>none</span></span> removed call to java/lang/UnsupportedOperationException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/SoapHeader::examineAllHeaderElements &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/util/Iterator::hasNext &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/SoapHeaderElement::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to javax/xml/namespace/QName::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return value with null for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeader<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/SoapHeader::examineAllHeaderElements &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/util/Iterator::hasNext &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to org/springframework/ws/soap/SoapHeaderElement::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to javax/xml/namespace/QName::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21505815_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21505815_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> replaced return value with Collections.emptyList for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractSoapHeaderList<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest)</span></span> mutated return of Object value for org/springframework/ws/soap/server/endpoint/adapter/method/SoapHeaderElementMethodArgumentResolver::extractSoapHeaderList to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.failOnEmptyValue(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (69 ms)</li><li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatch(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (1 ms)</li><li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElement(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (3 ms)</li><li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderMismatchList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (2 ms)</li><li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.supportsParameter(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (3 ms)</li><li>org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest.resolveSoapHeaderElementList(org.springframework.ws.soap.server.endpoint.adapter.method.SoapHeaderElementMethodArgumentResolverTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>FilteringDecorator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.pitest.highwheel.bytecodeparser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.pitest.highwheel.classpath.AccessVisitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.pitest.highwheel.cycles.Filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.pitest.highwheel.model.AccessPoint;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.pitest.highwheel.model.AccessType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.pitest.highwheel.model.ElementName;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Passes calls through to wrapped child only if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * they match the supplied filter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class FilteringDecorator implements AccessVisitor {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final AccessVisitor child;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Filter        filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public FilteringDecorator(final AccessVisitor child, final Filter filter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_19'/>
+19
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_19'>1</a>
+<span>
+1. <init> : Removed assignment to member variable child &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.child = child;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_20'/>
+20
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_20'>1</a>
+<span>
+1. <init> : Removed assignment to member variable filter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.filter = filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void apply(final AccessPoint source, final AccessPoint dest,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      final AccessType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_26'/>
+26
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_26'>20</a>
+<span>
+1. apply : equal to less or equal &rarr; SURVIVED<br/>
+2. apply : equal to less or equal &rarr; SURVIVED<br/>
+3. apply : negated conditional &rarr; KILLED<br/>
+4. apply : negated conditional &rarr; KILLED<br/>
+5. apply : removed call to org/pitest/highwheel/model/AccessPoint::getElementName &rarr; KILLED<br/>
+6. apply : removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED<br/>
+7. apply : removed call to org/pitest/highwheel/model/AccessPoint::getElementName &rarr; KILLED<br/>
+8. apply : removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED<br/>
+9. apply : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. apply : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. apply : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. apply : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. apply : equal to less than &rarr; KILLED<br/>
+14. apply : equal to less than &rarr; KILLED<br/>
+15. apply : equal to greater than &rarr; KILLED<br/>
+16. apply : equal to greater than &rarr; KILLED<br/>
+17. apply : equal to greater or equal &rarr; KILLED<br/>
+18. apply : equal to greater or equal &rarr; KILLED<br/>
+19. apply : equal to not equal &rarr; KILLED<br/>
+20. apply : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (this.filter.include(dest.getElementName()) &#38;&#38; this.filter.include(source.getElementName())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_27'/>
+27
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_27'>1</a>
+<span>
+1. apply : removed call to org/pitest/highwheel/classpath/AccessVisitor::apply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      this.child.apply(source, dest, type);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void newNode(final ElementName clazz) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_33'/>
+33
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_33'>9</a>
+<span>
+1. newNode : equal to less or equal &rarr; SURVIVED<br/>
+2. newNode : negated conditional &rarr; KILLED<br/>
+3. newNode : removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED<br/>
+4. newNode : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. newNode : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. newNode : equal to less than &rarr; KILLED<br/>
+7. newNode : equal to greater than &rarr; KILLED<br/>
+8. newNode : equal to greater or equal &rarr; KILLED<br/>
+9. newNode : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (this.filter.include(clazz)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_34'>1</a>
+<span>
+1. newNode : removed call to org/pitest/highwheel/classpath/AccessVisitor::newNode &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      this.child.newNode(clazz);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void newEntryPoint(ElementName clazz) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_40'/>
+40
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_40'>9</a>
+<span>
+1. newEntryPoint : negated conditional &rarr; NO_COVERAGE<br/>
+2. newEntryPoint : removed call to org/pitest/highwheel/cycles/Filter::include &rarr; NO_COVERAGE<br/>
+3. newEntryPoint : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+4. newEntryPoint : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+5. newEntryPoint : equal to less than &rarr; NO_COVERAGE<br/>
+6. newEntryPoint : equal to less or equal &rarr; NO_COVERAGE<br/>
+7. newEntryPoint : equal to greater than &rarr; NO_COVERAGE<br/>
+8. newEntryPoint : equal to greater or equal &rarr; NO_COVERAGE<br/>
+9. newEntryPoint : equal to not equal &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    if (this.filter.include(clazz)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_41'/>
+41
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_41'>1</a>
+<span>
+1. newEntryPoint : removed call to org/pitest/highwheel/classpath/AccessVisitor::newEntryPoint &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      this.child.newEntryPoint(clazz);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void newAccessPoint(AccessPoint ap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_47'>1</a>
+<span>
+1. newAccessPoint : removed call to org/pitest/highwheel/classpath/AccessVisitor::newAccessPoint &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    this.child.newAccessPoint(ap);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1d98daa0_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_19'>19</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_19'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> Removed assignment to member variable child &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_20'>20</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_20'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> Removed assignment to member variable filter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/model/AccessPoint::getElementName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/model/AccessPoint::getElementName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_27'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/classpath/AccessVisitor::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_33'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/cycles/Filter::include &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardNewNodeWhenFilterDoesNotMatch(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardNewNodeWhenFilterDoesNotMatch(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newNode<br/><b>Killed by : </b>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest)</span></span> removed call to org/pitest/highwheel/classpath/AccessVisitor::newNode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_40'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> removed call to org/pitest/highwheel/cycles/Filter::include &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> equal to greater than &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> equal to not equal &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_41'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newEntryPoint<br/><b>Killed by : </b>none</span></span> removed call to org/pitest/highwheel/classpath/AccessVisitor::newEntryPoint &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1d98daa0_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1d98daa0_47'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newAccessPoint<br/><b>Killed by : </b>none</span></span> removed call to org/pitest/highwheel/classpath/AccessVisitor::newAccessPoint &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardNewNodeWhenFilterMatches(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest) (1 ms)</li><li>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest) (2 ms)</li><li>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardCallWhenFilterDoesNotMatchSource(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest) (1 ms)</li><li>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldNotForwardNewNodeWhenFilterDoesNotMatch(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest) (2 ms)</li><li>org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest.shouldForwardCallWhenFilterMatchesSourceAndDest(org.pitest.highwheel.bytecodeparser.FilteringDecoratorTest) (112 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.5
+
+</body>
+</html>

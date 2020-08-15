@@ -1,0 +1,3423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>UnixAttributeProvider.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2013 Google Inc.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.common.jimfs;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.FileAttributeView;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.FileTime;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.GroupPrincipal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.PosixFilePermission;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.UserPrincipal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.atomic.AtomicInteger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Attribute provider that provides the &#34;unix&#34; attribute view.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Colin Decker</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>final class UnixAttributeProvider extends AttributeProvider {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final ImmutableSet&#60;String&#62; ATTRIBUTES =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      ImmutableSet.of(&#34;uid&#34;, &#34;ino&#34;, &#34;dev&#34;, &#34;nlink&#34;, &#34;rdev&#34;, &#34;ctime&#34;, &#34;mode&#34;, &#34;gid&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final ImmutableSet&#60;String&#62; INHERITED_VIEWS =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      ImmutableSet.of(&#34;basic&#34;, &#34;owner&#34;, &#34;posix&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_47'>2</a>
+<span>
+1. <init> : removed call to java/util/concurrent/atomic/AtomicInteger::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable uidGenerator &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>  private final AtomicInteger uidGenerator = new AtomicInteger();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_48'>2</a>
+<span>
+1. <init> : removed call to java/util/concurrent/ConcurrentHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable idCache &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>  private final ConcurrentMap&#60;Object, Integer&#62; idCache = new ConcurrentHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public String name() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_52'/>
+52
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_52'>2</a>
+<span>
+1. name : replaced return value with &#34;&#34; for com/google/common/jimfs/UnixAttributeProvider::name &rarr; SURVIVED<br/>
+2. name : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::name to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return &#34;unix&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ImmutableSet&#60;String&#62; inherits() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_57'>2</a>
+<span>
+1. inherits : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::inherits &rarr; NO_COVERAGE<br/>
+2. inherits : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::inherits to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return INHERITED_VIEWS;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ImmutableSet&#60;String&#62; fixedAttributes() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_62'>2</a>
+<span>
+1. fixedAttributes : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::fixedAttributes &rarr; NO_COVERAGE<br/>
+2. fixedAttributes : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::fixedAttributes to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return ATTRIBUTES;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Class&#60;UnixFileAttributeView&#62; viewType() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_67'/>
+67
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_67'>2</a>
+<span>
+1. viewType : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::viewType &rarr; NO_COVERAGE<br/>
+2. viewType : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::viewType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return UnixFileAttributeView.class;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public UnixFileAttributeView view(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      FileLookup lookup, ImmutableMap&#60;String, FileAttributeView&#62; inheritedViews) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // This method should not be called... and it cannot be called through the public APIs in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // java.nio.file since there is no public UnixFileAttributeView type.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_75'>1</a>
+<span>
+1. view : removed call to java/lang/UnsupportedOperationException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    throw new UnsupportedOperationException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // TODO(cgdecker): Since we can now guarantee that the owner/group for an file are our own</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // implementation of UserPrincipal/GroupPrincipal, it would be nice to have them store a unique</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // ID themselves and just get that rather than doing caching here. Then this could be a singleton</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // like the rest of the AttributeProviders. However, that would require a way for the owner/posix</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // providers to create their default principals using the lookup service for the specific file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // system.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Returns an ID that is guaranteed to be the same for any invocation with equal objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Integer getUniqueId(Object object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_89'>2</a>
+<span>
+1. getUniqueId : removed call to java/util/concurrent/ConcurrentMap::get &rarr; SURVIVED<br/>
+2. getUniqueId : replaced call to java/util/concurrent/ConcurrentMap::get with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Integer id = idCache.get(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_90'>4</a>
+<span>
+1. getUniqueId : negated conditional &rarr; KILLED<br/>
+2. getUniqueId : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. getUniqueId : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. getUniqueId : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (id == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_91'>2</a>
+<span>
+1. getUniqueId : removed call to java/util/concurrent/atomic/AtomicInteger::incrementAndGet &rarr; KILLED<br/>
+2. getUniqueId : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      id = uidGenerator.incrementAndGet();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_92'/>
+92
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_92'>2</a>
+<span>
+1. getUniqueId : replaced call to java/util/concurrent/ConcurrentMap::putIfAbsent with argument &rarr; SURVIVED<br/>
+2. getUniqueId : removed call to java/util/concurrent/ConcurrentMap::putIfAbsent &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      Integer existing = idCache.putIfAbsent(object, id);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_93'>4</a>
+<span>
+1. getUniqueId : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getUniqueId : negated conditional &rarr; KILLED<br/>
+3. getUniqueId : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. getUniqueId : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (existing != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_94'>2</a>
+<span>
+1. getUniqueId : replaced Integer return value with 0 for com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; NO_COVERAGE<br/>
+2. getUniqueId : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::getUniqueId to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return existing;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_97'>2</a>
+<span>
+1. getUniqueId : replaced Integer return value with 0 for com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; SURVIVED<br/>
+2. getUniqueId : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::getUniqueId to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return id;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Object get(File file, String attribute) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_103'>30</a>
+<span>
+1. get : Substituted -1 with 0 &rarr; SURVIVED<br/>
+2. get : Substituted -1 with 1 &rarr; SURVIVED<br/>
+3. get : Substituted -1 with 0 &rarr; SURVIVED<br/>
+4. get : Substituted -1 with -2 &rarr; SURVIVED<br/>
+5. get : Incremented (a++) integer local variable number 4 &rarr; SURVIVED<br/>
+6. get : removed call to java/lang/String::hashCode &rarr; KILLED<br/>
+7. get : RemoveSwitch 0 mutation &rarr; KILLED<br/>
+8. get : RemoveSwitch 0 mutation &rarr; KILLED<br/>
+9. get : RemoveSwitch 1 mutation &rarr; KILLED<br/>
+10. get : RemoveSwitch 1 mutation &rarr; KILLED<br/>
+11. get : RemoveSwitch 2 mutation &rarr; KILLED<br/>
+12. get : RemoveSwitch 2 mutation &rarr; KILLED<br/>
+13. get : RemoveSwitch 3 mutation &rarr; KILLED<br/>
+14. get : RemoveSwitch 3 mutation &rarr; KILLED<br/>
+15. get : RemoveSwitch 4 mutation &rarr; KILLED<br/>
+16. get : RemoveSwitch 4 mutation &rarr; KILLED<br/>
+17. get : RemoveSwitch 5 mutation &rarr; KILLED<br/>
+18. get : RemoveSwitch 5 mutation &rarr; KILLED<br/>
+19. get : RemoveSwitch 6 mutation &rarr; KILLED<br/>
+20. get : RemoveSwitch 6 mutation &rarr; KILLED<br/>
+21. get : RemoveSwitch 7 mutation &rarr; KILLED<br/>
+22. get : RemoveSwitch 7 mutation &rarr; KILLED<br/>
+23. get : Switch mutation &rarr; KILLED<br/>
+24. get : Switch mutation &rarr; KILLED<br/>
+25. get : Negated integer local variable number 4 &rarr; KILLED<br/>
+26. get : Substituted -1 with 0 &rarr; KILLED<br/>
+27. get : Substituted -1 with 1 &rarr; KILLED<br/>
+28. get : Decremented (a--) integer local variable number 4 &rarr; KILLED<br/>
+29. get : Incremented (++a) integer local variable number 4 &rarr; KILLED<br/>
+30. get : Decremented (--a) integer local variable number 4 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    switch (attribute) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;uid&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_105'>1</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        UserPrincipal user = (UserPrincipal) file.getAttribute(&#34;owner&#34;, &#34;owner&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_106'>3</a>
+<span>
+1. get : removed call to com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; KILLED<br/>
+2. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+3. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getUniqueId(user);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;gid&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_108'>1</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        GroupPrincipal group = (GroupPrincipal) file.getAttribute(&#34;posix&#34;, &#34;group&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_109'>3</a>
+<span>
+1. get : removed call to com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; KILLED<br/>
+2. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+3. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getUniqueId(group);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;mode&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Set&#60;PosixFilePermission&#62; permissions =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_112'>1</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            (Set&#60;PosixFilePermission&#62;) file.getAttribute(&#34;posix&#34;, &#34;permissions&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_113'>4</a>
+<span>
+1. get : removed call to com/google/common/jimfs/UnixAttributeProvider::toMode &rarr; KILLED<br/>
+2. get : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return toMode(permissions);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;ctime&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_115'>4</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::getCreationTime &rarr; KILLED<br/>
+2. get : removed call to java/nio/file/attribute/FileTime::fromMillis &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return FileTime.fromMillis(file.getCreationTime());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;rdev&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_117'>8</a>
+<span>
+1. get : Substituted 0 with 1 &rarr; KILLED<br/>
+2. get : removed call to java/lang/Long::valueOf &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+5. get : Substituted 0 with 1 &rarr; KILLED<br/>
+6. get : Substituted 0 with -1 &rarr; KILLED<br/>
+7. get : Substituted 0 with 1 &rarr; KILLED<br/>
+8. get : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return 0L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;dev&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_119'>9</a>
+<span>
+1. get : Substituted 1 with 2 &rarr; KILLED<br/>
+2. get : removed call to java/lang/Long::valueOf &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+5. get : Substituted 1 with 0 &rarr; KILLED<br/>
+6. get : Substituted 1 with -1 &rarr; KILLED<br/>
+7. get : Substituted 1 with -1 &rarr; KILLED<br/>
+8. get : Substituted 1 with 2 &rarr; KILLED<br/>
+9. get : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return 1L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;ino&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_121'>4</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::id &rarr; SURVIVED<br/>
+2. get : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return file.id();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case &#34;nlink&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_123'>4</a>
+<span>
+1. get : removed call to com/google/common/jimfs/File::links &rarr; KILLED<br/>
+2. get : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+3. get : replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED<br/>
+4. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return file.links();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      default:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_125'/>
+125
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_125'>1</a>
+<span>
+1. get : mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void set(File file, String view, String attribute, Object value, boolean create) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_131'>1</a>
+<span>
+1. set : removed call to com/google/common/jimfs/UnixAttributeProvider::unsettable &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    throw unsettable(view, attribute);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @SuppressWarnings(&#34;OctalInteger&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static int toMode(Set&#60;PosixFilePermission&#62; permissions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_136'>5</a>
+<span>
+1. toMode : Substituted 0 with 1 &rarr; KILLED<br/>
+2. toMode : Substituted 0 with 1 &rarr; KILLED<br/>
+3. toMode : Substituted 0 with -1 &rarr; KILLED<br/>
+4. toMode : Substituted 0 with 1 &rarr; KILLED<br/>
+5. toMode : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int result = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (PosixFilePermission permission : permissions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_138'>2</a>
+<span>
+1. toMode : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+2. toMode : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      checkNotNull(permission);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_139'>16</a>
+<span>
+1. toMode : RemoveSwitch 2 mutation &rarr; SURVIVED<br/>
+2. toMode : RemoveSwitch 4 mutation &rarr; SURVIVED<br/>
+3. toMode : RemoveSwitch 5 mutation &rarr; SURVIVED<br/>
+4. toMode : RemoveSwitch 7 mutation &rarr; SURVIVED<br/>
+5. toMode : RemoveSwitch 8 mutation &rarr; SURVIVED<br/>
+6. toMode : Decremented (a--) integer array field &rarr; SURVIVED<br/>
+7. toMode : Incremented (++a) integer array field &rarr; SURVIVED<br/>
+8. toMode : removed call to java/nio/file/attribute/PosixFilePermission::ordinal &rarr; KILLED<br/>
+9. toMode : RemoveSwitch 0 mutation &rarr; KILLED<br/>
+10. toMode : RemoveSwitch 1 mutation &rarr; KILLED<br/>
+11. toMode : RemoveSwitch 3 mutation &rarr; KILLED<br/>
+12. toMode : RemoveSwitch 6 mutation &rarr; KILLED<br/>
+13. toMode : Switch mutation &rarr; KILLED<br/>
+14. toMode : Negated integer array field &rarr; KILLED<br/>
+15. toMode : Incremented (a++) integer array field &rarr; KILLED<br/>
+16. toMode : Decremented (--a) integer array field &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      switch (permission) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OWNER_READ:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_141'/>
+141
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_141'>16</a>
+<span>
+1. toMode : Replace integer or by second member &rarr; SURVIVED<br/>
+2. toMode : Incremented (a++) integer local variable number 1 &rarr; SURVIVED<br/>
+3. toMode : Substituted 256 with 257 &rarr; KILLED<br/>
+4. toMode : Replaced bitwise OR with AND &rarr; KILLED<br/>
+5. toMode : Negated integer local variable number 1 &rarr; KILLED<br/>
+6. toMode : Substituted 256 with 1 &rarr; KILLED<br/>
+7. toMode : Substituted 256 with 0 &rarr; KILLED<br/>
+8. toMode : Substituted 256 with -1 &rarr; KILLED<br/>
+9. toMode : Substituted 256 with -256 &rarr; KILLED<br/>
+10. toMode : Substituted 256 with 257 &rarr; KILLED<br/>
+11. toMode : Substituted 256 with 255 &rarr; KILLED<br/>
+12. toMode : Replaced integer or with and &rarr; KILLED<br/>
+13. toMode : Replaced integer or by first member &rarr; KILLED<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; KILLED<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; KILLED<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          result |= 0400;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OWNER_WRITE:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_144'/>
+144
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_144'>16</a>
+<span>
+1. toMode : Incremented (a++) integer local variable number 1 &rarr; SURVIVED<br/>
+2. toMode : Substituted 128 with 129 &rarr; KILLED<br/>
+3. toMode : Replaced bitwise OR with AND &rarr; KILLED<br/>
+4. toMode : Negated integer local variable number 1 &rarr; KILLED<br/>
+5. toMode : Substituted 128 with 1 &rarr; KILLED<br/>
+6. toMode : Substituted 128 with 0 &rarr; KILLED<br/>
+7. toMode : Substituted 128 with -1 &rarr; KILLED<br/>
+8. toMode : Substituted 128 with -128 &rarr; KILLED<br/>
+9. toMode : Substituted 128 with 129 &rarr; KILLED<br/>
+10. toMode : Substituted 128 with 127 &rarr; KILLED<br/>
+11. toMode : Replaced integer or with and &rarr; KILLED<br/>
+12. toMode : Replaced integer or by first member &rarr; KILLED<br/>
+13. toMode : Replace integer or by second member &rarr; KILLED<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; KILLED<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; KILLED<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          result |= 0200;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OWNER_EXECUTE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_147'>16</a>
+<span>
+1. toMode : Substituted 64 with 65 &rarr; NO_COVERAGE<br/>
+2. toMode : Replaced bitwise OR with AND &rarr; NO_COVERAGE<br/>
+3. toMode : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. toMode : Substituted 64 with 1 &rarr; NO_COVERAGE<br/>
+5. toMode : Substituted 64 with 0 &rarr; NO_COVERAGE<br/>
+6. toMode : Substituted 64 with -1 &rarr; NO_COVERAGE<br/>
+7. toMode : Substituted 64 with -64 &rarr; NO_COVERAGE<br/>
+8. toMode : Substituted 64 with 65 &rarr; NO_COVERAGE<br/>
+9. toMode : Substituted 64 with 63 &rarr; NO_COVERAGE<br/>
+10. toMode : Replaced integer or with and &rarr; NO_COVERAGE<br/>
+11. toMode : Replaced integer or by first member &rarr; NO_COVERAGE<br/>
+12. toMode : Replace integer or by second member &rarr; NO_COVERAGE<br/>
+13. toMode : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          result |= 0100;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case GROUP_READ:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_150'>16</a>
+<span>
+1. toMode : Decremented (a--) integer local variable number 1 &rarr; SURVIVED<br/>
+2. toMode : Substituted 32 with 33 &rarr; KILLED<br/>
+3. toMode : Replaced bitwise OR with AND &rarr; KILLED<br/>
+4. toMode : Negated integer local variable number 1 &rarr; KILLED<br/>
+5. toMode : Substituted 32 with 1 &rarr; KILLED<br/>
+6. toMode : Substituted 32 with 0 &rarr; KILLED<br/>
+7. toMode : Substituted 32 with -1 &rarr; KILLED<br/>
+8. toMode : Substituted 32 with -32 &rarr; KILLED<br/>
+9. toMode : Substituted 32 with 33 &rarr; KILLED<br/>
+10. toMode : Substituted 32 with 31 &rarr; KILLED<br/>
+11. toMode : Replaced integer or with and &rarr; KILLED<br/>
+12. toMode : Replaced integer or by first member &rarr; KILLED<br/>
+13. toMode : Replace integer or by second member &rarr; KILLED<br/>
+14. toMode : Incremented (a++) integer local variable number 1 &rarr; KILLED<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; KILLED<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          result |= 0040;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case GROUP_WRITE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_153'>16</a>
+<span>
+1. toMode : Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+2. toMode : Replaced bitwise OR with AND &rarr; NO_COVERAGE<br/>
+3. toMode : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. toMode : Substituted 16 with 1 &rarr; NO_COVERAGE<br/>
+5. toMode : Substituted 16 with 0 &rarr; NO_COVERAGE<br/>
+6. toMode : Substituted 16 with -1 &rarr; NO_COVERAGE<br/>
+7. toMode : Substituted 16 with -16 &rarr; NO_COVERAGE<br/>
+8. toMode : Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+9. toMode : Substituted 16 with 15 &rarr; NO_COVERAGE<br/>
+10. toMode : Replaced integer or with and &rarr; NO_COVERAGE<br/>
+11. toMode : Replaced integer or by first member &rarr; NO_COVERAGE<br/>
+12. toMode : Replace integer or by second member &rarr; NO_COVERAGE<br/>
+13. toMode : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          result |= 0020;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case GROUP_EXECUTE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_156'/>
+156
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_156'>16</a>
+<span>
+1. toMode : Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+2. toMode : Replaced bitwise OR with AND &rarr; NO_COVERAGE<br/>
+3. toMode : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. toMode : Substituted 8 with 1 &rarr; NO_COVERAGE<br/>
+5. toMode : Substituted 8 with 0 &rarr; NO_COVERAGE<br/>
+6. toMode : Substituted 8 with -1 &rarr; NO_COVERAGE<br/>
+7. toMode : Substituted 8 with -8 &rarr; NO_COVERAGE<br/>
+8. toMode : Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+9. toMode : Substituted 8 with 7 &rarr; NO_COVERAGE<br/>
+10. toMode : Replaced integer or with and &rarr; NO_COVERAGE<br/>
+11. toMode : Replaced integer or by first member &rarr; NO_COVERAGE<br/>
+12. toMode : Replace integer or by second member &rarr; NO_COVERAGE<br/>
+13. toMode : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          result |= 0010;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OTHERS_READ:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_159'>16</a>
+<span>
+1. toMode : Incremented (a++) integer local variable number 1 &rarr; SURVIVED<br/>
+2. toMode : Decremented (a--) integer local variable number 1 &rarr; SURVIVED<br/>
+3. toMode : Substituted 4 with 5 &rarr; KILLED<br/>
+4. toMode : Replaced bitwise OR with AND &rarr; KILLED<br/>
+5. toMode : Negated integer local variable number 1 &rarr; KILLED<br/>
+6. toMode : Substituted 4 with 1 &rarr; KILLED<br/>
+7. toMode : Substituted 4 with 0 &rarr; KILLED<br/>
+8. toMode : Substituted 4 with -1 &rarr; KILLED<br/>
+9. toMode : Substituted 4 with -4 &rarr; KILLED<br/>
+10. toMode : Substituted 4 with 5 &rarr; KILLED<br/>
+11. toMode : Substituted 4 with 3 &rarr; KILLED<br/>
+12. toMode : Replaced integer or with and &rarr; KILLED<br/>
+13. toMode : Replaced integer or by first member &rarr; KILLED<br/>
+14. toMode : Replace integer or by second member &rarr; KILLED<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; KILLED<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          result |= 0004;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OTHERS_WRITE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_162'>16</a>
+<span>
+1. toMode : Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+2. toMode : Replaced bitwise OR with AND &rarr; NO_COVERAGE<br/>
+3. toMode : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. toMode : Substituted 2 with 1 &rarr; NO_COVERAGE<br/>
+5. toMode : Substituted 2 with 0 &rarr; NO_COVERAGE<br/>
+6. toMode : Substituted 2 with -1 &rarr; NO_COVERAGE<br/>
+7. toMode : Substituted 2 with -2 &rarr; NO_COVERAGE<br/>
+8. toMode : Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+9. toMode : Substituted 2 with 1 &rarr; NO_COVERAGE<br/>
+10. toMode : Replaced integer or with and &rarr; NO_COVERAGE<br/>
+11. toMode : Replaced integer or by first member &rarr; NO_COVERAGE<br/>
+12. toMode : Replace integer or by second member &rarr; NO_COVERAGE<br/>
+13. toMode : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+14. toMode : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+15. toMode : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+16. toMode : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          result |= 0002;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case OTHERS_EXECUTE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_165'/>
+165
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_165'>15</a>
+<span>
+1. toMode : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. toMode : Replaced bitwise OR with AND &rarr; NO_COVERAGE<br/>
+3. toMode : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. toMode : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. toMode : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+6. toMode : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+7. toMode : Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+8. toMode : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+9. toMode : Replaced integer or with and &rarr; NO_COVERAGE<br/>
+10. toMode : Replaced integer or by first member &rarr; NO_COVERAGE<br/>
+11. toMode : Replace integer or by second member &rarr; NO_COVERAGE<br/>
+12. toMode : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+13. toMode : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+14. toMode : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+15. toMode : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          result |= 0001;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        default:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_168'>1</a>
+<span>
+1. toMode : removed call to java/lang/AssertionError::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          throw new AssertionError(); // no other possible values</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_171'>7</a>
+<span>
+1. toMode : replaced int return with 0 for com/google/common/jimfs/UnixAttributeProvider::toMode &rarr; KILLED<br/>
+2. toMode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+3. toMode : Negated integer local variable number 1 &rarr; KILLED<br/>
+4. toMode : Incremented (a++) integer local variable number 1 &rarr; KILLED<br/>
+5. toMode : Decremented (a--) integer local variable number 1 &rarr; KILLED<br/>
+6. toMode : Incremented (++a) integer local variable number 1 &rarr; KILLED<br/>
+7. toMode : Decremented (--a) integer local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Removed assignment to member variable uidGenerator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/util/concurrent/ConcurrentHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Removed assignment to member variable idCache &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_52'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>name<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for com/google/common/jimfs/UnixAttributeProvider::name &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>name<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::name to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_57'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>inherits<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::inherits &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>inherits<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::inherits to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_62'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fixedAttributes<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::fixedAttributes &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fixedAttributes<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::fixedAttributes to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_67'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>viewType<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::viewType &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>viewType<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::viewType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_75'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>view<br/><b>Killed by : </b>none</span></span> removed call to java/lang/UnsupportedOperationException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced call to java/util/concurrent/ConcurrentMap::get with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> removed call to java/util/concurrent/ConcurrentMap::get &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::incrementAndGet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_92'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> replaced call to java/util/concurrent/ConcurrentMap::putIfAbsent with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/util/concurrent/ConcurrentMap::putIfAbsent &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_94'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> replaced Integer return value with 0 for com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::getUniqueId to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>none</span></span> replaced Integer return value with 0 for com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getUniqueId<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::getUniqueId to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_103'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/String::hashCode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 0 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 0 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 1 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 1 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 2 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 2 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 3 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 3 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 4 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 4 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 5 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 5 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 6 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 6 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 7 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 7 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Switch mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Switch mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 4 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> Substituted -1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> Substituted -1 with -2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 4 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (a--) integer local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 4 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/UnixAttributeProvider::getUniqueId &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/File::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/UnixAttributeProvider::toMode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/File::getCreationTime &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/nio/file/attribute/FileTime::fromMillis &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Long::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Long::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_121'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/File::id &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/File::links &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return value with null for com/google/common/jimfs/UnixAttributeProvider::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_125'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/common/jimfs/UnixAttributeProvider::get to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testSet(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to com/google/common/jimfs/UnixAttributeProvider::unsettable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> removed call to java/nio/file/attribute/PosixFilePermission::ordinal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 0 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 1 mutation &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> RemoveSwitch 2 mutation &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 3 mutation &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> RemoveSwitch 4 mutation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> RemoveSwitch 5 mutation &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> RemoveSwitch 6 mutation &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> RemoveSwitch 7 mutation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> RemoveSwitch 8 mutation &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Switch mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (a++) integer array field &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer array field &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer array field &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer array field &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with 257 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced bitwise OR with AND &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with -256 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with 257 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 256 with 255 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or with and &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or by first member &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (a--) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with 129 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced bitwise OR with AND &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with -128 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with 129 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 128 with 127 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or with and &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or by first member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replace integer or by second member &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (a--) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_147'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with 65 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced bitwise OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with -64 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with 65 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 64 with 63 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or with and &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or by first member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with 33 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced bitwise OR with AND &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with -32 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with 33 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 32 with 31 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or with and &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or by first member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replace integer or by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (a++) integer local variable number 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_153'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced bitwise OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with -16 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 16 with 15 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or with and &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or by first member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_156'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced bitwise OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with -8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 8 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or with and &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or by first member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced bitwise OR with AND &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with -4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Substituted 4 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or with and &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replaced integer or by first member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Replace integer or by second member &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_162'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced bitwise OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with -2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 2 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or with and &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or by first member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_165'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced bitwise OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or with and &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replaced integer or by first member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Replace integer or by second member &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_168'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>none</span></span> removed call to java/lang/AssertionError::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4ef2ab73_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4ef2ab73_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced int return with 0 for com/google/common/jimfs/UnixAttributeProvider::toMode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Negated integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (a++) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (a--) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Incremented (++a) integer local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toMode<br/><b>Killed by : </b>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest)</span></span> Decremented (--a) integer local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.common.jimfs.UnixAttributeProviderTest.testInitialAttributes(com.google.common.jimfs.UnixAttributeProviderTest) (49 ms)</li><li>com.google.common.jimfs.UnixAttributeProviderTest.testSet(com.google.common.jimfs.UnixAttributeProviderTest) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

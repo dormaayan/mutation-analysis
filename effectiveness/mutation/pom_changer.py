@@ -6,7 +6,7 @@ __license__ = "MIT"
 __email__ = "grano@ifi.uzh.ch"
 
 
-def get_pitest_maven_skeleton(class_to_mutate, test_to_run, mutator='ALL', threads=4):
+def get_pitest_maven_skeleton(class_to_mutate, test_to_run, mutator='ALL', threads=18):
     """Returns the string to inject into the pom to run the mutation analysis
 
     Arguments
@@ -21,7 +21,8 @@ def get_pitest_maven_skeleton(class_to_mutate, test_to_run, mutator='ALL', threa
     <plugin>
     <groupId>org.pitest</groupId>
     <artifactId>pitest-maven</artifactId>
-    <version>1.3.2</version>
+    <version>1.4.9</version>
+
     <configuration>
     <failWhenNoMutations>false</failWhenNoMutations>
     <targetClasses>
@@ -115,6 +116,7 @@ if __name__ == '__main__':
     class_to_mutate = sys.argv[2]
     test_to_run = sys.argv[3]
     operator = sys.argv[4]
+    operator = 'ALL'
     generate_new_pom(project=project_name,
                      class_to_mutate=class_to_mutate,
                      test_to_run=test_to_run,

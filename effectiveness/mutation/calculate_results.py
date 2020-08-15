@@ -66,6 +66,7 @@ def get_mutation_value_html(row, ret_no_mutation=False, ret_line_cov=False, path
         path = '{}/'.format(path_mutation) + row.project + '/' + row.test_name + '/**/index.html'
     else:
         path = '{}/'.format(path_mutation) + row.project + '/' + module_name + '-' + row.test_name + '/**/index.html'
+    print(path)
     mutation_file = glob.glob(path, recursive=True)
     if not mutation_file:
         # no file = no mutations
@@ -117,6 +118,7 @@ def get_number_of_mutations(path):
 
 
 if __name__ == '__main__':
-    for operator in ALL_OPERATORS:
-        calculate_results(name='results-{}'.format(operator))
+    #for operator in ALL_OPERATORS:
+    operator = 'DEFAULTS'
+    calculate_results(name='results-{}'.format(operator))
     # calculate_results()

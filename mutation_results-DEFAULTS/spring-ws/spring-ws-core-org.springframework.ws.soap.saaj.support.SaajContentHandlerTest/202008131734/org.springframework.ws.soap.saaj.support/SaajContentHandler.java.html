@@ -1,0 +1,3373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SaajContentHandler.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2005-2014 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.ws.soap.saaj.support;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.soap.Name;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.soap.SOAPElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.soap.SOAPEnvelope;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.soap.SOAPException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.xml.sax.Attributes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.xml.sax.ContentHandler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.xml.sax.Locator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.xml.sax.SAXException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.StringUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SAX {@code ContentHandler} that transforms callback calls to the creation of SAAJ {@code Node}s and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@code SOAPElement}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Arjen Poutsma</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see javax.xml.soap.Node</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see javax.xml.soap.SOAPElement</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SaajContentHandler implements ContentHandler {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private SOAPElement element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final SOAPEnvelope envelope;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_49'/>
+49
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_49'>2</a>
+<span>
+1. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable namespaces &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;private Map&#60;String, String&#62; namespaces = new LinkedHashMap&#60;String, String&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Constructs a new instance of the {@code SaajContentHandler} that creates children of the given</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@code SOAPElement}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param element the element to write to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public SaajContentHandler(SOAPElement element) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_58'>1</a>
+<span>
+1. <init> : removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.notNull(element, &#34;element must not be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_59'>8</a>
+<span>
+1. <init> : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. <init> : equal to less or equal &rarr; SURVIVED<br/>
+3. <init> : equal to greater or equal &rarr; SURVIVED<br/>
+4. <init> : negated conditional &rarr; KILLED<br/>
+5. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. <init> : equal to less than &rarr; KILLED<br/>
+7. <init> : equal to greater than &rarr; KILLED<br/>
+8. <init> : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (element instanceof SOAPEnvelope) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_60'/>
+60
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_60'>1</a>
+<span>
+1. <init> : Removed assignment to member variable envelope &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;envelope = (SOAPEnvelope) element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_63'>2</a>
+<span>
+1. <init> : removed call to org/springframework/ws/soap/saaj/support/SaajUtils::getEnvelope &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable envelope &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;envelope = SaajUtils.getEnvelope(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_65'>1</a>
+<span>
+1. <init> : Removed assignment to member variable element &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.element = element;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void characters(char ch[], int start, int length) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_71'/>
+71
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_71'>11</a>
+<span>
+1. characters : Incremented (a++) integer local variable number 2 &rarr; SURVIVED<br/>
+2. characters : Incremented (a++) integer local variable number 3 &rarr; SURVIVED<br/>
+3. characters : Decremented (a--) integer local variable number 2 &rarr; SURVIVED<br/>
+4. characters : Decremented (a--) integer local variable number 3 &rarr; SURVIVED<br/>
+5. characters : removed call to java/lang/String::&#60;init&#62; &rarr; KILLED<br/>
+6. characters : Negated integer local variable number 2 &rarr; KILLED<br/>
+7. characters : Negated integer local variable number 3 &rarr; KILLED<br/>
+8. characters : Incremented (++a) integer local variable number 2 &rarr; KILLED<br/>
+9. characters : Incremented (++a) integer local variable number 3 &rarr; KILLED<br/>
+10. characters : Decremented (--a) integer local variable number 2 &rarr; KILLED<br/>
+11. characters : Decremented (--a) integer local variable number 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;String text = new String(ch, start, length);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_72'>2</a>
+<span>
+1. characters : removed call to javax/xml/soap/SOAPElement::addTextNode &rarr; KILLED<br/>
+2. characters : replaced call to javax/xml/soap/SOAPElement::addTextNode with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;element.addTextNode(text);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;catch (SOAPException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_75'>1</a>
+<span>
+1. characters : removed call to org/xml/sax/SAXException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;throw new SAXException(ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_82'/>
+82
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_82'>2</a>
+<span>
+1. startElement : removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED<br/>
+2. startElement : replaced call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;String childPrefix = getPrefix(qName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_83'>2</a>
+<span>
+1. startElement : removed call to javax/xml/soap/SOAPElement::addChildElement &rarr; KILLED<br/>
+2. startElement : replaced call to javax/xml/soap/SOAPElement::addChildElement with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;SOAPElement child = element.addChildElement(localName, childPrefix, uri);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_84'>20</a>
+<span>
+1. startElement : changed conditional boundary &rarr; SURVIVED<br/>
+2. startElement : Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. startElement : Substituted 0 with -1 &rarr; SURVIVED<br/>
+4. startElement : greater or equal to greater than &rarr; SURVIVED<br/>
+5. startElement : greater or equal to equal &rarr; SURVIVED<br/>
+6. startElement : removed conditional - replaced comparison check with true &rarr; TIMED_OUT<br/>
+7. startElement : Negated integer local variable number 7 &rarr; TIMED_OUT<br/>
+8. startElement : Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT<br/>
+9. startElement : Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT<br/>
+10. startElement : Substituted 0 with 1 &rarr; KILLED<br/>
+11. startElement : negated conditional &rarr; KILLED<br/>
+12. startElement : removed call to org/xml/sax/Attributes::getLength &rarr; KILLED<br/>
+13. startElement : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+14. startElement : Substituted 0 with 1 &rarr; KILLED<br/>
+15. startElement : Substituted 0 with 1 &rarr; KILLED<br/>
+16. startElement : greater or equal to less than &rarr; KILLED<br/>
+17. startElement : greater or equal to less or equal &rarr; KILLED<br/>
+18. startElement : greater or equal to not equal &rarr; KILLED<br/>
+19. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+20. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;for (int i = 0; i &#60; atts.getLength(); i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_85'>15</a>
+<span>
+1. startElement : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. startElement : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+3. startElement : equal to less than &rarr; SURVIVED<br/>
+4. startElement : equal to less or equal &rarr; SURVIVED<br/>
+5. startElement : Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT<br/>
+6. startElement : negated conditional &rarr; KILLED<br/>
+7. startElement : removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED<br/>
+8. startElement : removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED<br/>
+9. startElement : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. startElement : equal to greater than &rarr; KILLED<br/>
+11. startElement : equal to greater or equal &rarr; KILLED<br/>
+12. startElement : equal to not equal &rarr; KILLED<br/>
+13. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+14. startElement : Decremented (a--) integer local variable number 7 &rarr; KILLED<br/>
+15. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;if (StringUtils.hasLength(atts.getLocalName(i))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_86'>8</a>
+<span>
+1. startElement : removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED<br/>
+2. startElement : replaced call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix with argument &rarr; KILLED<br/>
+3. startElement : removed call to org/xml/sax/Attributes::getQName &rarr; KILLED<br/>
+4. startElement : Negated integer local variable number 7 &rarr; KILLED<br/>
+5. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+6. startElement : Decremented (a--) integer local variable number 7 &rarr; KILLED<br/>
+7. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+8. startElement : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;String attributePrefix = getPrefix(atts.getQName(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_87'/>
+87
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_87'>24</a>
+<span>
+1. startElement : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+2. startElement : not equal to greater than &rarr; SURVIVED<br/>
+3. startElement : not equal to greater than &rarr; SURVIVED<br/>
+4. startElement : Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT<br/>
+5. startElement : negated conditional &rarr; KILLED<br/>
+6. startElement : negated conditional &rarr; KILLED<br/>
+7. startElement : removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED<br/>
+8. startElement : removed call to java/lang/String::equals &rarr; KILLED<br/>
+9. startElement : removed call to java/lang/String::equals &rarr; KILLED<br/>
+10. startElement : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. startElement : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. startElement : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. startElement : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+14. startElement : not equal to less than &rarr; KILLED<br/>
+15. startElement : not equal to less than &rarr; KILLED<br/>
+16. startElement : not equal to less or equal &rarr; KILLED<br/>
+17. startElement : not equal to less or equal &rarr; KILLED<br/>
+18. startElement : not equal to greater or equal &rarr; KILLED<br/>
+19. startElement : not equal to greater or equal &rarr; KILLED<br/>
+20. startElement : not equal to equal &rarr; KILLED<br/>
+21. startElement : not equal to equal &rarr; KILLED<br/>
+22. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+23. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+24. startElement : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;if (!&#34;xmlns&#34;.equals(atts.getLocalName(i)) &#38;&#38; !&#34;xmlns&#34;.equals(attributePrefix)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_88'/>
+88
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_88'>13</a>
+<span>
+1. startElement : removed call to org/xml/sax/Attributes::getURI &rarr; SURVIVED<br/>
+2. startElement : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+3. startElement : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+4. startElement : Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT<br/>
+5. startElement : Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT<br/>
+6. startElement : Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT<br/>
+7. startElement : removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED<br/>
+8. startElement : removed call to javax/xml/soap/SOAPEnvelope::createName &rarr; KILLED<br/>
+9. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+10. startElement : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+11. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+12. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+13. startElement : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;&#9;Name attributeName = envelope.createName(atts.getLocalName(i), attributePrefix, atts.getURI(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_89'>8</a>
+<span>
+1. startElement : Negated integer local variable number 7 &rarr; SURVIVED<br/>
+2. startElement : Incremented (a++) integer local variable number 7 &rarr; SURVIVED<br/>
+3. startElement : Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT<br/>
+4. startElement : Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT<br/>
+5. startElement : removed call to org/xml/sax/Attributes::getValue &rarr; KILLED<br/>
+6. startElement : removed call to javax/xml/soap/SOAPElement::addAttribute &rarr; KILLED<br/>
+7. startElement : replaced call to javax/xml/soap/SOAPElement::addAttribute with receiver &rarr; KILLED<br/>
+8. startElement : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;&#9;child.addAttribute(attributeName, atts.getValue(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_93'>1</a>
+<span>
+1. startElement : removed call to java/util/Map::keySet &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;for (String namespacePrefix : namespaces.keySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_94'>2</a>
+<span>
+1. startElement : replaced call to java/util/Map::get with argument &rarr; SURVIVED<br/>
+2. startElement : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;String namespaceUri = namespaces.get(namespacePrefix);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_95'>9</a>
+<span>
+1. startElement : negated conditional &rarr; SURVIVED<br/>
+2. startElement : removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+3. startElement : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. startElement : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. startElement : not equal to less than &rarr; SURVIVED<br/>
+6. startElement : not equal to less or equal &rarr; SURVIVED<br/>
+7. startElement : not equal to greater than &rarr; SURVIVED<br/>
+8. startElement : not equal to greater or equal &rarr; SURVIVED<br/>
+9. startElement : not equal to equal &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;if (!findParentNamespaceDeclaration(child, namespacePrefix, namespaceUri)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_96'>2</a>
+<span>
+1. startElement : removed call to javax/xml/soap/SOAPElement::addNamespaceDeclaration &rarr; SURVIVED<br/>
+2. startElement : replaced call to javax/xml/soap/SOAPElement::addNamespaceDeclaration with receiver &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;child.addNamespaceDeclaration(namespacePrefix, namespaceUri);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_99'>1</a>
+<span>
+1. startElement : Removed assignment to member variable element &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;element = child;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;catch (SOAPException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_102'>1</a>
+<span>
+1. startElement : removed call to org/xml/sax/SAXException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;throw new SAXException(ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private boolean findParentNamespaceDeclaration(SOAPElement element, String prefix, String namespaceUri) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_107'>2</a>
+<span>
+1. findParentNamespaceDeclaration : replaced call to javax/xml/soap/SOAPElement::getNamespaceURI with argument &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : removed call to javax/xml/soap/SOAPElement::getNamespaceURI &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;String result = element.getNamespaceURI(prefix);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_108'>9</a>
+<span>
+1. findParentNamespaceDeclaration : negated conditional &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+3. findParentNamespaceDeclaration : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. findParentNamespaceDeclaration : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. findParentNamespaceDeclaration : equal to less than &rarr; SURVIVED<br/>
+6. findParentNamespaceDeclaration : equal to less or equal &rarr; SURVIVED<br/>
+7. findParentNamespaceDeclaration : equal to greater than &rarr; SURVIVED<br/>
+8. findParentNamespaceDeclaration : equal to greater or equal &rarr; SURVIVED<br/>
+9. findParentNamespaceDeclaration : equal to not equal &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (namespaceUri.equals(result)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_109'>8</a>
+<span>
+1. findParentNamespaceDeclaration : replaced boolean return with false for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : Substituted 1 with 0 &rarr; SURVIVED<br/>
+3. findParentNamespaceDeclaration : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+4. findParentNamespaceDeclaration : Substituted 1 with 0 &rarr; SURVIVED<br/>
+5. findParentNamespaceDeclaration : Substituted 1 with -1 &rarr; SURVIVED<br/>
+6. findParentNamespaceDeclaration : Substituted 1 with -1 &rarr; SURVIVED<br/>
+7. findParentNamespaceDeclaration : Substituted 1 with 2 &rarr; SURVIVED<br/>
+8. findParentNamespaceDeclaration : Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_113'>2</a>
+<span>
+1. findParentNamespaceDeclaration : removed call to javax/xml/soap/SOAPElement::getParentElement &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : replaced call to javax/xml/soap/SOAPElement::getParentElement with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;SOAPElement parent = element.getParentElement();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_114'>4</a>
+<span>
+1. findParentNamespaceDeclaration : negated conditional &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. findParentNamespaceDeclaration : equal to not equal &rarr; SURVIVED<br/>
+4. findParentNamespaceDeclaration : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;if (parent != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_115'/>
+115
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_115'>4</a>
+<span>
+1. findParentNamespaceDeclaration : replaced boolean return with false for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : replaced boolean return with true for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+3. findParentNamespaceDeclaration : removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+4. findParentNamespaceDeclaration : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;return findParentNamespaceDeclaration(parent, prefix, namespaceUri);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;catch (UnsupportedOperationException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;// ignore</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_121'>7</a>
+<span>
+1. findParentNamespaceDeclaration : replaced boolean return with true for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED<br/>
+2. findParentNamespaceDeclaration : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. findParentNamespaceDeclaration : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+4. findParentNamespaceDeclaration : Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. findParentNamespaceDeclaration : Substituted 0 with -1 &rarr; SURVIVED<br/>
+6. findParentNamespaceDeclaration : Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. findParentNamespaceDeclaration : Substituted 0 with -1 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void endElement(String uri, String localName, String qName) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_127'>4</a>
+<span>
+1. endElement : removed call to org/springframework/util/Assert::isTrue &rarr; SURVIVED<br/>
+2. endElement : removed call to javax/xml/soap/SOAPElement::getElementName &rarr; KILLED<br/>
+3. endElement : removed call to javax/xml/soap/Name::getLocalName &rarr; KILLED<br/>
+4. endElement : removed call to java/lang/String::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.isTrue(localName.equals(element.getElementName().getLocalName()), &#34;Invalid element on stack&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_128'/>
+128
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_128'>4</a>
+<span>
+1. endElement : removed call to org/springframework/util/Assert::isTrue &rarr; SURVIVED<br/>
+2. endElement : removed call to javax/xml/soap/SOAPElement::getElementName &rarr; KILLED<br/>
+3. endElement : removed call to javax/xml/soap/Name::getURI &rarr; KILLED<br/>
+4. endElement : removed call to java/lang/String::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Assert.isTrue(uri.equals(element.getElementName().getURI()), &#34;Invalid element on stack&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_129'>3</a>
+<span>
+1. endElement : removed call to javax/xml/soap/SOAPElement::getParentElement &rarr; KILLED<br/>
+2. endElement : Removed assignment to member variable element &rarr; KILLED<br/>
+3. endElement : replaced call to javax/xml/soap/SOAPElement::getParentElement with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;element = element.getParentElement();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void startPrefixMapping(String prefix, String uri) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_134'>2</a>
+<span>
+1. startPrefixMapping : replaced call to java/util/Map::put with argument &rarr; SURVIVED<br/>
+2. startPrefixMapping : removed call to java/util/Map::put &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;namespaces.put(prefix, uri);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void endPrefixMapping(String prefix) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_139'>2</a>
+<span>
+1. endPrefixMapping : replaced call to java/util/Map::remove with argument &rarr; SURVIVED<br/>
+2. endPrefixMapping : removed call to java/util/Map::remove &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;namespaces.remove(prefix);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setDocumentLocator(Locator locator) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void startDocument() throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void endDocument() throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void ignorableWhitespace(char ch[], int start, int length) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void processingInstruction(String target, String data) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void skippedEntity(String name) throws SAXException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private String getPrefix(String qName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_167'/>
+167
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_167'>9</a>
+<span>
+1. getPrefix : Substituted 58 with 59 &rarr; SURVIVED<br/>
+2. getPrefix : removed call to java/lang/String::indexOf &rarr; SURVIVED<br/>
+3. getPrefix : Substituted 58 with 1 &rarr; SURVIVED<br/>
+4. getPrefix : Substituted 58 with 0 &rarr; SURVIVED<br/>
+5. getPrefix : Substituted 58 with -1 &rarr; SURVIVED<br/>
+6. getPrefix : Substituted 58 with -58 &rarr; SURVIVED<br/>
+7. getPrefix : Substituted 58 with 59 &rarr; SURVIVED<br/>
+8. getPrefix : Substituted 58 with 57 &rarr; SURVIVED<br/>
+9. getPrefix : replaced call to java/lang/String::indexOf with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;int idx = qName.indexOf(&#39;:&#39;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_168'>19</a>
+<span>
+1. getPrefix : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getPrefix : equal to less or equal &rarr; SURVIVED<br/>
+3. getPrefix : equal to greater or equal &rarr; SURVIVED<br/>
+4. getPrefix : Substituted -1 with 0 &rarr; KILLED<br/>
+5. getPrefix : negated conditional &rarr; KILLED<br/>
+6. getPrefix : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. getPrefix : Negated integer local variable number 2 &rarr; KILLED<br/>
+8. getPrefix : Substituted -1 with 1 &rarr; KILLED<br/>
+9. getPrefix : Substituted -1 with 0 &rarr; KILLED<br/>
+10. getPrefix : Substituted -1 with 1 &rarr; KILLED<br/>
+11. getPrefix : Substituted -1 with 0 &rarr; KILLED<br/>
+12. getPrefix : Substituted -1 with -2 &rarr; KILLED<br/>
+13. getPrefix : equal to less than &rarr; KILLED<br/>
+14. getPrefix : equal to greater than &rarr; KILLED<br/>
+15. getPrefix : equal to not equal &rarr; KILLED<br/>
+16. getPrefix : Incremented (a++) integer local variable number 2 &rarr; KILLED<br/>
+17. getPrefix : Decremented (a--) integer local variable number 2 &rarr; KILLED<br/>
+18. getPrefix : Incremented (++a) integer local variable number 2 &rarr; KILLED<br/>
+19. getPrefix : Decremented (--a) integer local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (idx != -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_169'>14</a>
+<span>
+1. getPrefix : replaced return value with &#34;&#34; for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED<br/>
+2. getPrefix : removed call to java/lang/String::substring &rarr; SURVIVED<br/>
+3. getPrefix : mutated return of Object value for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+4. getPrefix : Incremented (a++) integer local variable number 2 &rarr; SURVIVED<br/>
+5. getPrefix : Decremented (a--) integer local variable number 2 &rarr; SURVIVED<br/>
+6. getPrefix : Substituted 0 with 1 &rarr; KILLED<br/>
+7. getPrefix : replaced call to java/lang/String::substring with receiver &rarr; KILLED<br/>
+8. getPrefix : Negated integer local variable number 2 &rarr; KILLED<br/>
+9. getPrefix : Substituted 0 with 1 &rarr; KILLED<br/>
+10. getPrefix : Substituted 0 with -1 &rarr; KILLED<br/>
+11. getPrefix : Substituted 0 with 1 &rarr; KILLED<br/>
+12. getPrefix : Substituted 0 with -1 &rarr; KILLED<br/>
+13. getPrefix : Incremented (++a) integer local variable number 2 &rarr; KILLED<br/>
+14. getPrefix : Decremented (--a) integer local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return qName.substring(0, idx);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_172'>2</a>
+<span>
+1. getPrefix : replaced return value with &#34;&#34; for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED<br/>
+2. getPrefix : mutated return of Object value for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@15405bd6_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Removed assignment to member variable namespaces &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_58'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::notNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_60'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable envelope &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/springframework/ws/soap/saaj/support/SaajUtils::getEnvelope &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Removed assignment to member variable envelope &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Removed assignment to member variable element &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/lang/String::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Negated integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Negated integer local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 3 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::addTextNode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to javax/xml/soap/SOAPElement::addTextNode with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_75'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>characters<br/><b>Killed by : </b>none</span></span> removed call to org/xml/sax/SAXException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::addChildElement &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to javax/xml/soap/SOAPElement::addChildElement with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_84'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getLength &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> greater or equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> greater or equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> greater or equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> greater or equal to equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> greater or equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (a--) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getQName &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (a--) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getLocalName &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to org/xml/sax/Attributes::getURI &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPEnvelope::createName &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to org/xml/sax/Attributes::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::addAttribute &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to javax/xml/soap/SOAPElement::addAttribute with receiver &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 7 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 7 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/util/Map::keySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_94'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_95'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> not equal to equal &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_96'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to javax/xml/soap/SOAPElement::addNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> replaced call to javax/xml/soap/SOAPElement::addNamespaceDeclaration with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Removed assignment to member variable element &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_102'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startElement<br/><b>Killed by : </b>none</span></span> removed call to org/xml/sax/SAXException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_107'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced call to javax/xml/soap/SOAPElement::getNamespaceURI with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed call to javax/xml/soap/SOAPElement::getNamespaceURI &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_108'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to not equal &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_109'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed call to javax/xml/soap/SOAPElement::getParentElement &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to javax/xml/soap/SOAPElement::getParentElement with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_114'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> equal to not equal &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_115'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_121'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/soap/saaj/support/SaajContentHandler::findParentNamespaceDeclaration &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>findParentNamespaceDeclaration<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::getElementName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/Name::getLocalName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::isTrue &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::getElementName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/Name::getURI &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/Assert::isTrue &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed call to javax/xml/soap/SOAPElement::getParentElement &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Removed assignment to member variable element &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>endElement<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to javax/xml/soap/SOAPElement::getParentElement with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_134'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>startPrefixMapping<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::put with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>startPrefixMapping<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::put &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_139'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>endPrefixMapping<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::remove with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>endPrefixMapping<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::remove &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to java/lang/String::indexOf with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with 59 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::indexOf &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with -58 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with 59 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Substituted 58 with 57 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Negated integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted -1 with -2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (a++) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (a--) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_169'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::substring &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> replaced call to java/lang/String::substring with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Negated integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Incremented (++a) integer local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> Decremented (--a) integer local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@15405bd6_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@15405bd6_172'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPrefix<br/><b>Killed by : </b>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest)</span></span> mutated return of Object value for org/springframework/ws/soap/saaj/support/SaajContentHandler::getPrefix to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.ws.soap.saaj.support.SaajContentHandlerTest.testHandler(org.springframework.ws.soap.saaj.support.SaajContentHandlerTest) (92 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

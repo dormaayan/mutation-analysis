@@ -1,0 +1,4322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>JimfsAsynchronousFileChannel.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2013 Google Inc.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.common.jimfs;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkArgument;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.util.concurrent.ListenableFuture;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.util.concurrent.ListeningExecutorService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.util.concurrent.MoreExecutors;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.util.concurrent.SettableFuture;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.ByteBuffer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.channels.AsynchronousFileChannel;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.channels.ClosedChannelException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.channels.CompletionHandler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.channels.FileLock;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.Callable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ExecutionException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ExecutorService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.annotation.Nullable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@link AsynchronousFileChannel} implementation that delegates to a {@link JimfsFileChannel}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Colin Decker</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>final class JimfsAsynchronousFileChannel extends AsynchronousFileChannel {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final JimfsFileChannel channel;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final ListeningExecutorService executor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public JimfsAsynchronousFileChannel(JimfsFileChannel channel, ExecutorService executor) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_50'/>
+50
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_50'>3</a>
+<span>
+1. <init> : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. <init> : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; KILLED<br/>
+3. <init> : Removed assignment to member variable channel &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    this.channel = checkNotNull(channel);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_51'/>
+51
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_51'>2</a>
+<span>
+1. <init> : removed call to com/google/common/util/concurrent/MoreExecutors::listeningDecorator &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable executor &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.executor = MoreExecutors.listeningDecorator(executor);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public long size() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_56'>3</a>
+<span>
+1. size : removed call to com/google/common/jimfs/JimfsFileChannel::size &rarr; KILLED<br/>
+2. size : replaced long return with 0 for com/google/common/jimfs/JimfsAsynchronousFileChannel::size &rarr; KILLED<br/>
+3. size : replaced return of long value with value + 1 for com/google/common/jimfs/JimfsAsynchronousFileChannel::size &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return channel.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private &#60;R, A&#62; void addCallback(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ListenableFuture&#60;R&#62; future, CompletionHandler&#60;R, ? super A&#62; handler, @Nullable A attachment) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_61'/>
+61
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_61'>2</a>
+<span>
+1. addCallback : removed call to com/google/common/util/concurrent/ListenableFuture::addListener &rarr; TIMED_OUT<br/>
+2. addCallback : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$CompletionHandlerCallback::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    future.addListener(new CompletionHandlerCallback&#60;&#62;(future, handler, attachment), executor);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public AsynchronousFileChannel truncate(long size) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_66'/>
+66
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_66'>6</a>
+<span>
+1. truncate : Incremented (a++) long local variable number 1 &rarr; SURVIVED<br/>
+2. truncate : Decremented (a--) long local variable number 1 &rarr; SURVIVED<br/>
+3. truncate : removed call to com/google/common/jimfs/JimfsFileChannel::truncate &rarr; KILLED<br/>
+4. truncate : Negated long local variable number 1 &rarr; KILLED<br/>
+5. truncate : Incremented (++a) long local variable number 1 &rarr; KILLED<br/>
+6. truncate : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    channel.truncate(size);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_67'/>
+67
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_67'>2</a>
+<span>
+1. truncate : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::truncate &rarr; KILLED<br/>
+2. truncate : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::truncate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void force(boolean metaData) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_72'/>
+72
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_72'>6</a>
+<span>
+1. force : removed call to com/google/common/jimfs/JimfsFileChannel::force &rarr; NO_COVERAGE<br/>
+2. force : Negated integer local variable number 1 &rarr; NO_COVERAGE<br/>
+3. force : Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+4. force : Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+5. force : Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+6. force : Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    channel.force(metaData);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public &#60;A&#62; void lock(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      long position,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      long size,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      boolean shared,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Nullable A attachment,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      CompletionHandler&#60;FileLock, ? super A&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_82'/>
+82
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_82'>2</a>
+<span>
+1. lock : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. lock : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkNotNull(handler);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_83'>17</a>
+<span>
+1. lock : Negated long local variable number 1 &rarr; SURVIVED<br/>
+2. lock : Negated integer local variable number 5 &rarr; SURVIVED<br/>
+3. lock : Incremented (a++) long local variable number 1 &rarr; SURVIVED<br/>
+4. lock : Incremented (a++) long local variable number 3 &rarr; SURVIVED<br/>
+5. lock : Incremented (a++) integer local variable number 5 &rarr; SURVIVED<br/>
+6. lock : Decremented (a--) long local variable number 1 &rarr; SURVIVED<br/>
+7. lock : Decremented (a--) long local variable number 3 &rarr; SURVIVED<br/>
+8. lock : Decremented (a--) integer local variable number 5 &rarr; SURVIVED<br/>
+9. lock : Incremented (++a) long local variable number 1 &rarr; SURVIVED<br/>
+10. lock : Incremented (++a) long local variable number 3 &rarr; SURVIVED<br/>
+11. lock : Incremented (++a) integer local variable number 5 &rarr; SURVIVED<br/>
+12. lock : Decremented (--a) long local variable number 3 &rarr; SURVIVED<br/>
+13. lock : Decremented (--a) integer local variable number 5 &rarr; SURVIVED<br/>
+14. lock : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT<br/>
+15. lock : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED<br/>
+16. lock : Negated long local variable number 3 &rarr; KILLED<br/>
+17. lock : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    addCallback(lock(position, size, shared), handler, attachment);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ListenableFuture&#60;FileLock&#62; lock(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      final long position, final long size, final boolean shared) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_89'>6</a>
+<span>
+1. lock : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. lock : Negated long local variable number 1 &rarr; SURVIVED<br/>
+3. lock : Incremented (a++) long local variable number 1 &rarr; KILLED<br/>
+4. lock : Decremented (a--) long local variable number 1 &rarr; KILLED<br/>
+5. lock : Incremented (++a) long local variable number 1 &rarr; KILLED<br/>
+6. lock : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(position, &#34;position&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_90'>6</a>
+<span>
+1. lock : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. lock : Decremented (a--) long local variable number 3 &rarr; SURVIVED<br/>
+3. lock : Decremented (--a) long local variable number 3 &rarr; SURVIVED<br/>
+4. lock : Negated long local variable number 3 &rarr; KILLED<br/>
+5. lock : Incremented (a++) long local variable number 3 &rarr; KILLED<br/>
+6. lock : Incremented (++a) long local variable number 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(size, &#34;size&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_91'>9</a>
+<span>
+1. lock : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. lock : not equal to greater than &rarr; SURVIVED<br/>
+3. lock : not equal to greater or equal &rarr; SURVIVED<br/>
+4. lock : negated conditional &rarr; KILLED<br/>
+5. lock : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED<br/>
+6. lock : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. lock : not equal to less than &rarr; KILLED<br/>
+8. lock : not equal to less or equal &rarr; KILLED<br/>
+9. lock : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!isOpen()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_92'>3</a>
+<span>
+1. lock : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED<br/>
+2. lock : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED<br/>
+3. lock : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return closedChannelFuture();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_94'>13</a>
+<span>
+1. lock : negated conditional &rarr; SURVIVED<br/>
+2. lock : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. lock : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. lock : Negated integer local variable number 5 &rarr; SURVIVED<br/>
+5. lock : equal to less than &rarr; SURVIVED<br/>
+6. lock : equal to less or equal &rarr; SURVIVED<br/>
+7. lock : equal to greater than &rarr; SURVIVED<br/>
+8. lock : equal to greater or equal &rarr; SURVIVED<br/>
+9. lock : equal to not equal &rarr; SURVIVED<br/>
+10. lock : Incremented (a++) integer local variable number 5 &rarr; SURVIVED<br/>
+11. lock : Decremented (a--) integer local variable number 5 &rarr; SURVIVED<br/>
+12. lock : Incremented (++a) integer local variable number 5 &rarr; SURVIVED<br/>
+13. lock : Decremented (--a) integer local variable number 5 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (shared) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_95'>1</a>
+<span>
+1. lock : removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      channel.checkReadable();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_97'>1</a>
+<span>
+1. lock : removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      channel.checkWritable();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_99'>19</a>
+<span>
+1. lock : Negated long local variable number 1 &rarr; SURVIVED<br/>
+2. lock : Negated integer local variable number 5 &rarr; SURVIVED<br/>
+3. lock : Incremented (a++) long local variable number 1 &rarr; SURVIVED<br/>
+4. lock : Incremented (a++) long local variable number 3 &rarr; SURVIVED<br/>
+5. lock : Incremented (a++) integer local variable number 5 &rarr; SURVIVED<br/>
+6. lock : Decremented (a--) long local variable number 1 &rarr; SURVIVED<br/>
+7. lock : Decremented (a--) long local variable number 3 &rarr; SURVIVED<br/>
+8. lock : Decremented (a--) integer local variable number 5 &rarr; SURVIVED<br/>
+9. lock : Incremented (++a) integer local variable number 5 &rarr; SURVIVED<br/>
+10. lock : Decremented (--a) long local variable number 3 &rarr; SURVIVED<br/>
+11. lock : Decremented (--a) integer local variable number 5 &rarr; SURVIVED<br/>
+12. lock : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$1::&#60;init&#62; &rarr; KILLED<br/>
+13. lock : removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED<br/>
+14. lock : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED<br/>
+15. lock : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+16. lock : Negated long local variable number 3 &rarr; KILLED<br/>
+17. lock : Incremented (++a) long local variable number 1 &rarr; KILLED<br/>
+18. lock : Incremented (++a) long local variable number 3 &rarr; KILLED<br/>
+19. lock : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return executor.submit(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        new Callable&#60;FileLock&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          public FileLock call() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            return tryLock(position, size, shared);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public FileLock tryLock(long position, long size, boolean shared) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_110'>6</a>
+<span>
+1. tryLock : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. tryLock : Negated long local variable number 1 &rarr; SURVIVED<br/>
+3. tryLock : Incremented (a++) long local variable number 1 &rarr; KILLED<br/>
+4. tryLock : Decremented (a--) long local variable number 1 &rarr; KILLED<br/>
+5. tryLock : Incremented (++a) long local variable number 1 &rarr; KILLED<br/>
+6. tryLock : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(position, &#34;position&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_111'>6</a>
+<span>
+1. tryLock : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. tryLock : Decremented (a--) long local variable number 3 &rarr; SURVIVED<br/>
+3. tryLock : Decremented (--a) long local variable number 3 &rarr; SURVIVED<br/>
+4. tryLock : Negated long local variable number 3 &rarr; KILLED<br/>
+5. tryLock : Incremented (a++) long local variable number 3 &rarr; KILLED<br/>
+6. tryLock : Incremented (++a) long local variable number 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(size, &#34;size&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_112'>1</a>
+<span>
+1. tryLock : removed call to com/google/common/jimfs/JimfsFileChannel::checkOpen &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    channel.checkOpen();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_113'>13</a>
+<span>
+1. tryLock : negated conditional &rarr; SURVIVED<br/>
+2. tryLock : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. tryLock : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. tryLock : Negated integer local variable number 5 &rarr; SURVIVED<br/>
+5. tryLock : equal to less than &rarr; SURVIVED<br/>
+6. tryLock : equal to less or equal &rarr; SURVIVED<br/>
+7. tryLock : equal to greater than &rarr; SURVIVED<br/>
+8. tryLock : equal to greater or equal &rarr; SURVIVED<br/>
+9. tryLock : equal to not equal &rarr; SURVIVED<br/>
+10. tryLock : Incremented (a++) integer local variable number 5 &rarr; SURVIVED<br/>
+11. tryLock : Decremented (a--) integer local variable number 5 &rarr; SURVIVED<br/>
+12. tryLock : Incremented (++a) integer local variable number 5 &rarr; SURVIVED<br/>
+13. tryLock : Decremented (--a) integer local variable number 5 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (shared) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_114'>1</a>
+<span>
+1. tryLock : removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      channel.checkReadable();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_116'>1</a>
+<span>
+1. tryLock : removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      channel.checkWritable();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_118'>18</a>
+<span>
+1. tryLock : Negated long local variable number 1 &rarr; SURVIVED<br/>
+2. tryLock : Negated integer local variable number 5 &rarr; SURVIVED<br/>
+3. tryLock : Incremented (a++) long local variable number 1 &rarr; SURVIVED<br/>
+4. tryLock : Incremented (a++) long local variable number 3 &rarr; SURVIVED<br/>
+5. tryLock : Incremented (a++) integer local variable number 5 &rarr; SURVIVED<br/>
+6. tryLock : Decremented (a--) long local variable number 1 &rarr; SURVIVED<br/>
+7. tryLock : Decremented (a--) long local variable number 3 &rarr; SURVIVED<br/>
+8. tryLock : Decremented (a--) integer local variable number 5 &rarr; SURVIVED<br/>
+9. tryLock : Incremented (++a) integer local variable number 5 &rarr; SURVIVED<br/>
+10. tryLock : Decremented (--a) long local variable number 3 &rarr; SURVIVED<br/>
+11. tryLock : Decremented (--a) integer local variable number 5 &rarr; SURVIVED<br/>
+12. tryLock : removed call to com/google/common/jimfs/JimfsFileChannel$FakeFileLock::&#60;init&#62; &rarr; KILLED<br/>
+13. tryLock : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::tryLock &rarr; KILLED<br/>
+14. tryLock : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::tryLock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+15. tryLock : Negated long local variable number 3 &rarr; KILLED<br/>
+16. tryLock : Incremented (++a) long local variable number 1 &rarr; KILLED<br/>
+17. tryLock : Incremented (++a) long local variable number 3 &rarr; KILLED<br/>
+18. tryLock : Decremented (--a) long local variable number 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return new JimfsFileChannel.FakeFileLock(this, position, size, shared);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public &#60;A&#62; void read(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ByteBuffer dst,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      long position,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Nullable A attachment,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      CompletionHandler&#60;Integer, ? super A&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_127'>7</a>
+<span>
+1. read : Negated long local variable number 2 &rarr; SURVIVED<br/>
+2. read : Incremented (a++) long local variable number 2 &rarr; SURVIVED<br/>
+3. read : Decremented (a--) long local variable number 2 &rarr; SURVIVED<br/>
+4. read : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT<br/>
+5. read : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED<br/>
+6. read : Incremented (++a) long local variable number 2 &rarr; KILLED<br/>
+7. read : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    addCallback(read(dst, position), handler, attachment);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ListenableFuture&#60;Integer&#62; read(final ByteBuffer dst, final long position) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_132'/>
+132
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_132'>21</a>
+<span>
+1. read : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. read : removed call to java/nio/ByteBuffer::isReadOnly &rarr; SURVIVED<br/>
+3. read : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. read : removed call to com/google/common/base/Preconditions::checkArgument &rarr; SURVIVED<br/>
+5. read : Substituted 0 with 1 &rarr; SURVIVED<br/>
+6. read : Substituted 1 with -1 &rarr; SURVIVED<br/>
+7. read : Substituted 0 with -1 &rarr; SURVIVED<br/>
+8. read : Substituted 1 with -1 &rarr; SURVIVED<br/>
+9. read : Substituted 1 with 2 &rarr; SURVIVED<br/>
+10. read : Substituted 0 with 1 &rarr; SURVIVED<br/>
+11. read : Substituted 0 with -1 &rarr; SURVIVED<br/>
+12. read : not equal to less than &rarr; SURVIVED<br/>
+13. read : not equal to greater than &rarr; SURVIVED<br/>
+14. read : Substituted 1 with 0 &rarr; KILLED<br/>
+15. read : negated conditional &rarr; KILLED<br/>
+16. read : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+17. read : Substituted 1 with 0 &rarr; KILLED<br/>
+18. read : Substituted 1 with 0 &rarr; KILLED<br/>
+19. read : not equal to less or equal &rarr; KILLED<br/>
+20. read : not equal to greater or equal &rarr; KILLED<br/>
+21. read : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkArgument(!dst.isReadOnly(), &#34;dst may not be read-only&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_133'/>
+133
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_133'>6</a>
+<span>
+1. read : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. read : Negated long local variable number 2 &rarr; SURVIVED<br/>
+3. read : Incremented (a++) long local variable number 2 &rarr; KILLED<br/>
+4. read : Decremented (a--) long local variable number 2 &rarr; KILLED<br/>
+5. read : Incremented (++a) long local variable number 2 &rarr; KILLED<br/>
+6. read : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(position, &#34;position&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_134'>9</a>
+<span>
+1. read : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. read : not equal to greater than &rarr; SURVIVED<br/>
+3. read : not equal to greater or equal &rarr; SURVIVED<br/>
+4. read : negated conditional &rarr; KILLED<br/>
+5. read : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED<br/>
+6. read : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. read : not equal to less than &rarr; KILLED<br/>
+8. read : not equal to less or equal &rarr; KILLED<br/>
+9. read : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!isOpen()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_135'>3</a>
+<span>
+1. read : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED<br/>
+2. read : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED<br/>
+3. read : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::read to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return closedChannelFuture();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_137'>1</a>
+<span>
+1. read : removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    channel.checkReadable();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_138'>9</a>
+<span>
+1. read : Negated long local variable number 2 &rarr; SURVIVED<br/>
+2. read : Incremented (a++) long local variable number 2 &rarr; SURVIVED<br/>
+3. read : Decremented (a--) long local variable number 2 &rarr; SURVIVED<br/>
+4. read : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$2::&#60;init&#62; &rarr; KILLED<br/>
+5. read : removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED<br/>
+6. read : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED<br/>
+7. read : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::read to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+8. read : Incremented (++a) long local variable number 2 &rarr; KILLED<br/>
+9. read : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return executor.submit(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        new Callable&#60;Integer&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          public Integer call() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            return channel.read(dst, position);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public &#60;A&#62; void write(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ByteBuffer src,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      long position,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Nullable A attachment,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      CompletionHandler&#60;Integer, ? super A&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_153'>7</a>
+<span>
+1. write : Negated long local variable number 2 &rarr; SURVIVED<br/>
+2. write : Incremented (a++) long local variable number 2 &rarr; SURVIVED<br/>
+3. write : Decremented (a--) long local variable number 2 &rarr; SURVIVED<br/>
+4. write : Incremented (++a) long local variable number 2 &rarr; SURVIVED<br/>
+5. write : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT<br/>
+6. write : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED<br/>
+7. write : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    addCallback(write(src, position), handler, attachment);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ListenableFuture&#60;Integer&#62; write(final ByteBuffer src, final long position) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_158'>6</a>
+<span>
+1. write : removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED<br/>
+2. write : Incremented (a++) long local variable number 2 &rarr; SURVIVED<br/>
+3. write : Incremented (++a) long local variable number 2 &rarr; SURVIVED<br/>
+4. write : Negated long local variable number 2 &rarr; KILLED<br/>
+5. write : Decremented (a--) long local variable number 2 &rarr; KILLED<br/>
+6. write : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Util.checkNotNegative(position, &#34;position&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_159'>9</a>
+<span>
+1. write : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. write : not equal to greater than &rarr; SURVIVED<br/>
+3. write : not equal to greater or equal &rarr; SURVIVED<br/>
+4. write : negated conditional &rarr; KILLED<br/>
+5. write : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED<br/>
+6. write : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. write : not equal to less than &rarr; KILLED<br/>
+8. write : not equal to less or equal &rarr; KILLED<br/>
+9. write : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!isOpen()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_160'>3</a>
+<span>
+1. write : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED<br/>
+2. write : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED<br/>
+3. write : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::write to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return closedChannelFuture();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_162'>1</a>
+<span>
+1. write : removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    channel.checkWritable();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_163'>9</a>
+<span>
+1. write : Negated long local variable number 2 &rarr; SURVIVED<br/>
+2. write : Incremented (a++) long local variable number 2 &rarr; SURVIVED<br/>
+3. write : Decremented (a--) long local variable number 2 &rarr; SURVIVED<br/>
+4. write : Incremented (++a) long local variable number 2 &rarr; SURVIVED<br/>
+5. write : removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$3::&#60;init&#62; &rarr; KILLED<br/>
+6. write : removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED<br/>
+7. write : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED<br/>
+8. write : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::write to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+9. write : Decremented (--a) long local variable number 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return executor.submit(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        new Callable&#60;Integer&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          public Integer call() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            return channel.write(src, position);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean isOpen() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_174'>4</a>
+<span>
+1. isOpen : replaced boolean return with false for com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED<br/>
+2. isOpen : replaced boolean return with true for com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED<br/>
+3. isOpen : removed call to com/google/common/jimfs/JimfsFileChannel::isOpen &rarr; KILLED<br/>
+4. isOpen : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return channel.isOpen();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void close() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_179'>1</a>
+<span>
+1. close : removed call to com/google/common/jimfs/JimfsFileChannel::close &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    channel.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Immediate future indicating that the channel is closed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static &#60;V&#62; ListenableFuture&#60;V&#62; closedChannelFuture() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_186'>1</a>
+<span>
+1. closedChannelFuture : removed call to com/google/common/util/concurrent/SettableFuture::create &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    SettableFuture&#60;V&#62; future = SettableFuture.create();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_187'/>
+187
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_187'>2</a>
+<span>
+1. closedChannelFuture : removed call to com/google/common/util/concurrent/SettableFuture::setException &rarr; TIMED_OUT<br/>
+2. closedChannelFuture : removed call to java/nio/channels/ClosedChannelException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    future.setException(new ClosedChannelException());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_188'>2</a>
+<span>
+1. closedChannelFuture : replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED<br/>
+2. closedChannelFuture : mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return future;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Runnable callback that wraps a {@link CompletionHandler} and an attachment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static final class CompletionHandlerCallback&#60;R, A&#62; implements Runnable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final ListenableFuture&#60;R&#62; future;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final CompletionHandler&#60;R, ? super A&#62; completionHandler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Nullable private final A attachment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private CompletionHandlerCallback(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ListenableFuture&#60;R&#62; future,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        CompletionHandler&#60;R, ? super A&#62; completionHandler,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Nullable A attachment) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.future = checkNotNull(future);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.completionHandler = checkNotNull(completionHandler);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.attachment = attachment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void run() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      R result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      try {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        result = future.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } catch (ExecutionException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        onFailure(e.getCause());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } catch (InterruptedException | RuntimeException | Error e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // get() shouldn&#39;t be interrupted since this should only be called when the result is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // ready, but just handle it anyway to be sure and to satisfy the compiler</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        onFailure(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      onSuccess(result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void onSuccess(R result) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      completionHandler.completed(result, attachment);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void onFailure(Throwable t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      completionHandler.failed(t, attachment);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b353651_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_50'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Removed assignment to member variable channel &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/util/concurrent/MoreExecutors::listeningDecorator &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Removed assignment to member variable executor &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced long return with 0 for com/google/common/jimfs/JimfsAsynchronousFileChannel::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return of long value with value + 1 for com/google/common/jimfs/JimfsAsynchronousFileChannel::size &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addCallback<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$CompletionHandlerCallback::&#60;init&#62; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addCallback<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/util/concurrent/ListenableFuture::addListener &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::truncate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::truncate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>truncate<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::truncate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_72'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::force &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>force<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_82'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (++a) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (++a) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 5 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 5 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_89'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (a++) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (a--) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_90'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (a++) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) long local variable number 3 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_94'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> equal to not equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 5 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_95'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$1::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::lock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 5 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 5 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>lock<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 5 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_110'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Negated long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (a++) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (a--) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_111'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (a++) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (--a) long local variable number 3 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_112'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkOpen &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> equal to not equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 5 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_114'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_116'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsFileChannel$FakeFileLock::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::tryLock &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::tryLock to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Negated long local variable number 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 5 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Incremented (++a) integer local variable number 5 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (--a) long local variable number 3 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>tryLock<br/><b>Killed by : </b>none</span></span> Decremented (--a) integer local variable number 5 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Negated long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to java/nio/ByteBuffer::isReadOnly &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkArgument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_133'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Negated long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (a++) long local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (a--) long local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::read to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_137'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkReadable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$2::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::read &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::read to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Negated long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Incremented (++a) long local variable number 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>read<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::addCallback &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Negated long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (++a) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_158'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/Util::checkNotNegative &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Negated long local variable number 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (a--) long local variable number 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (++a) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::write to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_162'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::checkWritable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsAsynchronousFileChannel$3::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/util/concurrent/ListeningExecutorService::submit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::write &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::write to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Negated long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (a++) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Decremented (a--) long local variable number 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>write<br/><b>Killed by : </b>none</span></span> Incremented (++a) long local variable number 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> Decremented (--a) long local variable number 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isOpen<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced boolean return with false for com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isOpen<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced boolean return with true for com/google/common/jimfs/JimfsAsynchronousFileChannel::isOpen &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isOpen<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::isOpen &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isOpen<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>close<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/jimfs/JimfsFileChannel::close &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>closedChannelFuture<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to com/google/common/util/concurrent/SettableFuture::create &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>closedChannelFuture<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> removed call to java/nio/channels/ClosedChannelException::&#60;init&#62; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>closedChannelFuture<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/util/concurrent/SettableFuture::setException &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b353651_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b353651_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>closedChannelFuture<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> replaced return value with null for com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>closedChannelFuture<br/><b>Killed by : </b>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest)</span></span> mutated return of Object value for com/google/common/jimfs/JimfsAsynchronousFileChannel::closedChannelFuture to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_write(com.google.common.jimfs.JimfsAsynchronousFileChannelTest) (12 ms)</li><li>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncClose_read(com.google.common.jimfs.JimfsAsynchronousFileChannelTest) (13 ms)</li><li>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testAsyncChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest) (37 ms)</li><li>com.google.common.jimfs.JimfsAsynchronousFileChannelTest.testClosedChannel(com.google.common.jimfs.JimfsAsynchronousFileChannelTest) (4 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

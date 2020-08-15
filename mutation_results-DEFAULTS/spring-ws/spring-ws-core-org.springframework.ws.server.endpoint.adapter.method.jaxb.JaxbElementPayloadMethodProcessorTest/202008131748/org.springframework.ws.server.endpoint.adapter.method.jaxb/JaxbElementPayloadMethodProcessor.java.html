@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>JaxbElementPayloadMethodProcessor.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2005-2014 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.ws.server.endpoint.adapter.method.jaxb;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.ParameterizedType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.Type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.bind.JAXBElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.xml.bind.JAXBException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.core.MethodParameter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.context.MessageContext;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation of {@link org.springframework.ws.server.endpoint.adapter.method.MethodArgumentResolver</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * MethodArgumentResolver} and {@link org.springframework.ws.server.endpoint.adapter.method.MethodReturnValueHandler</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * MethodReturnValueHandler} that supports {@link JAXBElement} objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Arjen Poutsma</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class JaxbElementPayloadMethodProcessor extends AbstractJaxb2PayloadMethodProcessor {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected boolean supportsRequestPayloadParameter(MethodParameter parameter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_39'>1</a>
+<span>
+1. supportsRequestPayloadParameter : removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; parameterType = parameter.getParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_40'/>
+40
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_40'>1</a>
+<span>
+1. supportsRequestPayloadParameter : removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Type genericType = parameter.getGenericParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_41'/>
+41
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_41'>30</a>
+<span>
+1. supportsRequestPayloadParameter : replaced boolean return with true for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsRequestPayloadParameter &rarr; SURVIVED<br/>
+2. supportsRequestPayloadParameter : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. supportsRequestPayloadParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. supportsRequestPayloadParameter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. supportsRequestPayloadParameter : Substituted 0 with 1 &rarr; SURVIVED<br/>
+6. supportsRequestPayloadParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+7. supportsRequestPayloadParameter : Substituted 0 with -1 &rarr; SURVIVED<br/>
+8. supportsRequestPayloadParameter : Substituted 1 with -1 &rarr; SURVIVED<br/>
+9. supportsRequestPayloadParameter : Substituted 0 with 1 &rarr; SURVIVED<br/>
+10. supportsRequestPayloadParameter : Substituted 0 with -1 &rarr; SURVIVED<br/>
+11. supportsRequestPayloadParameter : equal to less than &rarr; SURVIVED<br/>
+12. supportsRequestPayloadParameter : equal to less than &rarr; SURVIVED<br/>
+13. supportsRequestPayloadParameter : equal to less or equal &rarr; SURVIVED<br/>
+14. supportsRequestPayloadParameter : equal to less or equal &rarr; SURVIVED<br/>
+15. supportsRequestPayloadParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+16. supportsRequestPayloadParameter : negated conditional &rarr; KILLED<br/>
+17. supportsRequestPayloadParameter : negated conditional &rarr; KILLED<br/>
+18. supportsRequestPayloadParameter : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+19. supportsRequestPayloadParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+20. supportsRequestPayloadParameter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+21. supportsRequestPayloadParameter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+22. supportsRequestPayloadParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+23. supportsRequestPayloadParameter : Substituted 1 with 2 &rarr; KILLED<br/>
+24. supportsRequestPayloadParameter : Substituted 1 with 0 &rarr; KILLED<br/>
+25. supportsRequestPayloadParameter : equal to greater than &rarr; KILLED<br/>
+26. supportsRequestPayloadParameter : equal to greater than &rarr; KILLED<br/>
+27. supportsRequestPayloadParameter : equal to greater or equal &rarr; KILLED<br/>
+28. supportsRequestPayloadParameter : equal to greater or equal &rarr; KILLED<br/>
+29. supportsRequestPayloadParameter : equal to not equal &rarr; KILLED<br/>
+30. supportsRequestPayloadParameter : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return JAXBElement.class.equals(parameterType) &#38;&#38; genericType instanceof ParameterizedType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public JAXBElement&#60;?&#62; resolveArgument(MessageContext messageContext, MethodParameter parameter)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;throws JAXBException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_47'>1</a>
+<span>
+1. resolveArgument : removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;ParameterizedType parameterizedType = (ParameterizedType) parameter.getGenericParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_48'>6</a>
+<span>
+1. resolveArgument : Substituted 0 with 1 &rarr; KILLED<br/>
+2. resolveArgument : removed call to java/lang/reflect/ParameterizedType::getActualTypeArguments &rarr; KILLED<br/>
+3. resolveArgument : Substituted 0 with 1 &rarr; KILLED<br/>
+4. resolveArgument : Substituted 0 with -1 &rarr; KILLED<br/>
+5. resolveArgument : Substituted 0 with 1 &rarr; KILLED<br/>
+6. resolveArgument : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; clazz = (Class&#60;?&#62;) parameterizedType.getActualTypeArguments()[0];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_49'/>
+49
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_49'>3</a>
+<span>
+1. resolveArgument : removed call to org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::unmarshalElementFromRequestPayload &rarr; KILLED<br/>
+2. resolveArgument : replaced return value with null for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::resolveArgument &rarr; KILLED<br/>
+3. resolveArgument : mutated return of Object value for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return unmarshalElementFromRequestPayload(messageContext, clazz);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected boolean supportsResponsePayloadReturnType(MethodParameter returnType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_54'>1</a>
+<span>
+1. supportsResponsePayloadReturnType : removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; parameterType = returnType.getParameterType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_55'/>
+55
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_55'>4</a>
+<span>
+1. supportsResponsePayloadReturnType : replaced boolean return with true for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsResponsePayloadReturnType &rarr; SURVIVED<br/>
+2. supportsResponsePayloadReturnType : replaced boolean return with false for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsResponsePayloadReturnType &rarr; KILLED<br/>
+3. supportsResponsePayloadReturnType : removed call to java/lang/Class::isAssignableFrom &rarr; KILLED<br/>
+4. supportsResponsePayloadReturnType : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return JAXBElement.class.isAssignableFrom(parameterType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected void handleReturnValueInternal(MessageContext messageContext, MethodParameter returnType, Object returnValue)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;throws JAXBException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;JAXBElement&#60;?&#62; element = (JAXBElement&#60;?&#62;) returnValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_62'>2</a>
+<span>
+1. handleReturnValueInternal : removed call to javax/xml/bind/JAXBElement::getDeclaredType &rarr; KILLED<br/>
+2. handleReturnValueInternal : removed call to org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::marshalToResponsePayload &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;marshalToResponsePayload(messageContext, element.getDeclaredType(), element);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@122d6c22_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_40'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_41'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsRequestPayloadParameter &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>supportsRequestPayloadParameter<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/core/MethodParameter::getGenericParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to java/lang/reflect/ParameterizedType::getActualTypeArguments &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::unmarshalElementFromRequestPayload &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> replaced return value with null for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::resolveArgument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resolveArgument<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> mutated return of Object value for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::resolveArgument to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsResponsePayloadReturnType<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsReturnType(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/core/MethodParameter::getParameterType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>supportsResponsePayloadReturnType<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsReturnType(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> replaced boolean return with false for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsResponsePayloadReturnType &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>supportsResponsePayloadReturnType<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::supportsResponsePayloadReturnType &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>supportsResponsePayloadReturnType<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsReturnType(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to java/lang/Class::isAssignableFrom &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>supportsResponsePayloadReturnType<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsReturnType(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@122d6c22_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@122d6c22_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>handleReturnValueInternal<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.handleReturnValueString(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to javax/xml/bind/JAXBElement::getDeclaredType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>handleReturnValueInternal<br/><b>Killed by : </b>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.handleReturnValueString(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest)</span></span> removed call to org/springframework/ws/server/endpoint/adapter/method/jaxb/JaxbElementPayloadMethodProcessor::marshalToResponsePayload &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsParameter(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (2 ms)</li><li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.handleReturnValueAxiom(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (226 ms)</li><li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.handleReturnValue(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (86 ms)</li><li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.handleReturnValueString(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (4 ms)</li><li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.resolveArgument(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (10 ms)</li><li>org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest.supportsReturnType(org.springframework.ws.server.endpoint.adapter.method.jaxb.JaxbElementPayloadMethodProcessorTest) (3 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

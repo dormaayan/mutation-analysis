@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SoapActionSmartEndpointInterceptor.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2005-2011 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *&#9;   http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.ws.soap.server.endpoint.interceptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.StringUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.WebServiceMessage;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.server.EndpointInterceptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.ws.soap.SoapMessage;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation of the {@link org.springframework.ws.server.SmartEndpointInterceptor} interface that only intercepts</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * requests that have a specified soap action.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Arjen Poutsma</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SoapActionSmartEndpointInterceptor extends DelegatingSmartSoapEndpointInterceptor {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final String soapAction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public SoapActionSmartEndpointInterceptor(EndpointInterceptor delegate, String soapAction) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;super(delegate);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_38'>1</a>
+<span>
+1. <init> : removed call to org/springframework/util/Assert::hasLength &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Assert.hasLength(soapAction, &#34;soapAction can not be empty&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_39'>1</a>
+<span>
+1. <init> : Removed assignment to member variable soapAction &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.soapAction = soapAction;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected boolean shouldIntercept(WebServiceMessage request, Object endpoint) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_44'/>
+44
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_44'>8</a>
+<span>
+1. shouldIntercept : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. shouldIntercept : equal to less than &rarr; SURVIVED<br/>
+3. shouldIntercept : equal to less or equal &rarr; SURVIVED<br/>
+4. shouldIntercept : negated conditional &rarr; KILLED<br/>
+5. shouldIntercept : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. shouldIntercept : equal to greater than &rarr; KILLED<br/>
+7. shouldIntercept : equal to greater or equal &rarr; KILLED<br/>
+8. shouldIntercept : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (request instanceof SoapMessage) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_45'>1</a>
+<span>
+1. shouldIntercept : removed call to org/springframework/ws/soap/SoapMessage::getSoapAction &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;String soapAction = ((SoapMessage) request).getSoapAction();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_46'/>
+46
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_46'>30</a>
+<span>
+1. shouldIntercept : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. shouldIntercept : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. shouldIntercept : equal to less than &rarr; SURVIVED<br/>
+4. shouldIntercept : not equal to less than &rarr; SURVIVED<br/>
+5. shouldIntercept : equal to less or equal &rarr; SURVIVED<br/>
+6. shouldIntercept : not equal to greater than &rarr; SURVIVED<br/>
+7. shouldIntercept : Substituted 0 with 1 &rarr; KILLED<br/>
+8. shouldIntercept : Substituted 34 with 35 &rarr; KILLED<br/>
+9. shouldIntercept : negated conditional &rarr; KILLED<br/>
+10. shouldIntercept : negated conditional &rarr; KILLED<br/>
+11. shouldIntercept : removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED<br/>
+12. shouldIntercept : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+13. shouldIntercept : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+14. shouldIntercept : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+15. shouldIntercept : Substituted 0 with 1 &rarr; KILLED<br/>
+16. shouldIntercept : Substituted 34 with 1 &rarr; KILLED<br/>
+17. shouldIntercept : Substituted 34 with 0 &rarr; KILLED<br/>
+18. shouldIntercept : Substituted 0 with -1 &rarr; KILLED<br/>
+19. shouldIntercept : Substituted 34 with -1 &rarr; KILLED<br/>
+20. shouldIntercept : Substituted 34 with -34 &rarr; KILLED<br/>
+21. shouldIntercept : Substituted 0 with 1 &rarr; KILLED<br/>
+22. shouldIntercept : Substituted 34 with 35 &rarr; KILLED<br/>
+23. shouldIntercept : Substituted 0 with -1 &rarr; KILLED<br/>
+24. shouldIntercept : Substituted 34 with 33 &rarr; KILLED<br/>
+25. shouldIntercept : not equal to less or equal &rarr; KILLED<br/>
+26. shouldIntercept : equal to greater than &rarr; KILLED<br/>
+27. shouldIntercept : equal to greater or equal &rarr; KILLED<br/>
+28. shouldIntercept : not equal to greater or equal &rarr; KILLED<br/>
+29. shouldIntercept : equal to not equal &rarr; KILLED<br/>
+30. shouldIntercept : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (StringUtils.hasLength(soapAction) &#38;&#38; soapAction.charAt(0) == &#39;&#34;&#39; &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_47'>29</a>
+<span>
+1. shouldIntercept : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. shouldIntercept : Replaced integer subtraction with modulus &rarr; SURVIVED<br/>
+3. shouldIntercept : not equal to less than &rarr; SURVIVED<br/>
+4. shouldIntercept : not equal to greater than &rarr; SURVIVED<br/>
+5. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+6. shouldIntercept : Substituted 34 with 35 &rarr; KILLED<br/>
+7. shouldIntercept : Replaced integer subtraction with addition &rarr; KILLED<br/>
+8. shouldIntercept : negated conditional &rarr; KILLED<br/>
+9. shouldIntercept : removed call to java/lang/String::length &rarr; KILLED<br/>
+10. shouldIntercept : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+11. shouldIntercept : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. shouldIntercept : Replaced integer operation by second member &rarr; KILLED<br/>
+13. shouldIntercept : Replaced integer subtraction with addition &rarr; KILLED<br/>
+14. shouldIntercept : Replaced integer subtraction with multiplication &rarr; KILLED<br/>
+15. shouldIntercept : Replaced integer subtraction with division &rarr; KILLED<br/>
+16. shouldIntercept : Substituted 34 with 1 &rarr; KILLED<br/>
+17. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+18. shouldIntercept : Substituted 34 with 0 &rarr; KILLED<br/>
+19. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+20. shouldIntercept : Substituted 34 with -1 &rarr; KILLED<br/>
+21. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+22. shouldIntercept : Substituted 34 with -34 &rarr; KILLED<br/>
+23. shouldIntercept : Substituted 1 with 2 &rarr; KILLED<br/>
+24. shouldIntercept : Substituted 34 with 35 &rarr; KILLED<br/>
+25. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+26. shouldIntercept : Substituted 34 with 33 &rarr; KILLED<br/>
+27. shouldIntercept : not equal to less or equal &rarr; KILLED<br/>
+28. shouldIntercept : not equal to greater or equal &rarr; KILLED<br/>
+29. shouldIntercept : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;soapAction.charAt(soapAction.length() - 1) == &#39;&#34;&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_48'>21</a>
+<span>
+1. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+2. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+3. shouldIntercept : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. shouldIntercept : removed call to java/lang/String::length &rarr; KILLED<br/>
+5. shouldIntercept : removed call to java/lang/String::substring &rarr; KILLED<br/>
+6. shouldIntercept : replaced call to java/lang/String::substring with receiver &rarr; KILLED<br/>
+7. shouldIntercept : Replaced integer operation by second member &rarr; KILLED<br/>
+8. shouldIntercept : Replaced integer subtraction with addition &rarr; KILLED<br/>
+9. shouldIntercept : Replaced integer subtraction with multiplication &rarr; KILLED<br/>
+10. shouldIntercept : Replaced integer subtraction with division &rarr; KILLED<br/>
+11. shouldIntercept : Replaced integer subtraction with modulus &rarr; KILLED<br/>
+12. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+13. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+14. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+15. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+16. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+17. shouldIntercept : Substituted 1 with -1 &rarr; KILLED<br/>
+18. shouldIntercept : Substituted 1 with 2 &rarr; KILLED<br/>
+19. shouldIntercept : Substituted 1 with 2 &rarr; KILLED<br/>
+20. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+21. shouldIntercept : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;soapAction = soapAction.substring(1, soapAction.length() - 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_50'>4</a>
+<span>
+1. shouldIntercept : replaced boolean return with false for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; KILLED<br/>
+2. shouldIntercept : replaced boolean return with true for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; KILLED<br/>
+3. shouldIntercept : removed call to java/lang/String::equals &rarr; KILLED<br/>
+4. shouldIntercept : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return this.soapAction.equals(soapAction);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_53'/>
+53
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_53'>7</a>
+<span>
+1. shouldIntercept : replaced boolean return with true for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; NO_COVERAGE<br/>
+2. shouldIntercept : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. shouldIntercept : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+4. shouldIntercept : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. shouldIntercept : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+6. shouldIntercept : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. shouldIntercept : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@767a014e_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.neitherNamespaceNorLocalPart(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to org/springframework/util/Assert::hasLength &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Removed assignment to member variable soapAction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_44'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to org/springframework/ws/soap/SoapMessage::getSoapAction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 35 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with -34 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 35 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 33 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 35 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with division &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with modulus &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with -34 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 35 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 34 with 33 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::substring &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> replaced call to java/lang/String::substring with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Replaced integer subtraction with modulus &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> replaced boolean return with false for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> replaced boolean return with true for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@767a014e_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@767a014e_53'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/springframework/ws/soap/server/endpoint/interceptor/SoapActionSmartEndpointInterceptor::shouldIntercept &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>shouldIntercept<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.neitherNamespaceNorLocalPart(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest) (107 ms)</li><li>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest) (2 ms)</li><li>org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest.shouldInterceptNonMatch(org.springframework.ws.soap.server.endpoint.interceptor.SoapActionSmartEndpointInterceptorTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

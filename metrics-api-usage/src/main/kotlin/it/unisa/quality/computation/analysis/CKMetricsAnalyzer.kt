@@ -34,7 +34,7 @@ class CKMetricsAnalyzer : Analyzer {
             add(MetricResult("NOPA", CKMetrics.getNOPA(clazz), clazzName))
             add(MetricResult("NOP", CKMetrics.getNOPrivateA(clazz), clazzName))
             add(MetricResult("McCABE", CKMetrics.getMcCabeMetric(clazz), clazzName))
-            add(MetricResult("BUSWEIMER", CKMetrics.getBuseWeimer(clazz), clazzName))
+            //add(MetricResult("BUSWEIMER", CKMetrics.getBuseWeimer(clazz), clazzName))
         }
         return metrics
     }

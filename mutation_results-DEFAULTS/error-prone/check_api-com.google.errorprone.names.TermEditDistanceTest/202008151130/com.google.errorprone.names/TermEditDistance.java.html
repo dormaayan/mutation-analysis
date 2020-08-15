@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>TermEditDistance.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2017 The Error Prone Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.errorprone.names;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import blogspot.software_and_algorithms.stern_library.optimization.HungarianAlgorithm;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.BiFunction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.DoubleStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A utility class for finding the distance between two identifiers. Each identifier is split into</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * its constituent terms (based on camel case or underscore naming conventions). Then the edit</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distance between each term is computed and the minimum cost assignment is found.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class TermEditDistance {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final BiFunction&#60;String, String, Double&#62; editDistanceFn;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final BiFunction&#60;Integer, Integer, Double&#62; maxDistanceFn;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Creates a TermEditDistance Object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param editDistanceFn function to compute the distance between two terms</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param maxDistanceFn function to compute the worst case distance between two terms</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public TermEditDistance(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      BiFunction&#60;String, String, Double&#62; editDistanceFn,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      BiFunction&#60;Integer, Integer, Double&#62; maxDistanceFn) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_42'/>
+42
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_42'>1</a>
+<span>
+1. <init> : Removed assignment to member variable editDistanceFn &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.editDistanceFn = editDistanceFn;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_43'/>
+43
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_43'>1</a>
+<span>
+1. <init> : Removed assignment to member variable maxDistanceFn &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.maxDistanceFn = maxDistanceFn;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public TermEditDistance() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (s, t) -&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_49'/>
+49
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_49'>9</a>
+<span>
+1. lambda$new$0 : replaced Double return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$new$0 &rarr; SURVIVED<br/>
+2. lambda$new$0 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. lambda$new$0 : removed call to com/google/errorprone/names/LevenshteinEditDistance::getEditDistance &rarr; SURVIVED<br/>
+4. lambda$new$0 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. lambda$new$0 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+6. lambda$new$0 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. lambda$new$0 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+8. lambda$new$0 : removed call to java/lang/Double::valueOf &rarr; KILLED<br/>
+9. lambda$new$0 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$new$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            (double) LevenshteinEditDistance.getEditDistance(s, t, /* caseSensitive= */ false),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_50'>7</a>
+<span>
+1. lambda$new$1 : replaced call to com/google/errorprone/names/LevenshteinEditDistance::getWorstCaseEditDistance with argument &rarr; KILLED<br/>
+2. lambda$new$1 : replaced Double return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$new$1 &rarr; KILLED<br/>
+3. lambda$new$1 : removed call to java/lang/Integer::intValue &rarr; KILLED<br/>
+4. lambda$new$1 : removed call to java/lang/Integer::intValue &rarr; KILLED<br/>
+5. lambda$new$1 : removed call to com/google/errorprone/names/LevenshteinEditDistance::getWorstCaseEditDistance &rarr; KILLED<br/>
+6. lambda$new$1 : removed call to java/lang/Double::valueOf &rarr; KILLED<br/>
+7. lambda$new$1 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$new$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        (s, t) -&#62; (double) LevenshteinEditDistance.getWorstCaseEditDistance(s, t));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public double getNormalizedEditDistance(String source, String target) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_55'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/errorprone/names/NamingConventions::splitToLowercaseTerms &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ImmutableList&#60;String&#62; sourceTerms = NamingConventions.splitToLowercaseTerms(source);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_56'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/errorprone/names/NamingConventions::splitToLowercaseTerms &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ImmutableList&#60;String&#62; targetTerms = NamingConventions.splitToLowercaseTerms(target);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // costMatrix[s][t] is the edit distance between source term s and target term t</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double[][] costMatrix =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_60'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        sourceTerms.stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_61'>12</a>
+<span>
+1. getNormalizedEditDistance : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+2. getNormalizedEditDistance : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+3. lambda$getNormalizedEditDistance$3 : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+4. lambda$getNormalizedEditDistance$3 : removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED<br/>
+5. lambda$getNormalizedEditDistance$3 : removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED<br/>
+6. lambda$getNormalizedEditDistance$3 : replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$3 &rarr; KILLED<br/>
+7. lambda$getNormalizedEditDistance$3 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$3 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+8. lambda$null$2 : replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED<br/>
+9. lambda$null$2 : removed call to java/util/function/BiFunction::apply &rarr; KILLED<br/>
+10. lambda$null$2 : removed call to java/lang/Double::doubleValue &rarr; KILLED<br/>
+11. lambda$null$2 : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$null$2 &rarr; KILLED<br/>
+12. lambda$null$2 : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$null$2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .map(s -&#62; targetTerms.stream().mapToDouble(t -&#62; editDistanceFn.apply(s, t)).toArray())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_62'>8</a>
+<span>
+1. lambda$getNormalizedEditDistance$4 : Incremented (a++) integer local variable number 0 &rarr; SURVIVED<br/>
+2. lambda$getNormalizedEditDistance$4 : Decremented (a--) integer local variable number 0 &rarr; SURVIVED<br/>
+3. getNormalizedEditDistance : removed call to java/util/stream/Stream::toArray &rarr; KILLED<br/>
+4. lambda$getNormalizedEditDistance$4 : replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$4 &rarr; KILLED<br/>
+5. lambda$getNormalizedEditDistance$4 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$4 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+6. lambda$getNormalizedEditDistance$4 : Negated integer local variable number 0 &rarr; KILLED<br/>
+7. lambda$getNormalizedEditDistance$4 : Incremented (++a) integer local variable number 0 &rarr; KILLED<br/>
+8. lambda$getNormalizedEditDistance$4 : Decremented (--a) integer local variable number 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            .toArray(double[][]::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // worstCaseMatrix[s][t] is the worst case distance between source term s and target term t</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double[][] worstCaseMatrix =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_66'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        sourceTerms.stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_67'/>
+67
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_67'>6</a>
+<span>
+1. lambda$getNormalizedEditDistance$5 : replaced Integer return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$5 &rarr; SURVIVED<br/>
+2. lambda$getNormalizedEditDistance$5 : removed call to java/lang/String::length &rarr; SURVIVED<br/>
+3. getNormalizedEditDistance : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+4. getNormalizedEditDistance : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+5. lambda$getNormalizedEditDistance$5 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+6. lambda$getNormalizedEditDistance$5 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$5 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            .map(s -&#62; s.length())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_68'>2</a>
+<span>
+1. getNormalizedEditDistance : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+2. getNormalizedEditDistance : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .map(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                s -&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_70'>3</a>
+<span>
+1. lambda$getNormalizedEditDistance$8 : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+2. lambda$getNormalizedEditDistance$8 : replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$8 &rarr; KILLED<br/>
+3. lambda$getNormalizedEditDistance$8 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$8 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    targetTerms.stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_71'/>
+71
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_71'>6</a>
+<span>
+1. lambda$null$6 : replaced Integer return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$null$6 &rarr; SURVIVED<br/>
+2. lambda$null$6 : removed call to java/lang/String::length &rarr; SURVIVED<br/>
+3. lambda$getNormalizedEditDistance$8 : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+4. lambda$getNormalizedEditDistance$8 : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+5. lambda$null$6 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+6. lambda$null$6 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$null$6 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        .map(t -&#62; t.length())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_72'>6</a>
+<span>
+1. lambda$getNormalizedEditDistance$8 : removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED<br/>
+2. lambda$null$7 : replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED<br/>
+3. lambda$null$7 : removed call to java/util/function/BiFunction::apply &rarr; KILLED<br/>
+4. lambda$null$7 : removed call to java/lang/Double::doubleValue &rarr; KILLED<br/>
+5. lambda$null$7 : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$null$7 &rarr; KILLED<br/>
+6. lambda$null$7 : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$null$7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .mapToDouble(t -&#62; maxDistanceFn.apply(s, t))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_73'>1</a>
+<span>
+1. lambda$getNormalizedEditDistance$8 : removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .toArray())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_74'>8</a>
+<span>
+1. lambda$getNormalizedEditDistance$9 : Incremented (a++) integer local variable number 0 &rarr; SURVIVED<br/>
+2. lambda$getNormalizedEditDistance$9 : Decremented (a--) integer local variable number 0 &rarr; SURVIVED<br/>
+3. getNormalizedEditDistance : removed call to java/util/stream/Stream::toArray &rarr; KILLED<br/>
+4. lambda$getNormalizedEditDistance$9 : replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$9 &rarr; KILLED<br/>
+5. lambda$getNormalizedEditDistance$9 : mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$9 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+6. lambda$getNormalizedEditDistance$9 : Negated integer local variable number 0 &rarr; KILLED<br/>
+7. lambda$getNormalizedEditDistance$9 : Incremented (++a) integer local variable number 0 &rarr; KILLED<br/>
+8. lambda$getNormalizedEditDistance$9 : Decremented (--a) integer local variable number 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            .toArray(double[][]::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double[] sourceTermDeletionCosts =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_77'>16</a>
+<span>
+1. lambda$getNormalizedEditDistance$10 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. lambda$getNormalizedEditDistance$10 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. lambda$getNormalizedEditDistance$10 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+4. lambda$getNormalizedEditDistance$10 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. lambda$getNormalizedEditDistance$10 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+6. getNormalizedEditDistance : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+7. getNormalizedEditDistance : removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED<br/>
+8. getNormalizedEditDistance : removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED<br/>
+9. lambda$getNormalizedEditDistance$10 : replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED<br/>
+10. lambda$getNormalizedEditDistance$10 : removed call to java/lang/String::length &rarr; KILLED<br/>
+11. lambda$getNormalizedEditDistance$10 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+12. lambda$getNormalizedEditDistance$10 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+13. lambda$getNormalizedEditDistance$10 : removed call to java/util/function/BiFunction::apply &rarr; KILLED<br/>
+14. lambda$getNormalizedEditDistance$10 : removed call to java/lang/Double::doubleValue &rarr; KILLED<br/>
+15. lambda$getNormalizedEditDistance$10 : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$10 &rarr; KILLED<br/>
+16. lambda$getNormalizedEditDistance$10 : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$10 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        sourceTerms.stream().mapToDouble(s -&#62; maxDistanceFn.apply(s.length(), 0)).toArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double[] targetTermAdditionCosts =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_80'/>
+80
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_80'>16</a>
+<span>
+1. lambda$getNormalizedEditDistance$11 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. lambda$getNormalizedEditDistance$11 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. lambda$getNormalizedEditDistance$11 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+4. lambda$getNormalizedEditDistance$11 : Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. lambda$getNormalizedEditDistance$11 : Substituted 0 with -1 &rarr; SURVIVED<br/>
+6. getNormalizedEditDistance : removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED<br/>
+7. getNormalizedEditDistance : removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED<br/>
+8. getNormalizedEditDistance : removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED<br/>
+9. lambda$getNormalizedEditDistance$11 : replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED<br/>
+10. lambda$getNormalizedEditDistance$11 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+11. lambda$getNormalizedEditDistance$11 : removed call to java/lang/String::length &rarr; KILLED<br/>
+12. lambda$getNormalizedEditDistance$11 : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+13. lambda$getNormalizedEditDistance$11 : removed call to java/util/function/BiFunction::apply &rarr; KILLED<br/>
+14. lambda$getNormalizedEditDistance$11 : removed call to java/lang/Double::doubleValue &rarr; KILLED<br/>
+15. lambda$getNormalizedEditDistance$11 : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$11 &rarr; KILLED<br/>
+16. lambda$getNormalizedEditDistance$11 : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$11 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        targetTerms.stream().mapToDouble(s -&#62; maxDistanceFn.apply(0, s.length())).toArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // this is an array of assignments of source terms to target terms. If assignments[i] contains</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // the value j this means that source term i has been assigned to target term j</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // There will be one entry in cost for each source term:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // - If there are more source terms than target terms then some will be unassigned - value -1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // - If there are a fewer source terms than target terms then some target terms will not be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //    referenced in the array</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_88'>2</a>
+<span>
+1. getNormalizedEditDistance : removed call to blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm::&#60;init&#62; &rarr; KILLED<br/>
+2. getNormalizedEditDistance : removed call to blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm::execute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int[] assignments = new HungarianAlgorithm(costMatrix).execute();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double assignmentCost =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_90'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        computeCost(assignments, costMatrix, sourceTermDeletionCosts, targetTermAdditionCosts);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double maxCost =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_93'>1</a>
+<span>
+1. getNormalizedEditDistance : removed call to com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        computeCost(assignments, worstCaseMatrix, sourceTermDeletionCosts, targetTermAdditionCosts);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_95'>18</a>
+<span>
+1. getNormalizedEditDistance : Incremented (a++) double local variable number 10 &rarr; SURVIVED<br/>
+2. getNormalizedEditDistance : Incremented (a++) double local variable number 12 &rarr; SURVIVED<br/>
+3. getNormalizedEditDistance : Decremented (a--) double local variable number 10 &rarr; SURVIVED<br/>
+4. getNormalizedEditDistance : Decremented (a--) double local variable number 12 &rarr; SURVIVED<br/>
+5. getNormalizedEditDistance : Replaced double division with multiplication &rarr; KILLED<br/>
+6. getNormalizedEditDistance : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::getNormalizedEditDistance &rarr; KILLED<br/>
+7. getNormalizedEditDistance : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::getNormalizedEditDistance &rarr; KILLED<br/>
+8. getNormalizedEditDistance : Negated double local variable number 10 &rarr; KILLED<br/>
+9. getNormalizedEditDistance : Negated double local variable number 12 &rarr; KILLED<br/>
+10. getNormalizedEditDistance : Replaced double operation by second member &rarr; KILLED<br/>
+11. getNormalizedEditDistance : Replaced double division with multiplication &rarr; KILLED<br/>
+12. getNormalizedEditDistance : Replaced double division with modulus &rarr; KILLED<br/>
+13. getNormalizedEditDistance : Replaced double division with addition &rarr; KILLED<br/>
+14. getNormalizedEditDistance : Replaced double division with subtraction &rarr; KILLED<br/>
+15. getNormalizedEditDistance : Incremented (++a) double local variable number 10 &rarr; KILLED<br/>
+16. getNormalizedEditDistance : Incremented (++a) double local variable number 12 &rarr; KILLED<br/>
+17. getNormalizedEditDistance : Decremented (--a) double local variable number 10 &rarr; KILLED<br/>
+18. getNormalizedEditDistance : Decremented (--a) double local variable number 12 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return assignmentCost / maxCost;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Compute the total cost of this assignment including the costs of unassigned source and target</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * terms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static double computeCost(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      int[] assignments,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      double[][] costMatrix,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      double[] sourceTermDeletionCosts,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      double[] targetTermDeletionCosts) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // We need to sum the costs of each assigned pair, each unassigned source term, and each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // unassigned target term.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Start with the total cost of _not_ using all the target terms, then when we use one we&#39;ll</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // remove it from this total.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_113'>2</a>
+<span>
+1. computeCost : removed call to java/util/stream/DoubleStream::of &rarr; KILLED<br/>
+2. computeCost : removed call to java/util/stream/DoubleStream::sum &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    double totalCost = DoubleStream.of(targetTermDeletionCosts).sum();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_114'>20</a>
+<span>
+1. computeCost : greater or equal to equal &rarr; SURVIVED<br/>
+2. computeCost : changed conditional boundary &rarr; KILLED<br/>
+3. computeCost : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. computeCost : Substituted 0 with 1 &rarr; KILLED<br/>
+5. computeCost : negated conditional &rarr; KILLED<br/>
+6. computeCost : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. computeCost : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+8. computeCost : Negated integer local variable number 6 &rarr; KILLED<br/>
+9. computeCost : Substituted 0 with 1 &rarr; KILLED<br/>
+10. computeCost : Substituted 0 with -1 &rarr; KILLED<br/>
+11. computeCost : Substituted 0 with 1 &rarr; KILLED<br/>
+12. computeCost : Substituted 0 with -1 &rarr; KILLED<br/>
+13. computeCost : greater or equal to less than &rarr; KILLED<br/>
+14. computeCost : greater or equal to less or equal &rarr; KILLED<br/>
+15. computeCost : greater or equal to greater than &rarr; KILLED<br/>
+16. computeCost : greater or equal to not equal &rarr; KILLED<br/>
+17. computeCost : Incremented (a++) integer local variable number 6 &rarr; KILLED<br/>
+18. computeCost : Decremented (a--) integer local variable number 6 &rarr; KILLED<br/>
+19. computeCost : Incremented (++a) integer local variable number 6 &rarr; KILLED<br/>
+20. computeCost : Decremented (--a) integer local variable number 6 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    for (int sourceTermIndex = 0; sourceTermIndex &#60; assignments.length; sourceTermIndex++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_115'>10</a>
+<span>
+1. computeCost : Negated integer local variable number 6 &rarr; KILLED<br/>
+2. computeCost : Negated integer array field &rarr; KILLED<br/>
+3. computeCost : Incremented (a++) integer local variable number 6 &rarr; KILLED<br/>
+4. computeCost : Incremented (a++) integer array field &rarr; KILLED<br/>
+5. computeCost : Decremented (a--) integer local variable number 6 &rarr; KILLED<br/>
+6. computeCost : Decremented (a--) integer array field &rarr; KILLED<br/>
+7. computeCost : Incremented (++a) integer local variable number 6 &rarr; KILLED<br/>
+8. computeCost : Incremented (++a) integer array field &rarr; KILLED<br/>
+9. computeCost : Decremented (--a) integer local variable number 6 &rarr; KILLED<br/>
+10. computeCost : Decremented (--a) integer array field &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      int targetTermIndex = assignments[sourceTermIndex];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_116'>19</a>
+<span>
+1. computeCost : not equal to greater than &rarr; SURVIVED<br/>
+2. computeCost : Substituted -1 with 0 &rarr; KILLED<br/>
+3. computeCost : negated conditional &rarr; KILLED<br/>
+4. computeCost : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. computeCost : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. computeCost : Negated integer local variable number 7 &rarr; KILLED<br/>
+7. computeCost : Substituted -1 with 1 &rarr; KILLED<br/>
+8. computeCost : Substituted -1 with 0 &rarr; KILLED<br/>
+9. computeCost : Substituted -1 with 1 &rarr; KILLED<br/>
+10. computeCost : Substituted -1 with 0 &rarr; KILLED<br/>
+11. computeCost : Substituted -1 with -2 &rarr; KILLED<br/>
+12. computeCost : not equal to less than &rarr; KILLED<br/>
+13. computeCost : not equal to less or equal &rarr; KILLED<br/>
+14. computeCost : not equal to greater or equal &rarr; KILLED<br/>
+15. computeCost : not equal to equal &rarr; KILLED<br/>
+16. computeCost : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+17. computeCost : Decremented (a--) integer local variable number 7 &rarr; KILLED<br/>
+18. computeCost : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+19. computeCost : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (targetTermIndex == -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // not using this source term</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_118'>21</a>
+<span>
+1. computeCost : Negated integer local variable number 6 &rarr; SURVIVED<br/>
+2. computeCost : Incremented (a++) double local variable number 4 &rarr; SURVIVED<br/>
+3. computeCost : Decremented (a--) double local variable number 4 &rarr; SURVIVED<br/>
+4. computeCost : Decremented (a--) integer local variable number 6 &rarr; TIMED_OUT<br/>
+5. computeCost : Replaced double addition with subtraction &rarr; KILLED<br/>
+6. computeCost : Negated double local variable number 4 &rarr; KILLED<br/>
+7. computeCost : Negated double array field &rarr; KILLED<br/>
+8. computeCost : Replaced double operation by second member &rarr; KILLED<br/>
+9. computeCost : Replaced double addition with subtraction &rarr; KILLED<br/>
+10. computeCost : Replaced double addition with multiplication &rarr; KILLED<br/>
+11. computeCost : Replaced double addition with division &rarr; KILLED<br/>
+12. computeCost : Replaced double addition with modulus &rarr; KILLED<br/>
+13. computeCost : Incremented (a++) integer local variable number 6 &rarr; KILLED<br/>
+14. computeCost : Incremented (a++) double array field &rarr; KILLED<br/>
+15. computeCost : Decremented (a--) double array field &rarr; KILLED<br/>
+16. computeCost : Incremented (++a) double local variable number 4 &rarr; KILLED<br/>
+17. computeCost : Incremented (++a) integer local variable number 6 &rarr; KILLED<br/>
+18. computeCost : Incremented (++a) double array field &rarr; KILLED<br/>
+19. computeCost : Decremented (--a) double local variable number 4 &rarr; KILLED<br/>
+20. computeCost : Decremented (--a) integer local variable number 6 &rarr; KILLED<br/>
+21. computeCost : Decremented (--a) double array field &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        totalCost += sourceTermDeletionCosts[sourceTermIndex];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // add the cost of the assignments</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_121'>26</a>
+<span>
+1. computeCost : Incremented (a++) double local variable number 4 &rarr; SURVIVED<br/>
+2. computeCost : Incremented (a++) double array field &rarr; SURVIVED<br/>
+3. computeCost : Decremented (a--) double local variable number 4 &rarr; SURVIVED<br/>
+4. computeCost : Decremented (a--) double array field &rarr; SURVIVED<br/>
+5. computeCost : Decremented (a--) integer local variable number 6 &rarr; TIMED_OUT<br/>
+6. computeCost : Replaced double addition with subtraction &rarr; KILLED<br/>
+7. computeCost : Negated double local variable number 4 &rarr; KILLED<br/>
+8. computeCost : Negated integer local variable number 6 &rarr; KILLED<br/>
+9. computeCost : Negated integer local variable number 7 &rarr; KILLED<br/>
+10. computeCost : Negated double array field &rarr; KILLED<br/>
+11. computeCost : Replaced double operation by second member &rarr; KILLED<br/>
+12. computeCost : Replaced double addition with subtraction &rarr; KILLED<br/>
+13. computeCost : Replaced double addition with multiplication &rarr; KILLED<br/>
+14. computeCost : Replaced double addition with division &rarr; KILLED<br/>
+15. computeCost : Replaced double addition with modulus &rarr; KILLED<br/>
+16. computeCost : Incremented (a++) integer local variable number 6 &rarr; KILLED<br/>
+17. computeCost : Incremented (a++) integer local variable number 7 &rarr; KILLED<br/>
+18. computeCost : Decremented (a--) integer local variable number 7 &rarr; KILLED<br/>
+19. computeCost : Incremented (++a) double local variable number 4 &rarr; KILLED<br/>
+20. computeCost : Incremented (++a) integer local variable number 6 &rarr; KILLED<br/>
+21. computeCost : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+22. computeCost : Incremented (++a) double array field &rarr; KILLED<br/>
+23. computeCost : Decremented (--a) double local variable number 4 &rarr; KILLED<br/>
+24. computeCost : Decremented (--a) integer local variable number 6 &rarr; KILLED<br/>
+25. computeCost : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+26. computeCost : Decremented (--a) double array field &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        totalCost += costMatrix[sourceTermIndex][targetTermIndex];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // we are using this target term and so we should remove the cost of deleting it</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_124'>21</a>
+<span>
+1. computeCost : Incremented (a++) double local variable number 4 &rarr; SURVIVED<br/>
+2. computeCost : Incremented (a++) integer local variable number 7 &rarr; SURVIVED<br/>
+3. computeCost : Incremented (a++) double array field &rarr; SURVIVED<br/>
+4. computeCost : Decremented (a--) double local variable number 4 &rarr; SURVIVED<br/>
+5. computeCost : Decremented (a--) integer local variable number 7 &rarr; SURVIVED<br/>
+6. computeCost : Decremented (a--) double array field &rarr; SURVIVED<br/>
+7. computeCost : Replaced double subtraction with addition &rarr; KILLED<br/>
+8. computeCost : Negated double local variable number 4 &rarr; KILLED<br/>
+9. computeCost : Negated integer local variable number 7 &rarr; KILLED<br/>
+10. computeCost : Negated double array field &rarr; KILLED<br/>
+11. computeCost : Replaced double operation by second member &rarr; KILLED<br/>
+12. computeCost : Replaced double subtraction with addition &rarr; KILLED<br/>
+13. computeCost : Replaced double subtraction with multiplication &rarr; KILLED<br/>
+14. computeCost : Replaced double subtraction with division &rarr; KILLED<br/>
+15. computeCost : Replaced double subtraction with modulus &rarr; KILLED<br/>
+16. computeCost : Incremented (++a) double local variable number 4 &rarr; KILLED<br/>
+17. computeCost : Incremented (++a) integer local variable number 7 &rarr; KILLED<br/>
+18. computeCost : Incremented (++a) double array field &rarr; KILLED<br/>
+19. computeCost : Decremented (--a) double local variable number 4 &rarr; KILLED<br/>
+20. computeCost : Decremented (--a) integer local variable number 7 &rarr; KILLED<br/>
+21. computeCost : Decremented (--a) double array field &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        totalCost -= targetTermDeletionCosts[targetTermIndex];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_127'>7</a>
+<span>
+1. computeCost : Negated double local variable number 4 &rarr; SURVIVED<br/>
+2. computeCost : Incremented (a++) double local variable number 4 &rarr; SURVIVED<br/>
+3. computeCost : Decremented (a--) double local variable number 4 &rarr; SURVIVED<br/>
+4. computeCost : replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED<br/>
+5. computeCost : replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED<br/>
+6. computeCost : Incremented (++a) double local variable number 4 &rarr; KILLED<br/>
+7. computeCost : Decremented (--a) double local variable number 4 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return totalCost;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Removed assignment to member variable editDistanceFn &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_43'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Removed assignment to member variable maxDistanceFn &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_49'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> replaced Double return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$new$0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> removed call to com/google/errorprone/names/LevenshteinEditDistance::getEditDistance &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$new$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to com/google/errorprone/names/LevenshteinEditDistance::getWorstCaseEditDistance with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced Double return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$new$1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::intValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::intValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/errorprone/names/LevenshteinEditDistance::getWorstCaseEditDistance &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$new$1<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$new$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/errorprone/names/NamingConventions::splitToLowercaseTerms &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/errorprone/names/NamingConventions::splitToLowercaseTerms &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$3<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$3<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$3<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$3<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$3<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$3 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$null$2<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$null$2<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/function/BiFunction::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$null$2<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::doubleValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$null$2<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$null$2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$null$2<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$null$2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$4 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$4<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$5<br/><b>Killed by : </b>none</span></span> replaced Integer return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$5 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$5<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::length &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$5<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$5<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$5 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$8 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$8 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$null$6<br/><b>Killed by : </b>none</span></span> replaced Integer return value with 0 for com/google/errorprone/names/TermEditDistance::lambda$null$6 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$null$6<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::length &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$null$6<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$null$6<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$null$6 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$null$7<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$null$7<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/function/BiFunction::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$null$7<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::doubleValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$null$7<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$null$7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$null$7<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$null$7 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$8<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return value with null for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> mutated return of Object value for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$9 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$9<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/function/BiFunction::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::doubleValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$10 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$10<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/common/collect/ImmutableList::stream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/Stream::mapToDouble &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced call to java/util/function/BiFunction::apply with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/function/BiFunction::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/lang/Double::doubleValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$11 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::lambda$getNormalizedEditDistance$11 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>lambda$getNormalizedEditDistance$11<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm::execute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::getNormalizedEditDistance &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::getNormalizedEditDistance &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double local variable number 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double local variable number 12 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double division with modulus &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double division with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double division with subtraction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 10 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 12 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 10 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 12 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 12 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getNormalizedEditDistance<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 12 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed call to java/util/stream/DoubleStream::sum &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> greater or equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> greater or equal to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> greater or equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> greater or equal to equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> greater or equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 6 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) integer array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer array field &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Substituted -1 with -2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double local variable number 4 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Negated integer local variable number 6 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with modulus &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 4 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) double array field &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 4 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 6 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double array field &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double addition with modulus &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 4 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (a++) integer local variable number 7 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double array field &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 4 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 6 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (a--) integer local variable number 7 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double array field &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double array field &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Negated double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double operation by second member &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double subtraction with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double subtraction with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Replaced double subtraction with modulus &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double array field &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) integer local variable number 7 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double array field &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double array field &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) integer local variable number 7 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double array field &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2a8a4e0c_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced double return with 0.0d for com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> replaced return of double value with -(x + 1) for com/google/errorprone/names/TermEditDistance::computeCost &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Negated double local variable number 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Incremented (a++) double local variable number 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>none</span></span> Decremented (a--) double local variable number 4 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Incremented (++a) double local variable number 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeCost<br/><b>Killed by : </b>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest)</span></span> Decremented (--a) double local variable number 4 &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsNoMatch_withDifferentTerms(com.google.errorprone.names.TermEditDistanceTest) (1 ms)</li><li>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_returnsMatch_withPermutedTerms(com.google.errorprone.names.TermEditDistanceTest) (2 ms)</li><li>com.google.errorprone.names.TermEditDistanceTest.getNormalizedEditDistance_isSymmetric_withExtraTerm(com.google.errorprone.names.TermEditDistanceTest) (133 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

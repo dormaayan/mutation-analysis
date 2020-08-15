@@ -1,0 +1,4054 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>QuerydslPredicateBuilder.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2015-2020 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      https://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.springframework.data.querydsl.binding;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.beans.PropertyDescriptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map.Entry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Optional;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.beans.PropertyValues;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.core.convert.ConversionService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.core.convert.Property;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.core.convert.TypeDescriptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.mapping.PropertyPath;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.querydsl.EntityPathResolver;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.data.util.TypeInformation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.lang.Nullable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.MultiValueMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.util.StringUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.querydsl.core.BooleanBuilder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.querydsl.core.types.Path;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.querydsl.core.types.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Builder assembling {@link Predicate} out of {@link PropertyValues}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Christoph Strobl</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Oliver Gierke</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Mark Paluch</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.11</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class QuerydslPredicateBuilder {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final ConversionService conversionService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final MultiValueBinding&#60;Path&#60;? extends Object&#62;, Object&#62; defaultBinding;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final Map&#60;PathInformation, Path&#60;?&#62;&#62; paths;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final EntityPathResolver resolver;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Creates a new {@link QuerydslPredicateBuilder} for the given {@link ConversionService} and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@link EntityPathResolver}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param conversionService must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param resolver can be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public QuerydslPredicateBuilder(ConversionService conversionService, EntityPathResolver resolver) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_68'>1</a>
+<span>
+1. <init> : removed call to org/springframework/util/Assert::notNull &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Assert.notNull(conversionService, &#34;ConversionService must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_70'>2</a>
+<span>
+1. <init> : removed call to org/springframework/data/querydsl/binding/QuerydslDefaultBinding::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable defaultBinding &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.defaultBinding = new QuerydslDefaultBinding();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_71'>1</a>
+<span>
+1. <init> : Removed assignment to member variable conversionService &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.conversionService = conversionService;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_72'>2</a>
+<span>
+1. <init> : removed call to java/util/concurrent/ConcurrentHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable paths &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.paths = new ConcurrentHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_73'>1</a>
+<span>
+1. <init> : Removed assignment to member variable resolver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.resolver = resolver;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Creates a Querydsl {@link Predicate} for the given values, {@link QuerydslBindings} on the given</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@link TypeInformation}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param type the type to create a predicate for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param values the values to bind.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param bindings the {@link QuerydslBindings} for the predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Nullable</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Predicate getPredicate(TypeInformation&#60;?&#62; type, MultiValueMap&#60;String, String&#62; values,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;QuerydslBindings bindings) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_89'>1</a>
+<span>
+1. getPredicate : removed call to org/springframework/util/Assert::notNull &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Assert.notNull(bindings, &#34;Context must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_91'>1</a>
+<span>
+1. getPredicate : removed call to com/querydsl/core/BooleanBuilder::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;BooleanBuilder builder = new BooleanBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_93'>9</a>
+<span>
+1. getPredicate : removed call to org/springframework/util/MultiValueMap::isEmpty &rarr; SURVIVED<br/>
+2. getPredicate : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. getPredicate : equal to less or equal &rarr; SURVIVED<br/>
+4. getPredicate : equal to greater or equal &rarr; SURVIVED<br/>
+5. getPredicate : negated conditional &rarr; KILLED<br/>
+6. getPredicate : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. getPredicate : equal to less than &rarr; KILLED<br/>
+8. getPredicate : equal to greater than &rarr; KILLED<br/>
+9. getPredicate : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (values.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_94'>3</a>
+<span>
+1. getPredicate : removed call to com/querydsl/core/BooleanBuilder::getValue &rarr; SURVIVED<br/>
+2. getPredicate : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate &rarr; SURVIVED<br/>
+3. getPredicate : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;return builder.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_97'>1</a>
+<span>
+1. getPredicate : removed call to org/springframework/util/MultiValueMap::entrySet &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;for (Entry&#60;String, List&#60;String&#62;&#62; entry : values.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_99'>10</a>
+<span>
+1. getPredicate : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; SURVIVED<br/>
+2. getPredicate : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. getPredicate : equal to less or equal &rarr; SURVIVED<br/>
+4. getPredicate : equal to greater or equal &rarr; SURVIVED<br/>
+5. getPredicate : negated conditional &rarr; KILLED<br/>
+6. getPredicate : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+7. getPredicate : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. getPredicate : equal to less than &rarr; KILLED<br/>
+9. getPredicate : equal to greater than &rarr; KILLED<br/>
+10. getPredicate : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (isSingleElementCollectionWithoutText(entry.getValue())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;&#9;continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_103'>1</a>
+<span>
+1. getPredicate : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;String path = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_105'/>
+105
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_105'>9</a>
+<span>
+1. getPredicate : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getPredicate : not equal to greater than &rarr; SURVIVED<br/>
+3. getPredicate : not equal to greater or equal &rarr; SURVIVED<br/>
+4. getPredicate : negated conditional &rarr; KILLED<br/>
+5. getPredicate : removed call to org/springframework/data/querydsl/binding/QuerydslBindings::isPathAvailable &rarr; KILLED<br/>
+6. getPredicate : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. getPredicate : not equal to less than &rarr; KILLED<br/>
+8. getPredicate : not equal to less or equal &rarr; KILLED<br/>
+9. getPredicate : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (!bindings.isPathAvailable(path, type)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;&#9;continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_109'>1</a>
+<span>
+1. getPredicate : removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getPropertyPath &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;PathInformation propertyPath = bindings.getPropertyPath(path, type);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_111'>4</a>
+<span>
+1. getPredicate : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getPredicate : negated conditional &rarr; KILLED<br/>
+3. getPredicate : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. getPredicate : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;if (propertyPath == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;&#9;continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_115'>2</a>
+<span>
+1. getPredicate : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+2. getPredicate : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;Collection&#60;Object&#62; value = convertToPropertyPathSpecificType(entry.getValue(), propertyPath);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_116'>1</a>
+<span>
+1. getPredicate : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;Optional&#60;Predicate&#62; predicate = invokeBinding(propertyPath, bindings, value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_118'>1</a>
+<span>
+1. getPredicate : removed call to java/util/Optional::ifPresent &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;predicate.ifPresent(builder::and);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_121'>3</a>
+<span>
+1. getPredicate : removed call to com/querydsl/core/BooleanBuilder::getValue &rarr; KILLED<br/>
+2. getPredicate : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate &rarr; KILLED<br/>
+3. getPredicate : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return builder.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Invokes the binding of the given values, for the given {@link PropertyPath} and {@link QuerydslBindings}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param dotPath must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param bindings must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param values must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private Optional&#60;Predicate&#62; invokeBinding(PathInformation dotPath, QuerydslBindings bindings,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;Collection&#60;Object&#62; values) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_135'>1</a>
+<span>
+1. invokeBinding : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Path&#60;?&#62; path = getPath(dotPath, bindings);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_137'>6</a>
+<span>
+1. invokeBinding : replaced call to java/util/Optional::orElse with argument &rarr; KILLED<br/>
+2. invokeBinding : replaced return value with Optional.empty for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding &rarr; KILLED<br/>
+3. invokeBinding : removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getBindingForPath &rarr; KILLED<br/>
+4. invokeBinding : removed call to java/util/Optional::orElse &rarr; KILLED<br/>
+5. invokeBinding : removed call to org/springframework/data/querydsl/binding/MultiValueBinding::bind &rarr; KILLED<br/>
+6. invokeBinding : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return bindings.getBindingForPath(dotPath).orElse(defaultBinding).bind(path, values);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the {@link Path} for the given {@link PropertyPath} and {@link QuerydslBindings}. Will try to obtain the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * {@link Path} from the bindings first but fall back to reifying it from the PropertyPath in case no specific binding</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * has been configured.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param path must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param bindings must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private Path&#60;?&#62; getPath(PathInformation path, QuerydslBindings bindings) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_151'>1</a>
+<span>
+1. getPath : removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getExistingPath &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Optional&#60;Path&#60;?&#62;&#62; resolvedPath = bindings.getExistingPath(path);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_153'/>
+153
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_153'>10</a>
+<span>
+1. getPath : removed call to java/util/Optional::orElseGet &rarr; KILLED<br/>
+2. getPath : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath &rarr; KILLED<br/>
+3. getPath : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+4. lambda$getPath$1 : replaced call to java/util/Map::computeIfAbsent with argument &rarr; KILLED<br/>
+5. lambda$getPath$1 : removed call to java/util/Map::computeIfAbsent &rarr; KILLED<br/>
+6. lambda$getPath$1 : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$getPath$1 &rarr; KILLED<br/>
+7. lambda$getPath$1 : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$getPath$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+8. lambda$null$0 : removed call to org/springframework/data/querydsl/binding/PathInformation::reifyPath &rarr; KILLED<br/>
+9. lambda$null$0 : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$null$0 &rarr; KILLED<br/>
+10. lambda$null$0 : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$null$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return resolvedPath.orElseGet(() -&#62; paths.computeIfAbsent(path, it -&#62; it.reifyPath(resolver)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Converts the given source values into a collection of elements that are of the given {@link PropertyPath}&#39;s type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Considers a single element list with an empty {@link String} an empty collection because this basically indicates</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * the property having been submitted but no value provided.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param source must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param path must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private Collection&#60;Object&#62; convertToPropertyPathSpecificType(List&#60;String&#62; source, PathInformation path) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_167'>1</a>
+<span>
+1. convertToPropertyPathSpecificType : removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; targetType = path.getLeafType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_169'>18</a>
+<span>
+1. convertToPropertyPathSpecificType : removed call to java/util/List::isEmpty &rarr; SURVIVED<br/>
+2. convertToPropertyPathSpecificType : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; SURVIVED<br/>
+3. convertToPropertyPathSpecificType : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. convertToPropertyPathSpecificType : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. convertToPropertyPathSpecificType : not equal to less than &rarr; SURVIVED<br/>
+6. convertToPropertyPathSpecificType : equal to less or equal &rarr; SURVIVED<br/>
+7. convertToPropertyPathSpecificType : not equal to greater than &rarr; SURVIVED<br/>
+8. convertToPropertyPathSpecificType : equal to greater or equal &rarr; SURVIVED<br/>
+9. convertToPropertyPathSpecificType : negated conditional &rarr; KILLED<br/>
+10. convertToPropertyPathSpecificType : negated conditional &rarr; KILLED<br/>
+11. convertToPropertyPathSpecificType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. convertToPropertyPathSpecificType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. convertToPropertyPathSpecificType : equal to less than &rarr; KILLED<br/>
+14. convertToPropertyPathSpecificType : not equal to less or equal &rarr; KILLED<br/>
+15. convertToPropertyPathSpecificType : equal to greater than &rarr; KILLED<br/>
+16. convertToPropertyPathSpecificType : not equal to greater or equal &rarr; KILLED<br/>
+17. convertToPropertyPathSpecificType : not equal to equal &rarr; KILLED<br/>
+18. convertToPropertyPathSpecificType : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (source.isEmpty() || isSingleElementCollectionWithoutText(source)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_170'>2</a>
+<span>
+1. convertToPropertyPathSpecificType : removed call to java/util/Collections::emptyList &rarr; NO_COVERAGE<br/>
+2. convertToPropertyPathSpecificType : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;return Collections.emptyList();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_173'>2</a>
+<span>
+1. convertToPropertyPathSpecificType : removed call to java/util/List::size &rarr; SURVIVED<br/>
+2. convertToPropertyPathSpecificType : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;Collection&#60;Object&#62; target = new ArrayList&#60;&#62;(source.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;for (String value : source) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_177'/>
+177
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_177'>10</a>
+<span>
+1. convertToPropertyPathSpecificType : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. convertToPropertyPathSpecificType : equal to less than &rarr; SURVIVED<br/>
+3. convertToPropertyPathSpecificType : equal to less or equal &rarr; SURVIVED<br/>
+4. convertToPropertyPathSpecificType : negated conditional &rarr; KILLED<br/>
+5. convertToPropertyPathSpecificType : removed call to org/springframework/core/convert/ConversionService::canConvert &rarr; KILLED<br/>
+6. convertToPropertyPathSpecificType : removed call to java/util/Collection::add &rarr; KILLED<br/>
+7. convertToPropertyPathSpecificType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. convertToPropertyPathSpecificType : equal to greater than &rarr; KILLED<br/>
+9. convertToPropertyPathSpecificType : equal to greater or equal &rarr; KILLED<br/>
+10. convertToPropertyPathSpecificType : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;target.add(conversionService.canConvert(String.class, targetType)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_178'>4</a>
+<span>
+1. convertToPropertyPathSpecificType : replaced call to org/springframework/core/convert/ConversionService::convert with argument &rarr; KILLED<br/>
+2. convertToPropertyPathSpecificType : removed call to org/springframework/core/convert/TypeDescriptor::forObject &rarr; KILLED<br/>
+3. convertToPropertyPathSpecificType : removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor &rarr; KILLED<br/>
+4. convertToPropertyPathSpecificType : removed call to org/springframework/core/convert/ConversionService::convert &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;? conversionService.convert(value, TypeDescriptor.forObject(value), getTargetTypeDescriptor(path))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;&#9;: value);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_182'>2</a>
+<span>
+1. convertToPropertyPathSpecificType : replaced return value with Collections.emptyList for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType &rarr; KILLED<br/>
+2. convertToPropertyPathSpecificType : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return target;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the target {@link TypeDescriptor} for the given {@link PathInformation} by either inspecting the field or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * property (the latter preferred) to pick up annotations potentially defined for formatting purposes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param path must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static TypeDescriptor getTargetTypeDescriptor(PathInformation path) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_194'/>
+194
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_194'>1</a>
+<span>
+1. getTargetTypeDescriptor : removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafPropertyDescriptor &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;PropertyDescriptor descriptor = path.getLeafPropertyDescriptor();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_196'>1</a>
+<span>
+1. getTargetTypeDescriptor : removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafParentType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;?&#62; owningType = path.getLeafParentType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_197'/>
+197
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_197'>1</a>
+<span>
+1. getTargetTypeDescriptor : removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafProperty &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;String leafProperty = path.getLeafProperty();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_199'/>
+199
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_199'>4</a>
+<span>
+1. getTargetTypeDescriptor : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. getTargetTypeDescriptor : negated conditional &rarr; KILLED<br/>
+3. getTargetTypeDescriptor : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. getTargetTypeDescriptor : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;TypeDescriptor result = descriptor == null //</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;? TypeDescriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_201'/>
+201
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_201'>7</a>
+<span>
+1. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; SURVIVED<br/>
+2. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; KILLED<br/>
+4. getTargetTypeDescriptor : removed call to org/springframework/data/util/ReflectionUtils::findRequiredField &rarr; KILLED<br/>
+5. getTargetTypeDescriptor : removed call to org/springframework/core/convert/TypeDescriptor::nested &rarr; KILLED<br/>
+6. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; KILLED<br/>
+7. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;&#9;.nested(org.springframework.data.util.ReflectionUtils.findRequiredField(owningType, leafProperty), 0)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;: TypeDescriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_203'/>
+203
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_203'>9</a>
+<span>
+1. getTargetTypeDescriptor : removed call to org/springframework/core/convert/Property::&#60;init&#62; &rarr; SURVIVED<br/>
+2. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. getTargetTypeDescriptor : removed call to java/beans/PropertyDescriptor::getReadMethod &rarr; SURVIVED<br/>
+4. getTargetTypeDescriptor : removed call to java/beans/PropertyDescriptor::getWriteMethod &rarr; SURVIVED<br/>
+5. getTargetTypeDescriptor : removed call to org/springframework/core/convert/TypeDescriptor::nested &rarr; SURVIVED<br/>
+6. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; SURVIVED<br/>
+8. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; SURVIVED<br/>
+9. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;&#9;.nested(new Property(owningType, descriptor.getReadMethod(), descriptor.getWriteMethod(), leafProperty), 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_205'/>
+205
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_205'>4</a>
+<span>
+1. getTargetTypeDescriptor : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getTargetTypeDescriptor : negated conditional &rarr; KILLED<br/>
+3. getTargetTypeDescriptor : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. getTargetTypeDescriptor : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (result == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_206'/>
+206
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_206'>14</a>
+<span>
+1. getTargetTypeDescriptor : replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE<br/>
+2. getTargetTypeDescriptor : removed call to java/lang/IllegalStateException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. getTargetTypeDescriptor : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. getTargetTypeDescriptor : removed call to java/lang/String::format &rarr; NO_COVERAGE<br/>
+6. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. getTargetTypeDescriptor : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+8. getTargetTypeDescriptor : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+9. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+10. getTargetTypeDescriptor : Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+11. getTargetTypeDescriptor : Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+12. getTargetTypeDescriptor : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+13. getTargetTypeDescriptor : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+14. getTargetTypeDescriptor : Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;throw new IllegalStateException(String.format(&#34;Could not obtain TypeDesciptor for PathInformation %s!&#34;, path));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_209'>2</a>
+<span>
+1. getTargetTypeDescriptor : replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor &rarr; KILLED<br/>
+2. getTargetTypeDescriptor : mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns whether the given collection has exactly one element that doesn&#39;t contain any text. This is basically an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * indicator that a request parameter has been submitted but no value for it.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param source must not be {@literal null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static boolean isSingleElementCollectionWithoutText(List&#60;String&#62; source) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_220'/>
+220
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_220'>43</a>
+<span>
+1. isSingleElementCollectionWithoutText : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isSingleElementCollectionWithoutText : Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. isSingleElementCollectionWithoutText : Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. isSingleElementCollectionWithoutText : not equal to less than &rarr; SURVIVED<br/>
+5. isSingleElementCollectionWithoutText : not equal to greater than &rarr; SURVIVED<br/>
+6. isSingleElementCollectionWithoutText : not equal to greater than &rarr; SURVIVED<br/>
+7. isSingleElementCollectionWithoutText : replaced boolean return with true for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; KILLED<br/>
+8. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+9. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+10. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+11. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+12. isSingleElementCollectionWithoutText : negated conditional &rarr; KILLED<br/>
+13. isSingleElementCollectionWithoutText : negated conditional &rarr; KILLED<br/>
+14. isSingleElementCollectionWithoutText : removed call to java/util/List::size &rarr; KILLED<br/>
+15. isSingleElementCollectionWithoutText : removed call to java/util/List::get &rarr; KILLED<br/>
+16. isSingleElementCollectionWithoutText : removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED<br/>
+17. isSingleElementCollectionWithoutText : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+18. isSingleElementCollectionWithoutText : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+19. isSingleElementCollectionWithoutText : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+20. isSingleElementCollectionWithoutText : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+21. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+22. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+23. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+24. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+25. isSingleElementCollectionWithoutText : Substituted 1 with -1 &rarr; KILLED<br/>
+26. isSingleElementCollectionWithoutText : Substituted 0 with -1 &rarr; KILLED<br/>
+27. isSingleElementCollectionWithoutText : Substituted 0 with -1 &rarr; KILLED<br/>
+28. isSingleElementCollectionWithoutText : Substituted 1 with -1 &rarr; KILLED<br/>
+29. isSingleElementCollectionWithoutText : Substituted 1 with 2 &rarr; KILLED<br/>
+30. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+31. isSingleElementCollectionWithoutText : Substituted 1 with 2 &rarr; KILLED<br/>
+32. isSingleElementCollectionWithoutText : Substituted 0 with 1 &rarr; KILLED<br/>
+33. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+34. isSingleElementCollectionWithoutText : Substituted 0 with -1 &rarr; KILLED<br/>
+35. isSingleElementCollectionWithoutText : Substituted 1 with 0 &rarr; KILLED<br/>
+36. isSingleElementCollectionWithoutText : Substituted 0 with -1 &rarr; KILLED<br/>
+37. isSingleElementCollectionWithoutText : not equal to less than &rarr; KILLED<br/>
+38. isSingleElementCollectionWithoutText : not equal to less or equal &rarr; KILLED<br/>
+39. isSingleElementCollectionWithoutText : not equal to less or equal &rarr; KILLED<br/>
+40. isSingleElementCollectionWithoutText : not equal to greater or equal &rarr; KILLED<br/>
+41. isSingleElementCollectionWithoutText : not equal to greater or equal &rarr; KILLED<br/>
+42. isSingleElementCollectionWithoutText : not equal to equal &rarr; KILLED<br/>
+43. isSingleElementCollectionWithoutText : not equal to equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return source.size() == 1 &#38;&#38; !StringUtils.hasLength(source.get(0));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@eac3a26_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.rejectsNullConversionService()</span></span> removed call to org/springframework/util/Assert::notNull &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslDefaultBinding::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Removed assignment to member variable defaultBinding &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Removed assignment to member variable conversionService &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/concurrent/ConcurrentHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Removed assignment to member variable paths &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Removed assignment to member variable resolver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.getPredicateShouldThrowErrorWhenBindingContextIsNull()</span></span> removed call to org/springframework/util/Assert::notNull &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.getPredicateShouldReturnNullWhenPropertiesAreEmpty()</span></span> removed call to com/querydsl/core/BooleanBuilder::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/util/MultiValueMap::isEmpty &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_94'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed call to com/querydsl/core/BooleanBuilder::getValue &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.getPredicateShouldReturnNullWhenPropertiesAreEmpty()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> removed call to org/springframework/util/MultiValueMap::entrySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to greater than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslBindings::isPathAvailable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> not equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getPropertyPath &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Optional::ifPresent &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to com/querydsl/core/BooleanBuilder::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPredicate<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPredicate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.buildsPredicateForBindingUsingNestedDowncast()</span></span> replaced call to java/util/Optional::orElse with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with Optional.empty for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getBindingForPath &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Optional::orElse &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/MultiValueBinding::bind &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>invokeBinding<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::invokeBinding to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPath<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslBindings::getExistingPath &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPath<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Optional::orElseGet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPath<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPath<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getPath to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getPath$1<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced call to java/util/Map::computeIfAbsent with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getPath$1<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Map::computeIfAbsent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getPath$1<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$getPath$1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getPath$1<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$getPath$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$null$0<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/PathInformation::reifyPath &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$null$0<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$null$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$null$0<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::lambda$null$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::isEmpty &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_170'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collections::emptyList &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::size &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_177'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> removed call to org/springframework/core/convert/ConversionService::canConvert &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/Collection::add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly()</span></span> replaced call to org/springframework/core/convert/ConversionService::convert with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/core/convert/TypeDescriptor::forObject &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/core/convert/ConversionService::convert &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with Collections.emptyList for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertToPropertyPathSpecificType<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::convertToPropertyPathSpecificType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_194'>194</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_194'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafPropertyDescriptor &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafParentType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_197'>197</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_197'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/querydsl/binding/PathInformation::getLeafProperty &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/data/util/ReflectionUtils::findRequiredField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/core/convert/TypeDescriptor::nested &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_203'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/core/convert/Property::&#60;init&#62; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to java/beans/PropertyDescriptor::getReadMethod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to java/beans/PropertyDescriptor::getWriteMethod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to org/springframework/core/convert/TypeDescriptor::nested &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_206'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalStateException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::format &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>none</span></span> Substituted 0 with -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced return value with null for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTargetTypeDescriptor<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> mutated return of Object value for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::getTargetTypeDescriptor to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@eac3a26_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@eac3a26_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> replaced boolean return with true for org/springframework/data/querydsl/binding/QuerydslPredicateBuilder::isSingleElementCollectionWithoutText &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> removed call to java/util/List::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed call to org/springframework/util/StringUtils::hasLength &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> Substituted 1 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>35.<span><b>35</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank()</span></span> not equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>36.<span><b>36</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to less or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>37.<span><b>37</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>38.<span><b>38</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>39.<span><b>39</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>40.<span><b>40</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>41.<span><b>41</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>42.<span><b>42</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>43.<span><b>43</b><br/><b>Location : </b>isSingleElementCollectionWithoutText<br/><b>Killed by : </b>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder()</span></span> not equal to equal &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.doesNotDropValuesContainingABlank() (8 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.ignoresNonDomainTypeProperties() (9 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.dropsValuesContainingAnEmptyString() (8 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.getPredicateShouldThrowErrorWhenBindingContextIsNull() (9 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.rejectsNullConversionService() (5 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.getPredicateShouldReturnNullWhenPropertiesAreEmpty() (5 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.forwardsNullForEmptyParameterToSingleValueBinder() (7 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.buildsPredicateForBindingUsingNestedDowncast() (12 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolveArgumentShouldCreateSingleStringParameterPredicateCorrectly() (46 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolvesCommaSeparatedArgumentToArrayCorrectly() (9 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.buildsPredicateForBindingUsingDowncast() (20 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.bindsDateCorrectly() (182 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.leavesCommaSeparatedArgumentUntouchedWhenTargetIsNotAnArray() (10 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.resolveArgumentShouldCreateNestedStringParameterPredicateCorrectly() (1495 ms)</li><li>org.springframework.data.querydsl.binding.QuerydslPredicateBuilderUnitTests.automaticallyInsertsAnyStepInCollectionReference() (591 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

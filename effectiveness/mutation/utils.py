@@ -45,9 +45,13 @@ class Project:
         exclude_pattern = '1234567'
         if len(self.__exclude_pattern) > 0:
             exclude_pattern = self.__exclude_pattern[0][3:]
+        print('looking at: {}'.format(test_dir))
+        print('looking at: {}'.format(src_dir))
         self.recursive_glob(test_dir, pattern, exclude_pattern)
+        print(self.__list_matches)
         self.look_for_cuts(src_dir)
         self.__list_matches = [i for i in self.__list_matches if i.get_qualified_source_name()]
+        print(self.__list_matches)
         print("\t- Tests for {} = {}".format(self.__project, len(self.__list_matches)))
         return self.__list_matches
 
@@ -64,6 +68,7 @@ class Project:
             test_path = pair.get_test_path()
             # get name to look for
             pattern = self.__include_pattern[0][3:] # todo: check here this
+            print(pattern)
             to_look_for = self.get_name_class_according_to_pattern(test_path, pattern)
             src_path, qualified_name = self.recursive_glob_src(src_dir, to_look_for)
             if src_path is None and qualified_name is None:
@@ -113,6 +118,7 @@ class Project:
         """
         look_for = root_dir + pattern
         file_names = glob.glob(look_for, recursive=True)
+        print(look_for)
         for filename in file_names:
             if not fnmatch.fnmatch(filename, exclude):
                 qualified_name = self.get_full_qualified_name(filename)

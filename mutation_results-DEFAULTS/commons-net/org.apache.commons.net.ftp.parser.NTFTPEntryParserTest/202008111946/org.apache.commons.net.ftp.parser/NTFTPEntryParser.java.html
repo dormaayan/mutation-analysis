@@ -1,0 +1,3013 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>NTFTPEntryParser.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.net.ftp.parser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.text.ParseException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.regex.Pattern;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.net.ftp.Configurable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.net.ftp.FTPClientConfig;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.net.ftp.FTPFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation of FTPFileEntryParser and FTPFileListParser for NT Systems.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see org.apache.commons.net.ftp.FTPFileEntryParser FTPFileEntryParser (for usage instructions)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class NTFTPEntryParser extends ConfigurableFTPFileEntryParserImpl</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String DEFAULT_DATE_FORMAT</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        = &#34;MM-dd-yy hh:mma&#34;; //11-09-01 12:30PM</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String DEFAULT_DATE_FORMAT2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        = &#34;MM-dd-yy kk:mm&#34;; //11-09-01 18:30</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final FTPTimestampParser timestampParser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * this is the regular expression used by this parser.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String REGEX =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        &#34;(\\S+)\\s+(\\S+)\\s+&#34;          // MM-dd-yy whitespace hh:mma|kk:mm; swallow trailing spaces</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        + &#34;(?:(&#60;DIR&#62;)|([0-9]+))\\s+&#34;    // &#60;DIR&#62; or ddddd; swallow trailing spaces</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        + &#34;(\\S.*)&#34;;                    // First non-space followed by rest of line (name)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The sole constructor for an NTFTPEntryParser object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Thrown if the regular expression is unparseable.  Should not be seen</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * under normal conditions.  It it is seen, this is a sign that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;code&#62;REGEX&#60;/code&#62; is  not a valid regular expression.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public NTFTPEntryParser()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This constructor allows the creation of an NTFTPEntryParser object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * with something other than the default configuration.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param config The {@link FTPClientConfig configuration} object used to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * configure this parser.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Thrown if the regular expression is unparseable.  Should not be seen</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * under normal conditions.  It it is seen, this is a sign that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;code&#62;REGEX&#60;/code&#62; is  not a valid regular expression.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     public NTFTPEntryParser(FTPClientConfig config)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_77'>7</a>
+<span>
+1. <init> : Substituted 32 with 33 &rarr; SURVIVED<br/>
+2. <init> : Substituted 32 with 1 &rarr; SURVIVED<br/>
+3. <init> : Substituted 32 with -32 &rarr; SURVIVED<br/>
+4. <init> : Substituted 32 with 33 &rarr; SURVIVED<br/>
+5. <init> : Substituted 32 with 0 &rarr; KILLED<br/>
+6. <init> : Substituted 32 with -1 &rarr; KILLED<br/>
+7. <init> : Substituted 32 with 31 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super(REGEX, Pattern.DOTALL);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_78'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::configure &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        configure(config);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_79'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/net/ftp/FTPClientConfig::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        FTPClientConfig config2 = new FTPClientConfig(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                FTPClientConfig.SYST_NT,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                DEFAULT_DATE_FORMAT2,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_83'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/net/ftp/FTPClientConfig::setDefaultDateFormatStr &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        config2.setDefaultDateFormatStr(DEFAULT_DATE_FORMAT2);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_84'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/net/ftp/parser/FTPTimestampParserImpl::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable timestampParser &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.timestampParser = new FTPTimestampParserImpl();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_85'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/net/ftp/Configurable::configure &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        ((Configurable)this.timestampParser).configure(config2);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Parses a line of an NT FTP server file listing and converts it into a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * usable format in the form of an &#60;code&#62; FTPFile &#60;/code&#62; instance.  If the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * file listing line doesn&#39;t describe a file, &#60;code&#62; null &#60;/code&#62; is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * returned, otherwise a &#60;code&#62; FTPFile &#60;/code&#62; instance representing the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * files in the directory is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param entry A line of text from the file listing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return An FTPFile instance corresponding to the supplied entry</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FTPFile parseFTPEntry(String entry)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_101'>1</a>
+<span>
+1. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        FTPFile f = new FTPFile();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_102'>1</a>
+<span>
+1. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setRawListing &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        f.setRawListing(entry);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_104'/>
+104
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_104'>9</a>
+<span>
+1. parseFTPEntry : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. parseFTPEntry : equal to less than &rarr; SURVIVED<br/>
+3. parseFTPEntry : equal to less or equal &rarr; SURVIVED<br/>
+4. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+5. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::matches &rarr; KILLED<br/>
+6. parseFTPEntry : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. parseFTPEntry : equal to greater than &rarr; KILLED<br/>
+8. parseFTPEntry : equal to greater or equal &rarr; KILLED<br/>
+9. parseFTPEntry : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (matches(entry))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_106'>23</a>
+<span>
+1. parseFTPEntry : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+2. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 2 with 3 &rarr; KILLED<br/>
+4. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED<br/>
+5. parseFTPEntry : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+6. parseFTPEntry : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+7. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED<br/>
+8. parseFTPEntry : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+9. parseFTPEntry : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+10. parseFTPEntry : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+11. parseFTPEntry : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+12. parseFTPEntry : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+13. parseFTPEntry : Substituted 2 with 1 &rarr; KILLED<br/>
+14. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+15. parseFTPEntry : Substituted 2 with 0 &rarr; KILLED<br/>
+16. parseFTPEntry : Substituted 1 with -1 &rarr; KILLED<br/>
+17. parseFTPEntry : Substituted 2 with -1 &rarr; KILLED<br/>
+18. parseFTPEntry : Substituted 1 with -1 &rarr; KILLED<br/>
+19. parseFTPEntry : Substituted 2 with -2 &rarr; KILLED<br/>
+20. parseFTPEntry : Substituted 1 with 2 &rarr; KILLED<br/>
+21. parseFTPEntry : Substituted 2 with 3 &rarr; KILLED<br/>
+22. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+23. parseFTPEntry : Substituted 2 with 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String datestr = group(1)+&#34; &#34;+group(2);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_107'>8</a>
+<span>
+1. parseFTPEntry : Substituted 3 with 4 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 3 with 1 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 3 with 0 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 3 with -1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 3 with -3 &rarr; KILLED<br/>
+7. parseFTPEntry : Substituted 3 with 4 &rarr; KILLED<br/>
+8. parseFTPEntry : Substituted 3 with 2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String dirString = group(3);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_108'>8</a>
+<span>
+1. parseFTPEntry : Substituted 4 with 5 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 4 with 1 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 4 with 0 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 4 with -1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 4 with -4 &rarr; KILLED<br/>
+7. parseFTPEntry : Substituted 4 with 5 &rarr; KILLED<br/>
+8. parseFTPEntry : Substituted 4 with 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String size = group(4);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_109'>8</a>
+<span>
+1. parseFTPEntry : Substituted 5 with 6 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 5 with 1 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 5 with 0 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 5 with -1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 5 with -5 &rarr; KILLED<br/>
+7. parseFTPEntry : Substituted 5 with 6 &rarr; KILLED<br/>
+8. parseFTPEntry : Substituted 5 with 4 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String name = group(5);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            try</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_112'>2</a>
+<span>
+1. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/ConfigurableFTPFileEntryParserImpl::parseTimestamp &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setTimestamp &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                f.setTimestamp(super.parseTimestamp(datestr));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            catch (ParseException e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // parsing fails, try the other date format</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                try</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_119'>2</a>
+<span>
+1. parseFTPEntry : removed call to org/apache/commons/net/ftp/parser/FTPTimestampParser::parseTimestamp &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setTimestamp &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    f.setTimestamp(timestampParser.parseTimestamp(datestr));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                catch (ParseException e2)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // intentionally do nothing</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_127'>22</a>
+<span>
+1. parseFTPEntry : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+2. parseFTPEntry : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+3. parseFTPEntry : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. parseFTPEntry : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. parseFTPEntry : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+6. parseFTPEntry : not equal to less than &rarr; SURVIVED<br/>
+7. parseFTPEntry : equal to less or equal &rarr; SURVIVED<br/>
+8. parseFTPEntry : not equal to greater than &rarr; SURVIVED<br/>
+9. parseFTPEntry : equal to greater or equal &rarr; SURVIVED<br/>
+10. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+11. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+12. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+13. parseFTPEntry : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+14. parseFTPEntry : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+15. parseFTPEntry : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+16. parseFTPEntry : equal to less than &rarr; KILLED<br/>
+17. parseFTPEntry : not equal to less or equal &rarr; KILLED<br/>
+18. parseFTPEntry : equal to greater than &rarr; KILLED<br/>
+19. parseFTPEntry : not equal to greater or equal &rarr; KILLED<br/>
+20. parseFTPEntry : equal to not equal &rarr; KILLED<br/>
+21. parseFTPEntry : not equal to equal &rarr; KILLED<br/>
+22. parseFTPEntry : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (null == name || name.equals(&#34;.&#34;) || name.equals(&#34;..&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_129'/>
+129
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_129'>1</a>
+<span>
+1. parseFTPEntry : mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                return (null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_131'>1</a>
+<span>
+1. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            f.setName(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_134'>9</a>
+<span>
+1. parseFTPEntry : equal to less or equal &rarr; SURVIVED<br/>
+2. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+3. parseFTPEntry : removed call to java/lang/String::equals &rarr; KILLED<br/>
+4. parseFTPEntry : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. parseFTPEntry : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. parseFTPEntry : equal to less than &rarr; KILLED<br/>
+7. parseFTPEntry : equal to greater than &rarr; KILLED<br/>
+8. parseFTPEntry : equal to greater or equal &rarr; KILLED<br/>
+9. parseFTPEntry : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (&#34;&#60;DIR&#62;&#34;.equals(dirString))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_136'>7</a>
+<span>
+1. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setType &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 1 with -1 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 1 with -1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 1 with 2 &rarr; KILLED<br/>
+7. parseFTPEntry : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                f.setType(FTPFile.DIRECTORY_TYPE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_137'>6</a>
+<span>
+1. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setSize &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 0 with -1 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                f.setSize(0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            else</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_141'>6</a>
+<span>
+1. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setType &rarr; KILLED<br/>
+3. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+4. parseFTPEntry : Substituted 0 with -1 &rarr; KILLED<br/>
+5. parseFTPEntry : Substituted 0 with 1 &rarr; KILLED<br/>
+6. parseFTPEntry : Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                f.setType(FTPFile.FILE_TYPE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_142'/>
+142
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_142'>4</a>
+<span>
+1. parseFTPEntry : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. parseFTPEntry : negated conditional &rarr; KILLED<br/>
+3. parseFTPEntry : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. parseFTPEntry : equal to not equal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (null != size)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_144'>2</a>
+<span>
+1. parseFTPEntry : removed call to java/lang/Long::parseLong &rarr; KILLED<br/>
+2. parseFTPEntry : removed call to org/apache/commons/net/ftp/FTPFile::setSize &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                  f.setSize(Long.parseLong(size));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_147'>2</a>
+<span>
+1. parseFTPEntry : replaced return value with null for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry &rarr; KILLED<br/>
+2. parseFTPEntry : mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return (f);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_149'/>
+149
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_149'>1</a>
+<span>
+1. parseFTPEntry : mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Defines a default configuration to be used when this class is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * instantiated without a {@link  FTPClientConfig  FTPClientConfig}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * parameter being specified.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the default configuration for this parser.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FTPClientConfig getDefaultConfiguration() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_160'>3</a>
+<span>
+1. getDefaultConfiguration : removed call to org/apache/commons/net/ftp/FTPClientConfig::&#60;init&#62; &rarr; KILLED<br/>
+2. getDefaultConfiguration : replaced return value with null for org/apache/commons/net/ftp/parser/NTFTPEntryParser::getDefaultConfiguration &rarr; KILLED<br/>
+3. getDefaultConfiguration : mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::getDefaultConfiguration to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new FTPClientConfig(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                FTPClientConfig.SYST_NT,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                DEFAULT_DATE_FORMAT,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34acbc60_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_77'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 32 with 33 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 32 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET516(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 32 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 32 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 32 with -32 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 32 with 33 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 32 with 31 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::configure &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPClientConfig::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_83'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/net/ftp/FTPClientConfig::setDefaultDateFormatStr &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/FTPTimestampParserImpl::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Removed assignment to member variable timestampParser &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/Configurable::configure &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testGroupNameWithSpaces(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_102'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setRawListing &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::matches &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> equal to less than &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with -2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 2 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with -3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 3 with 2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with -4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 4 with 3 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/NTFTPEntryParser::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with -5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 5 with 4 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/ConfigurableFTPFileEntryParserImpl::parseTimestamp &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setTimestamp &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/parser/FTPTimestampParser::parseTimestamp &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setTimestamp &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> not equal to less than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to less than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> not equal to less or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> not equal to greater than &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> not equal to greater or equal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> equal to greater or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to not equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> not equal to equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_129'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to less than &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> equal to less or equal &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to greater than &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to greater or equal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setSize &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> Substituted 0 with -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> equal to not equal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to java/lang/Long::parseLong &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPFile::setSize &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> replaced return value with null for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFTPEntry<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testGroupNameWithSpaces(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::parseFTPEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34acbc60_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34acbc60_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDefaultConfiguration<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> removed call to org/apache/commons/net/ftp/FTPClientConfig::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDefaultConfiguration<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> replaced return value with null for org/apache/commons/net/ftp/parser/NTFTPEntryParser::getDefaultConfiguration &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDefaultConfiguration<br/><b>Killed by : </b>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest)</span></span> mutated return of Object value for org/apache/commons/net/ftp/parser/NTFTPEntryParser::getDefaultConfiguration to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ABS_MUTATOR</li>
+<li class='mutator'>AOD_2_MUTATOR</li>
+<li class='mutator'>AOR_1_MUTATOR</li>
+<li class='mutator'>AOR_2_MUTATOR</li>
+<li class='mutator'>AOR_3_MUTATOR</li>
+<li class='mutator'>AOR_4_MUTATOR</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>CRCR_1_MUTATOR</li>
+<li class='mutator'>CRCR_2_MUTATOR</li>
+<li class='mutator'>CRCR_3_MUTATOR</li>
+<li class='mutator'>CRCR_4_MUTATOR</li>
+<li class='mutator'>CRCR_5_MUTATOR</li>
+<li class='mutator'>CRCR_6_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_BIGINTEGER_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>OBBN_1_MUTATOR</li>
+<li class='mutator'>OBBN_2_MUTATOR</li>
+<li class='mutator'>OBBN_3_MUTATOR</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ROR_1_MUTATOR</li>
+<li class='mutator'>ROR_2_MUTATOR</li>
+<li class='mutator'>ROR_3_MUTATOR</li>
+<li class='mutator'>ROR_4_MUTATOR</li>
+<li class='mutator'>ROR_5_MUTATOR</li>
+<li class='mutator'>UOI_1_MUTATOR</li>
+<li class='mutator'>UOI_2_MUTATOR</li>
+<li class='mutator'>UOI_3_MUTATOR</li>
+<li class='mutator'>UOI_4_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testGroupNameWithSpaces(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET339(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testNET516(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (8 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnFile(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testRecentPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (1 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testDirectoryBeginningWithNumber(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (3 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testConsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (14 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testDefaultPrecision(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (4 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testInconsistentListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseFieldsOnDirectory(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testDirectoryBeginningWithNumberFollowedBySpaces(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (3 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testGoodListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (5 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testBadListing(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (59 ms)</li><li>org.apache.commons.net.ftp.parser.NTFTPEntryParserTest.testParseLeadingDigits(org.apache.commons.net.ftp.parser.NTFTPEntryParserTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.9
+
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DefaultSerialFactory.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * or more contributor license agreements.  See the NOTICE file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed with this work for additional information</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * regarding copyright ownership.  The ASF licenses this file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to you under the Apache License, Version 2.0 (the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;License&#34;); you may not use this file except in compliance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * with the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * software distributed under the License is distributed on an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * KIND, either express or implied.  See the License for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * specific language governing permissions and limitations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.myfaces.shared.util.serial;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.OutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.myfaces.shared.util.MyFacesObjectInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class DefaultSerialFactory implements SerialFactory</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ObjectOutputStream getObjectOutputStream(OutputStream outputStream) throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_34'>1</a>
+<span>
+1. getObjectOutputStream : replaced return value with null for org/apache/myfaces/shared/util/serial/DefaultSerialFactory::getObjectOutputStream &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new ObjectOutputStream(outputStream);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ObjectInputStream getObjectInputStream(InputStream inputStream) throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_39'>1</a>
+<span>
+1. getObjectInputStream : replaced return value with null for org/apache/myfaces/shared/util/serial/DefaultSerialFactory::getObjectInputStream &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new MyFacesObjectInputStream(inputStream);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3501b9d3_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3501b9d3_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getObjectOutputStream<br/><b>Killed by : </b>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testSerializationNegative(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest)</span></span> replaced return value with null for org/apache/myfaces/shared/util/serial/DefaultSerialFactory::getObjectOutputStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3501b9d3_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3501b9d3_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getObjectInputStream<br/><b>Killed by : </b>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testSerialization(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest)</span></span> replaced return value with null for org/apache/myfaces/shared/util/serial/DefaultSerialFactory::getObjectInputStream &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest.testSerialization(org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest) (0 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testConstructionNegative(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testConstructionString(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsDefaultTest.testConstructionString(org.apache.myfaces.shared.util.StateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest.testConstructionNegative(org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsDefaultTest.testSerializationNegative(org.apache.myfaces.shared.util.StateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest.testConstructionString(org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest) (2 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testConstruction(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest.testSerialization(org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest.testConstructionString(org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest.testConstructionNegative(org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest.testConstructionString(org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest) (2 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest.testConstructionNegative(org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest.testConstruction(org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest.testConstruction(org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest) (3 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest.testSerializationNegative(org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testSerialization(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest.testConstructionNegative(org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsAES_CBCTest.testSerialization(org.apache.myfaces.shared.util.StateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testConstruction(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testSerializationNegative(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsAES_CBCTest.testSerializationNegative(org.apache.myfaces.shared.util.StateUtilsAES_CBCTest) (2 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testConstructionString(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsAES_CBCTest.testConstruction(org.apache.myfaces.shared.util.StateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsAES_CBCTest.testConstructionNegative(org.apache.myfaces.shared.util.StateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest.testSerialization(org.apache.myfaces.shared.util.StateUtilsBlowfish_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsDefaultTest.testSerialization(org.apache.myfaces.shared.util.StateUtilsDefaultTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest.testConstruction(org.apache.myfaces.shared.util.CachedStateUtilsDefaultTest) (3 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest.testConstruction(org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest) (48 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest.testSerialization(org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsDefaultTest.testConstruction(org.apache.myfaces.shared.util.StateUtilsDefaultTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsDefaultTest.testConstructionNegative(org.apache.myfaces.shared.util.StateUtilsDefaultTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest.testSerializationNegative(org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testSerializationNegative(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest.testConstructionNegative(org.apache.myfaces.shared.util.StateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest.testSerializationNegative(org.apache.myfaces.shared.util.CachedStateUtilsBlowfish_ECBTest) (2 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest.testConstructionString(org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest.testSerializationNegative(org.apache.myfaces.shared.util.CachedStateUtilsTripleDES_ECBTest) (0 ms)</li><li>org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest.testSerialization(org.apache.myfaces.shared.util.CachedStateUtilsAES_CBCTest) (1 ms)</li><li>org.apache.myfaces.shared.util.StateUtilsAES_CBCTest.testConstructionString(org.apache.myfaces.shared.util.StateUtilsAES_CBCTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>

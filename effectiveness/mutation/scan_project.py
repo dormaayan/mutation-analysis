@@ -14,9 +14,12 @@ import os
 import pandas as pd
 
 
-special_cases = {'core': ['/src/', '/test/'],
+special_cases = {#'core': ['/src/', '/test/'],
                  'guava': ['/src/', '/guava-tests/test/'],
-                 'guava-gwt': ['/src/', '/test/']}
+                 'guava-gwt': ['/src/', '/test/'],
+                 'commons-configuration':['/src/main/','/src/test/'],
+                 'jackson-dataformat-xml':['/src/main/','/src/test/'],
+                 'core':['/src/main/','/src/test/']}
 
 
 def get_submodules(project_path):
@@ -123,15 +126,28 @@ def get_test_and_classes(project_path,
                 include_pattern.append(tag.text)
             if flag and tag.tag.strip() == '{http://maven.apache.org/POM/4.0.0}exclude':
                 exclude_pattern.append(tag.text)
-
-    if not include_pattern and not project_name == 'joda-beans':
+    include_pattern = []
+    if not include_pattern and not project_name == 'joda-beans' and not project_name == 'joda-time':
         include_pattern.append('**/*Test.java')
-    elif project_name == 'joda-beans':  # particular case of joda-beans
+    if project_name == 'joda-beans':  # particular case of joda-beans
         include_pattern.append('**/Test*.java')
-    elif module_name == 'guava-gwt':
+    if project_name == 'joda-time' or project_name == 'joda-primitives' or project_name == 'commons-pool':  # particular case of joda-time
+        print('here in joda-time')
+        include_pattern = []
+        include_pattern.append('**/Test*.java')
+    if project_name == 'raml-java-parser' or project_name == 'undertow' or project_name == 'zxing' or project_name == 'commons-bcel':
+        include_pattern = []
+        include_pattern.append('**/*TestCase.java')
+    if project_name == 'spring-data-commons' or project_name == 'spring-data-keyvalue':
+        include_pattern = []
+        include_pattern.append('**/*UnitTests.java')
+    if module_name == 'guava-gwt':
         include_pattern.append('**/Test_gwt.java')
 
+    print(include_pattern)
+    print(exclude_pattern)
     project = Project(name, include_pattern, exclude_pattern, project_path)
+    print(type(project))
     # special case for guava
     if project_name == 'guava' and not project_path.endswith('gwt'):
         tests_path = os.path.dirname(project_path) + test_source_directory
@@ -161,7 +177,9 @@ def get_source_directories(proj_path, project_name, module_name=None):
 
     """
     look_for = project_name if not module_name else module_name
+    print(look_for)
     if look_for in special_cases.keys():
+        print('Hooray!!')
         return special_cases[look_for][0], special_cases[look_for][1]
 
     pom_paths = []
