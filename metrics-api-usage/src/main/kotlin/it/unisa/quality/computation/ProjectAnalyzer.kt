@@ -38,12 +38,14 @@ class ProjectAnalyzer(
                     sourceName = it.getOrElse("class_name") { throw Exception("no class_name field") }
             )
         }
-        return pairDescriptions.map {
-            TestProductionPair(
-                    productionClass = getClassFromSignature(it.sourceName, false),
-                    testClass = getClassFromSignature(it.testName)
-            )
-        }
+        return pairDescriptions.mapNotNull {
+           try{
+                TestProductionPair(
+                        productionClass = getClassFromSignature(it.sourceName, false) as ClassBean,
+                        testClass = getClassFromSignature(it.testName) as ClassBean
+                )
+              } catch (e: Exception){ null }
+        } as List<TestProductionPair>
     }
 
     /**
@@ -54,10 +56,11 @@ class ProjectAnalyzer(
      * @throws Exception if no match is found
      * @return a ClassBean
      */
-    private fun getClassFromSignature(signature: String, isTestClass: Boolean = true): ClassBean {
+    private fun getClassFromSignature(signature: String, isTestClass: Boolean = true): ClassBean? {
         for (packageBean in if (isTestClass) testPackages else sourcePackages)
             packageBean.classes.forEach { if ("${it.belongingPackage}.${it.name}" == signature) return it }
-        throw Exception("The class $signature seems to not have been parsed")
+        return null
+        //throw Exception("The class $signature seems to not have been parsed")
     }
 
     fun computeCodeSmells(pairs: List<TestProductionPair>) {
