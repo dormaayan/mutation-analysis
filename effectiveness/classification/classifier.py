@@ -1,16 +1,16 @@
 import numpy as np
+import pandas as pd
+
 import matplotlib
-from matplotlib import pyplot as plt
 from sklearn.externals import joblib
 
 from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, GridSearchCV, StratifiedKFold, \
-    cross_validate
+    cross_validate,RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, \
     mean_absolute_error, make_scorer, brier_score_loss, roc_curve
 
 from sklearn.preprocessing import OneHotEncoder
-from effectiveness.classification.plots import *
 
 from sklearn.utils import shuffle
 from sklearn.svm import SVC
@@ -24,6 +24,8 @@ __license__ = "MIT"
 
 matplotlib.use('Agg')
 
+#DATA_DIR = "../data"
+DATA_DIR = "../../network-research/evaluation/"
 
 def import_frame(consider_coverage=True):
     """
@@ -32,8 +34,8 @@ def import_frame(consider_coverage=True):
     :return: a tuple with the frame and the metrics
     """
 
-    positive_example = pd.read_csv('{}/good_tests.csv'.format(DATA_DIR))
-    negative_example = pd.read_csv('{}/bad_tests.csv'.format(DATA_DIR))
+    positive_example = pd.read_csv('{}/good_tests_merged.csv'.format(DATA_DIR))
+    negative_example = pd.read_csv('{}/bad_tests_merged.csv'.format(DATA_DIR))
     coverage_index = list(positive_example.columns).index('line_coverage')
     index = coverage_index if consider_coverage else coverage_index+1
     metrics = positive_example.columns[index::].tolist()
@@ -52,21 +54,6 @@ def plot_learning_curve(train_sizes, train_scores, test_scores):
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
 
-    plt.figure()
-    plt.xlabel("Training examples")
-    plt.ylabel("Score")
-    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
-                     train_scores_mean + train_scores_std, alpha=0.1,
-                     color="r")
-    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
-                     test_scores_mean + test_scores_std, alpha=0.1, color="g")
-    plt.plot(train_sizes, train_scores_mean, 'o-', color="r",
-             label="Training score")
-    plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
-             label="Cross-validation score")
-    plt.legend(loc="best")
-    plt.savefig('{}/learning_curve_{}.pdf'.format(DATA_DIR, coverage_suffix), bbox_inches='tight')
-
 
 def get_param_grid(algorithm, metrics):
     """
@@ -82,10 +69,10 @@ def get_param_grid(algorithm, metrics):
                  'classifier__C': [0.01, 0.1, 1, 10, 100]},
                 {'classifier': [RandomForestClassifier()],
                  'preprocessing': [None],
-                 'classifier__n_estimators': [3 * x for x in range(1, 11)],
-                 'classifier__max_features': [int((len(metrics) / 10) * x) for x in range(1, 11)],
-                 'classifier__max_depth': [5 * x for x in range(1, 11)],
-                 'classifier__min_samples_leaf': [2 * x for x in range(1, 11)]},
+                 'classifier__n_estimators': [3 * x for x in range(4, 5)],
+                 'classifier__max_features': [int((len(metrics) / 10) * x) for x in range(4, 5)],
+                 'classifier__max_depth': [5 * x for x in range(4, 5)],
+                 'classifier__min_samples_leaf': [2 * x for x in range(4, 5)]},
                 {'classifier': [KNeighborsClassifier()],
                  'preprocessing': [None],
                  'classifier__n_neighbors': [x for x in range(1, 15)],
@@ -94,7 +81,7 @@ def get_param_grid(algorithm, metrics):
     elif algorithm == 'rfc':
         return [{'classifier': [RandomForestClassifier()],
                  'preprocessing': [None],
-                 'classifier__n_estimators': [3 * x for x in range(1, 11)],
+                 'classifier__n_estimators': [3 * x for x in range(1,11)],
                  'classifier__max_features': [int((len(metrics) / 10) * x) for x in range(1, 11)],
                  'classifier__max_depth': [5 * x for x in range(1, 11)],
                  'classifier__min_samples_leaf': [2 * x for x in range(1, 11)]}]
@@ -147,20 +134,20 @@ def classification(consider_coverage=True, n_inner=5, n_outer=10, algorithm='all
                      ('classifier', SVC())])
 
     # Set up the algorithms to tune, train and evaluate
-    param_grid = get_param_grid(algorithm, metrics)
+    param_grid = get_param_grid(algorithm, metrics)[0]
 
     inner_cv = StratifiedKFold(n_splits=n_inner, shuffle=True)
-    outer_cv = RepeatedStratifiedKFold(n_splits=n_outer, n_repeats=10)
+    outer_cv = RepeatedStratifiedKFold(n_splits=n_outer, n_repeats=1)
 
     # inner cross validation
-    grid = GridSearchCV(estimator=pipe,
-                        param_grid=param_grid,
-                        cv=inner_cv,
-                        scoring=get_scoring(),
-                        refit='roc_auc_scorer',
-                        return_train_score=True,
-                        verbose=1,
-                        n_jobs=-1)
+    grid = RandomizedSearchCV(estimator=pipe,
+                              param_distributions=param_grid,
+			      cv=inner_cv,
+			      scoring=get_scoring(),
+		              refit='roc_auc_scorer',
+			      return_train_score=True,
+			      verbose=1,
+			      n_jobs=-1)
 
     results = cross_validate(estimator=grid,
                              cv=outer_cv,
@@ -170,7 +157,7 @@ def classification(consider_coverage=True, n_inner=5, n_outer=10, algorithm='all
                              return_train_score=True,
                              verbose=1,
                              n_jobs=-1)
-
+ 
     accuracy = results.get('test_accuracy').mean()
     precision = results.get('test_precision').mean()
     recall = results.get('test_recall').mean()
@@ -197,6 +184,7 @@ def classification(consider_coverage=True, n_inner=5, n_outer=10, algorithm='all
                                 'MAE': [mae],
                                 'Brier': [brier]})
 
+    print(metrics_res)
     metrics_res.to_csv('{}/evaluation_{}_{}.csv'.format(DATA_DIR, coverage_suffix, algorithm), index=False)
 
     grid.fit(X, Y)

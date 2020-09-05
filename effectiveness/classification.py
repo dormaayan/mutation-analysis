@@ -35,10 +35,11 @@ def main():
 
     # De-comment to run only the RFC algorithm
     # classification(consider_coverage=True, n_inner=5, n_outer=10, algorithm='rfc')
-    # classification(consider_coverage=False, n_inner=5, n_outer=10, algorithm='rfc')
+    for i in range(1,11):
+        classification(consider_coverage=True, n_inner=5, n_outer=10, algorithm='rfc')
 
-    classification(consider_coverage=True, n_inner=5, n_outer=10)
-    classification(consider_coverage=False, n_inner=5, n_outer=10)
+    #classification(consider_coverage=True, n_inner=5, n_outer=10)
+    #classification(consider_coverage=False, n_inner=5, n_outer=10)
 
 
 if __name__ == '__main__':
